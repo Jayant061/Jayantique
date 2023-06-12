@@ -1,0 +1,17 @@
+[
+    {
+        "name":"Galadriel",
+        "img":"https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/user-1.png?alt=media&token=ce786267-03ef-4331-b21e-79f26e89e1fd&_gl=1*1f41u7q*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY4NTU5MTgzNy4xLjEuMTY4NTU5NDE5Ny4wLjAuMA..",
+        "review":"I recently had the most incredible experience shopping for clothes at Jayantique. From the moment I stepped into the store, I was captivated by their wide range of stylish and high-quality garments."
+    },
+    {
+        "name":"William",
+        "img":"https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/user-2.png?alt=media&token=3fe0ce01-8ec7-4f66-9483-f52c6679c6ab&_gl=1*1obu1x1*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY4NTU5MTgzNy4xLjEuMTY4NTU5NDI3OS4wLjAuMA..",
+        "review":" The selection of clothes available is outstanding. They had a fantastic variety of trendy and classic pieces that catered to all tastes and occasions. Whether I was looking for casual wear, formal attire, or anything in between, I found exactly what I needed to upgrade my wardrobe."
+    },
+    {
+        "name":"Maeve",
+        "img":"https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/user-3.png?alt=media&token=604e4ff1-8e3f-45c5-96ca-a17075ef539e&_gl=1*qiolme*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY4NTU5MTgzNy4xLjEuMTY4NTU5NDM2Mi4wLjAuMA..",        
+        "review":"What truly impressed me was the exceptional quality of the clothes. Each garment I purchased was meticulously crafted using premium materials. The attention to detail was evident in the stitching, the fabric choices, and the overall construction. "
+    }
+]

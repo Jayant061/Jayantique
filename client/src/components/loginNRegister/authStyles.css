@@ -1,0 +1,84 @@
+.auth{
+    width: 100%;
+    height: calc(100vh - 56px);
+    background-color: #f1f1f1ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.authWrapper{
+padding: 20px;
+width:300px;
+background-color: #fff;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+}
+.authWrapper .authHeader{
+    font-weight: 600;
+    font-size: 20px;
+}
+.authWrapper span{
+    font-size: 17px;
+color: #13395B;
+font-weight: 500;
+text-align: center;
+}
+.authWrapper form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.authWrapper form input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.authWrapper form input, .auth form button{
+    font-size: 17px;
+    font-weight: 500;
+    width: 100%;
+    padding: 10px;
+    color: #13395B;
+    outline: none;
+    border:none;
+    background-color: #f1f1f175;
+    border-radius:10px;
+}
+.authWrapper form .registerInput{
+    width: 100%;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 10px;
+}
+.authWrapper form .registerInput, .authWrapper form .registerInput .inputsPartition{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    background-color: #f1f1f175;
+    color: #13395B;
+}
+.authWrapper form .registerInput .inputsPartition .radioInput{
+    display: flex;
+    gap: 10px;
+}
+.authWrapper form button{
+    font-size: 20px;
+    font-weight: 500;
+    border: 2px solid #13395B;
+    background-color: #13395B;
+    color: #fff;
+    transition: 0.5s;
+}
+.authWrapper form button:hover{
+    color: #13395B;
+    background-color: #fff;
+}
+
+

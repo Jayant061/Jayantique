@@ -1,0 +1,4 @@
+client/node_modules
+client/src/credentials.js
+server/node_modules
+server/.env

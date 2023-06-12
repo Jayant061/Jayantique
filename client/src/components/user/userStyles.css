@@ -1,0 +1,339 @@
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+    min-height: calc(100vh - 56px);
+    height: 100%;
+    background-color: #f1f1f1;
+    color: #13395B;
+}
+.userSidebar{
+    /* margin-left: 5%; */
+    width:30%;
+    min-width: 201px;
+    display: flex;
+    flex-direction: column;
+}
+.userSidebar .userHeading{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 5px lightgray;
+}
+.userSidebar .userHeading .moreIcon{
+    position: absolute;
+    min-height: 36px;
+    height: 10px;
+    right: 10px;
+    visibility: hidden;
+}
+.userSidebar .userHeading img{
+    height: 100%;
+    min-height: 50px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+}
+.userSidebar .userHeading .usertext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.userSidebar .userHeading .usertext p{
+    font-size: calc(8px + 0.7vw);
+}
+.userSidebar .userHeading .usertext h2{
+    font-size: calc(10px + 1vw);
+}
+
+.userSidebar .mainMenu{
+    background-color: #fff;
+    box-shadow: 5px -5px 5px lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: calc(8px + 1vw);
+    padding: 20px 0;
+    transition: 0.5s;
+}
+.order, .accSetting, .payment, .logout{
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 20px;
+    transition: 0.5s;
+    padding: 10px 20px;
+}
+.order img, .accSetting img, .payment img, .logout img{
+    height: 100%;
+}
+.order:hover, .accSetting:hover, .payment:hover, .logout:hover{
+    background-color: #13395b0c;
+}
+.logout{
+    border-top: 1px solid #13395b60;
+}
+.userContent{
+    width: calc(70% - 20px);
+    min-width: 449px;
+    background-color: #fff;
+    box-shadow: -5px 2px 5px  lightgray;
+    padding: 20px 0;
+}
+.accountSettings, .personalInfo, .location{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 30px;
+}
+.location{
+    padding: 20px 0;
+}
+.accountSettings h2{
+    font-size: calc(10px + 1vw);
+    font-weight: 600;
+    text-align: center;
+}
+.personalInfo .personalInfoChild{
+    width: 330px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+.personalInfo .personalInfoChild .inputsPartition{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 40px;
+    padding: 10px;
+    background-color: rgba(211, 211, 211,0.4);
+}
+.personalInfo .personalInfoChild .inputsPartition .radioInput{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+.personalInfo .personalInfoChild span{
+    font-size: calc(8px + 1vw);
+    font-weight: 500;
+}
+.personalInfo .personalInfoChild input{
+font-size: calc(8px + 0.8vw);
+padding: 10px;
+background-color: rgba(211, 211, 211,0.4);
+border: none;
+outline: none;
+color: #13395B;
+}
+.personalInfo .buttons{
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+.personalInfo .buttons button, .addressFormInputs button{
+    padding: 5px 15px;
+    font-size: calc(8px + 1vw);
+    cursor: pointer;
+    border: 2px solid #13395B;
+    color: white;
+    background-color: #13395B;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.personalInfo .buttons button:hover, .addressFormInputs button:hover{
+    background-color: #fff;
+    color: #13395B;
+}
+
+.location .addNewAddress{
+    padding: 15px 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    font-size: calc(8px + 1vw);
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid #13395b6e;
+    border-radius: 10px;
+}
+.location .addNewAddress img{
+    height: 24px;
+}
+.location .addressForm{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgb(250, 250, 250);
+}
+.addressForm .addressFormInputs{
+    flex-basis: calc(100% - 40px);
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    align-items: center;
+}
+.addressFormInput{
+    flex-basis: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.addressFormInput #partition{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+#partition .radioInput{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+}
+
+.addressFormInput label{
+    font-size: calc(8px + 1vw);
+    font-weight: 500;
+}
+.addressFormInput input, .addressFormInput textarea, .addressFormInput select{
+    width: calc(100% - 10px);
+    font-size: calc(8px + 1vw);
+    padding: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    color: #13395B;
+    max-width: 100%;
+} 
+.addresses{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    gap: 30px;
+}
+.homeAdresses,.workAddresses{
+    flex-basis: 100%;
+    display: flex;
+    gap: 10px;
+}
+.addressChild{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    border: 2px solid #13395b81;
+}
+.addressChild .addressType{
+    display: inline-block;
+    width: fit-content;
+    font-weight: 600;
+    font-size: calc(8px + 0.9vw);
+    padding: 10px 20px;
+    background-color: rgba(211, 211, 211, 0.418);
+    border-radius: 10px;
+}
+.addressChild .mainInfo{
+    padding: 10px 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+    color: #010930;
+}
+.addressChild .addressDesc, .addressChild .pincode{
+    color: #000a31;
+    font-weight: 400;
+    font-size: calc(7px + 0.8vw);
+}
+
+
+
+@media screen and (max-width:709px) {
+    .userSidebar{
+        width:calc(70% - 20px);
+        min-width: 90vw;
+        position: relative;
+        box-shadow: none;
+    }
+    .userSidebar .userHeading .moreIcon{
+        visibility: visible;
+    }
+    .userSidebar .mainMenu{
+        position: absolute;
+        right: 0;
+        top: calc(100% - 30px);
+        box-shadow: none;
+        display: none;
+    }
+    .userContent{
+        min-width: 90vw;
+    }
+    .location .addressForm{
+        width: calc(100% - 40px);
+    }
+}
+
+
+@media screen and (max-width:550px) {
+    .accountSettings{
+        padding: 20px 10px;
+    }
+    .personalInfo{
+        padding: 20px;
+    }
+    .personalInfo .personalInfoChild,.personalInfo .buttons {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
+        padding: 15px 0;
+    }
+    .location{
+        padding: 20px 0;
+    }
+    .location .addressForm{
+        width: calc(100% - 40px);
+    }
+    .addressForm .addressFormInputs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        align-items: start;
+        width: 100%;
+    }
+    .addressFormInput{
+        width: 100%;
+    }
+    .addressFormInput label,.addressFormInput input,
+    .personalInfo .personalInfoChild input,.personalInfo .personalInfoChild span,
+    .addressChild .mainInfo,.addressChild .addressType{
+        font-size: calc(10px + 1vw);
+    }
+    .addressChild .addressDesc, .addressChild .pincode {
+        color: #000a31;
+        font-weight: 400;
+        font-size: calc(9px + 1vw);
+    }
+}
