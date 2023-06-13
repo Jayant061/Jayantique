@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./authStyles.css";
 import { baseURL, getUser } from '../../credentials';
 import { UserContext } from '../../context/UserContext';
+import showPasswordIcon from "../../assets/show.svg";
+import hidePasswordIcon from "../../assets/hide.svg";
 
 function Login() {
     const [error,setError] = useState(null);
@@ -12,6 +14,7 @@ function Login() {
         email:"",
         password:""
     });
+    const [showPassword,setShowPassword] =useState(false);
     // const [authStatus,setAuthStatus] = useState(false);
     function handleChange(e){
         setFormData(prev=>{return{...prev,[e.target.name]:e.target.value}});
@@ -58,14 +61,18 @@ function Login() {
           onChange={handleChange}
           required
         />
-        <input
-          type="password"
+        <div className='password'>
+          <input
+          type={!showPassword? "password":"text"}
           name="password"
           value={formData.password}
           placeholder="password*"
           onChange={handleChange}
           required
           />
+          <img src={showPassword? hidePasswordIcon : showPasswordIcon} alt="eye" 
+          onClick={()=>{setShowPassword(prev=>{return !prev})}}/>
+        </div>
         <button>Sign in</button>
       </form>
       {error && <span style={{color:"red"}}>{error}</span>}

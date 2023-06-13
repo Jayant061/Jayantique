@@ -5,6 +5,9 @@ import {baseURL, getUser} from "../../credentials.js"
 import axios from "axios";
 import "./authStyles.css";
 import { UserContext } from "../../context/UserContext.jsx";
+import showPasswordIcon from "../../assets/show.svg";
+import hidePasswordIcon from "../../assets/hide.svg";
+
 
 function Register() {
   const {userDispatch} = useContext(UserContext);
@@ -16,6 +19,7 @@ function Register() {
     phone: "",
   });
   const [error,setError] = useState(null);
+  const [showPassword,setShowPassword] = useState(false);
 
   useEffect(()=>{document.title = "Jayantique | register"},[]);
   function handleChange(e) {
@@ -94,13 +98,25 @@ function Register() {
             onChange={handleChange}
             required
           />
-          <input
+          {/* <input
             type="password"
             name="password"
             placeholder="password*"
             onChange={handleChange}
             required
+          /> */}
+          <div className='password'>
+          <input
+          type={!showPassword? "password":"text"}
+          name="password"
+          value={formData.password}
+          placeholder="password*"
+          onChange={handleChange}
+          required
           />
+          <img src={showPassword? hidePasswordIcon : showPasswordIcon} alt="eye" 
+          onClick={()=>{setShowPassword(prev=>{return !prev})}}/>
+        </div>
           <input
             type="number"
             name="phone"

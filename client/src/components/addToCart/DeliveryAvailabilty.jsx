@@ -67,9 +67,6 @@ function DeliveryAvailabilty() {
             payload:null
         });}
     },[onChange]);
-    useEffect(()=>{
-        console.log(ref);
-    },[ref])
     
   return (
     <div className='deliveryAvailabilty'>

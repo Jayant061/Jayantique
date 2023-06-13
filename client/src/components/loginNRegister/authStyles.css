@@ -38,7 +38,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.authWrapper form input, .auth form button{
+.authWrapper form input, .auth form button,.auth form .password{
     font-size: 17px;
     font-weight: 500;
     width: 100%;
@@ -79,6 +79,19 @@ input::-webkit-inner-spin-button {
 .authWrapper form button:hover{
     color: #13395B;
     background-color: #fff;
+}
+.authWrapper form .password{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.authWrapper form .password input{
+    padding: 0;
+    background-color: transparent;
+}
+.authWrapper form .password  img{
+    height: 20px;
+    cursor: pointer;
 }
 
 
