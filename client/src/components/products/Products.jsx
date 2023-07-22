@@ -13,17 +13,23 @@ function Products() {
   const [query, setQuery] = useState("");
   const { dispatch } = useContext(ProductContext);
   const [loading,setLoading] = useState(true);
+  const [error,setError] = useState("");
 useEffect(()=>{
 document.title = "Jayantique | All products"
 },[]);
 useEffect(()=>{
   const getProductItems = async ()=>{
-    const result = await axios.get(`${baseURL}/products?query=${query}`);
-    setLoading(false);
-    dispatch({
-      type: getProducts,
-      payload: result.data,
-    });
+    try {
+      const result = await axios.get(`${baseURL}/products?query=${query}`);
+      setLoading(false);
+      dispatch({
+        type: getProducts,
+        payload: result.data,
+      });
+      
+    } catch (error) {
+      setError(error.message);
+    }
   }
   if(!query?.length || query.length>2){
     setLoading(true);
@@ -51,6 +57,7 @@ useEffect(()=>{
       </div>
       <div className="items">
         {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
+        {error && <p style={{color:'red'}}>{error}</p>}
         {(items?.length === 0 && loading === false)&& <div className="notFound">
           <span>We apologize, but we couldn't locate 
         the exact product you were searching for. Our inventory is constantly being 

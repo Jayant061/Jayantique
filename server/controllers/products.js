@@ -12,7 +12,7 @@ const getProducts = async (req, res) => {
       
     } catch (error) {
       // console.log(error);
-      // res.send(error);
+      res.send(error);
       //do nothing
     }
     
@@ -25,6 +25,7 @@ const getProducts = async (req, res) => {
       res.send(finalRes);
 
     } catch (error) {
+      res.send(error);
       //do nothing
     }
   }
@@ -36,6 +37,7 @@ const getProducts = async (req, res) => {
       res.send(resp);
       
     } catch (error) {
+      res.send(error);
       //do nothing
     }
   }
