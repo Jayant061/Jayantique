@@ -6,6 +6,7 @@ import AddressForm from "./AddressForm";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
 import { baseURL, getUser } from "../../credentials";
+import DisplayLocation from "./DisplayLocation";
 
 function Location() {
   const { currentUser,userDispatch } = useContext(UserContext);
@@ -69,30 +70,19 @@ function Location() {
   
   }
 
-  const homeAdress = currentUser?.address?.home?.map(address=>{
-    const data = JSON.parse(address);
-    return(<div className="addressChild" key={data?.id}>
-        <span className="addressType">{data?.addressType}</span>
-        <div className="mainInfo">
-          <span>{data.name}</span>
-          <span>{data.phone}</span>
-          </div>
-            <span className="addressDesc">{data?.address + ", "}{data?.locality + ", "}{data?.town + ", "}{data?.state}</span>
-            <span className="pincode">{data?.pincode}</span>
-    </div>)
+  const homeAdress = currentUser?.address?.home?.map(addressIN=>{
+    const {id,addressType,name,phone,address,locality,town,state,pincode} = JSON.parse(addressIN);
+    return(<DisplayLocation key={id}
+      data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
+    />)
   })
 
-  const workAdress = currentUser?.address?.work?.map(address=>{
-    const data = JSON.parse(address);
-    return(<div className="addressChild" key={data?.id}>
-        <span className="addressType">{data?.addressType}</span>
-        <div className="mainInfo">
-          <span>{data.name}</span>
-          <span>{data.phone}</span>
-          </div>
-            <span className="addressDesc">{data?.address + ", "}{data?.locality + ", "}{data?.town + ", "}{data?.state}</span>
-            <span className="pincode">{data?.pincode}</span>
-    </div>)
+  const workAdress = currentUser?.address?.work?.map(addressIN=>{
+    const {id,addressType,name,phone,address,locality,town,state,pincode} = JSON.parse(addressIN);
+    
+    return(<DisplayLocation key={id}
+      data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
+    />)
   })
   return (
     <div className="location">

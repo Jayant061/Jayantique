@@ -4,7 +4,9 @@ config();
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import Stripe from "stripe";
 const app = express();
+const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

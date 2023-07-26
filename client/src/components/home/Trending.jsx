@@ -20,7 +20,7 @@ function Trending() {
     }
     getTrendingProducts();
   },[]);
-  const trendingItems = trendingProduct?.map(item=>{
+  const trendingItems =trendingProduct && trendingProduct?.map(item=>{
    return (
     <div className="trendingProduct" key={item.id}>
     <img src={item.image} alt="" />

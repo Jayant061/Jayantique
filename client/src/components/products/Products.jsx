@@ -29,6 +29,7 @@ useEffect(()=>{
       
     } catch (error) {
       setError(error.message);
+      setLoading(false);
     }
   }
   if(!query?.length || query.length>2){
@@ -58,7 +59,7 @@ useEffect(()=>{
       <div className="items">
         {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
-        {(items?.length === 0 && loading === false)&& <div className="notFound">
+        {(items?.length === 0 && loading === false && !error)&& <div className="notFound">
           <span>We apologize, but we couldn't locate 
         the exact product you were searching for. Our inventory is constantly being 
         updated, so we recommend checking back later or exploring our new 
