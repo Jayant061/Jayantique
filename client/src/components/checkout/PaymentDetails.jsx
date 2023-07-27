@@ -1,17 +1,28 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react';
+import axios from "axios";
 import { CartContext } from '../../context/CartContext'
-import { accessToken } from '../../credentials';
-import jwtDecode from 'jwt-decode';
-
+import { baseURL } from '../../credentials';
 function PaymentDetails() {
-  const [cartData,setCartData] = useState([]);
   const {cartItems,itemsQuantity} = useContext(CartContext);
-
-  console.log(jwtDecode(localStorage.getItem(accessToken)));
-  const data = 5;
+  const cartData = cartItems?.map((item)=>{
+    return {
+      itemId:item?._id,
+      quantity:itemsQuantity.get(item?._id)
+    }
+  });
+  async function handleClick(){
+    
+    try {
+    const res = await axios.post(`${baseURL}/checkout`,{data:cartData});
+    window.location.href = res.data.url;
+  } catch (error) {
+    console.log(error)
+  }
+  }
   return (
     <div className='PaymentDetails'>
-        Payment Details
+      <button onClick={handleClick}>Pay</button>
+
     </div>
   )
 }

@@ -4,9 +4,7 @@ config();
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import Stripe from "stripe";
 const app = express();
-const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY)
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -35,9 +33,14 @@ app.use("/login",loginRoutes);
 // authoriseRoute
 import authRoute from "./routes/user.js";
 app.use("/auth/updateUser",authRoute);
+
+// change details route
 import addAddressRoute from "./routes/addAddress.js"
 app.use("/auth/updateUser/addAddress",addAddressRoute);
 
+// payment route
+import paymentRoute from "./routes/payment.js";
+app.use("/checkout",paymentRoute);
 app.listen(3000, () => {
   console.log("server is running at port 3000");
 });

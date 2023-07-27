@@ -15,6 +15,8 @@ import User from "./components/user/User";
 import { UserContext } from "./context/UserContext";
 import Cart from "./components/addToCart/Cart";
 import PaymentDetails from "./components/checkout/PaymentDetails";
+import Success from "./components/checkout/Success";
+import Cancel from "./components/checkout/Cancel";
 // import Footer from "./components/footer/Footer";
 
 function App() {
@@ -69,6 +71,8 @@ function App() {
           <Route exact path="/auth/user" element = {<ProtectedRoute><User/></ProtectedRoute>}/>
           <Route exact path="/addToCart" element = {<Cart/>}/>
           <Route exact path="/checkout" element = {<ProtectedRoute><PaymentDetails/></ProtectedRoute>}/>
+          <Route exact path="/payment/success" element = {<Success/>}/>
+          <Route exact path="/payment/cancel" element = {<Cancel/>}/>
         </Routes>
         {/* <Footer/> */}
       </BrowserRouter>
