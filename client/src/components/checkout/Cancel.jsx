@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { homeURL } from "../../../credentials.js";
 import { useNavigate } from "react-router-dom";
 
 function Cancel() {
