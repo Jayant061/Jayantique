@@ -1,4 +1,4 @@
-client/node_modules
-client/credentials.js
-server/node_modules
-server/.env
+/client/node_modules
+/client/credentials.js
+/server/node_modules
+/server/.env
