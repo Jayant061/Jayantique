@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import { baseURL, getUser } from '../../../credentials.js';
+import { accessToken, baseURL, getUser } from '../../../credentials.js';
 import Location from './Location';
 
 function AccountSettings() {
 
   const {currentUser,userDispatch} = useContext(UserContext);
   const [formData,setFormData] = useState({
-    token:localStorage.getItem("accessToken"),
+    token:localStorage.getItem(accessToken),
     id:currentUser?._id,
     name: currentUser?.name,
     gender:currentUser?.gender,
@@ -27,7 +27,7 @@ function AccountSettings() {
     e.preventDefault();
     try {
      const res =  await axios.post(`${baseURL}/auth/updateUser`,formData); 
-     localStorage.setItem("accessToken",res.data);
+     localStorage.setItem(accessToken,res.data);
     const data = jwt_decode(res.data);
     if(data){
       userDispatch({
@@ -44,7 +44,7 @@ function AccountSettings() {
   function handleCancel(){
     setReadOnly(true);
     setFormData(()=>{return({
-    token:localStorage.getItem("accessToken"),
+    token:localStorage.getItem(accessToken),
     id:currentUser?._id,
     name: currentUser?.name,
     gender:currentUser?.gender,
@@ -54,7 +54,7 @@ function AccountSettings() {
   }
   useEffect(()=>{
     setFormData(()=>{return({
-    token:localStorage.getItem("accessToken"),
+    token:localStorage.getItem(accessToken),
     id:currentUser?._id,
     name: currentUser?.name,
     gender:currentUser?.gender,

@@ -39,6 +39,7 @@ function App() {
   return(<Navigate to={"/login"} state={{from: location}} replace/>)
   }
   useEffect(() => {
+    console.log(accessToken);
     const getData = async () => {
       if(accessToken){
         try {
