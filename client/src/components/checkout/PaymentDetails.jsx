@@ -8,13 +8,13 @@ import "./styles.css";
 import getAddress from "./getAddress";
 import deliveryChargeAndTime from "./DeliveryChargeTime";
 function PaymentDetails() {
-  const {price} = useContext(CartContext);
+  const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
   const [deliveryAddress, setDeliveryAddress] = useState(
     currentUser.address && JSON.parse(currentUser.address.home[0])
   );
   const [deliveryStat, setDeliveryStat] = useState({});
-  const [discount,setDiscount] = useState(0)
+  const [discount, setDiscount] = useState(0);
   const { cartItems, itemsQuantity } = useContext(CartContext);
   const cartData = cartItems?.map((item) => {
     return {
@@ -24,7 +24,11 @@ function PaymentDetails() {
   });
   async function handleClick() {
     try {
-      const res = await axios.post(`${baseURL}/checkout?`, { data: cartData,DC:deliveryStat.DC,discount:discount});
+      const res = await axios.post(`${baseURL}/checkout?`, {
+        data: cartData,
+        DC: deliveryStat.DC,
+        discount: discount,
+      });
       // console.log(res.data)
       window.location.href = res.data.url;
     } catch (error) {
@@ -35,8 +39,7 @@ function PaymentDetails() {
     currentUser.address &&
       deliveryAddress &&
       setDeliveryStat(deliveryChargeAndTime(deliveryAddress.pincode));
-      parseInt(price)>500 && setDiscount((0.1*price).toFixed(2));
-      console.log(discount)
+    parseInt(price) > 500 && setDiscount((0.1 * price).toFixed(2));
   }, [deliveryAddress]);
   const homeAddresses =
     currentUser.address &&
