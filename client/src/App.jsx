@@ -20,12 +20,11 @@ import Cancel from "./components/checkout/Cancel";
 // import Footer from "./components/footer/Footer";
 
 function App() {
-  const [accessToken,setAccessToken] = useState("");
   const {userDispatch} = useContext(UserContext);
-  !accessToken && setAccessToken(localStorage.getItem("accessToken"))
+  const accessToken = localStorage.getItem("accessToken")
   const ProtectedRoute = ({children})=>{
     const location = useLocation();
-    !accessToken && setAccessToken(localStorage.getItem("accessToken"));
+  const accessToken = localStorage.getItem("accessToken")
     if(accessToken){
       try {
         const data = jwt_decode(accessToken);
@@ -39,6 +38,7 @@ function App() {
   return(<Navigate to={"/login"} state={{from: location}} replace/>)
   }
   useEffect(() => {
+    let subs = true;
     const getData = async () => {
       if(accessToken){
         try {
@@ -54,8 +54,9 @@ function App() {
         }
       }
     };
+    subs && getData();
     return () => {
-      getData();
+      subs = false;
     };
   }, []);
   return (

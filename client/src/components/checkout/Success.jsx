@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { homeURL } from '../../../credentials.js';
+import { useNavigate } from 'react-router-dom';
 
 function Success() {
+  const navigate = useNavigate();
   useEffect(() => {
     const timeout = setTimeout(()=>{
-      window.location.href = homeURL;
+      navigate("/");
     },[4000]);
   
     return () => {
