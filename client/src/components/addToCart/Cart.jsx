@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 
 import "./cartPageStyles.css";
-import CartItem from './cartItem';
+import CartItem from './CartItem';
 import DeliveryAvailabilty from './DeliveryAvailabilty';
 import CartBilling from './CartBilling';
 import { CartContext } from '../../context/CartContext';
