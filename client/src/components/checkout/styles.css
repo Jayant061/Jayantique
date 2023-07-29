@@ -1,0 +1,58 @@
+.paymentDetails{
+    padding: 50px;
+    width: calc(100% - 100px);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.deliveryAddresses{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+}
+#deliveryHeading{
+font-size: calc(10px + 1.2vw);
+text-align: center;
+font-weight: 600;
+color: #13395b;
+}
+.deliveryAddress{
+    padding-left: 20px;
+    position: relative;
+}
+.deliveryAddress .addressChild{
+    color: #13395b;
+    width: 70%;
+}
+.deliveryAddress input{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+
+.deliveryAddresses button,.payBtn{
+    font-size:calc(8px + 1vw);
+    padding: 10px;
+    color: #13395b;
+    border: none;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+    transform: translateX(20px);
+    width: 70%;
+}
+.deliveryAddresses button:hover,.payBtn:hover{
+    background-color: #13395b;
+    color: #F0F0F0;
+}
+.deliveryChargeAndTime{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: #13395b;
+}
+
