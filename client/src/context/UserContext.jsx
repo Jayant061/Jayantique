@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import {
   getUser,
   logOut,
-} from "../credentials";
+} from "../../credentials.js";
 
 export const UserContext = createContext();
 

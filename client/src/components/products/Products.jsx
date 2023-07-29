@@ -6,7 +6,7 @@ import "./product.css";
 import { ProductContext } from "../../context/ProductsContext";
 import Product from "./Product";
 import loader from "../../assets/loading.svg";
-import { baseURL, getProducts } from "../../credentials";
+import { baseURL, getProducts } from "../../../credentials.js";
 
 function Products() {
   const {state} = useContext(ProductContext);

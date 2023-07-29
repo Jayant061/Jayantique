@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import {baseURL, getUser} from "../../credentials.js"
+import {baseURL, getUser} from "../../../credentials.js"
 import axios from "axios";
 import "./authStyles.css";
 import { UserContext } from "../../context/UserContext.jsx";

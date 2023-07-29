@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
-import { getUser } from "./credentials";
+import { getUser } from "../credentials";
 import "./App.css";
 
 import Home from "./components/home/Home";

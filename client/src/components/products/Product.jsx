@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {useNavigate} from "react-router-dom"
-import { addToCart, addCartItemsId } from '../../credentials';
+import { addToCart, addCartItemsId } from '../../../credentials.js';
 import { CartContext } from '../../context/CartContext';
 
 function Product({product}) {

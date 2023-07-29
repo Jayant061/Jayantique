@@ -2,7 +2,7 @@ import React,{ useEffect, useState} from 'react';
 import axios from 'axios';
 import "./home.css";
 import loader from "../../assets/loading.svg";
-import { baseURL } from '../../credentials';
+import { baseURL } from '../../../credentials.js';
 
 function Trending() {
   const [trendingProduct,setTrendingProduct] = useState([]);

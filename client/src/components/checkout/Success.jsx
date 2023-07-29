@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { homeURL } from '../../credentials';
+import { homeURL } from '../../../credentials.js';
 
 function Success() {
   useEffect(() => {

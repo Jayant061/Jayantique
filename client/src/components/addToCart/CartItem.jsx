@@ -5,7 +5,7 @@ import subtractDisableIcon from "../../assets/subtractDisable.svg";
 import deleteIcon from "../../assets/delete.svg";
 
 import "./cartPageStyles.css";
-import { decreasePrice, decrementQuantity, deleteCartItem, deleteCartItemsId, increasePrice, incrementQuantity } from '../../credentials';
+import { decreasePrice, decrementQuantity, deleteCartItem, deleteCartItemsId, increasePrice, incrementQuantity } from '../../../credentials.js';
 import { CartContext } from '../../context/CartContext';
 
 

@@ -10,7 +10,7 @@ import {
   deleteCartItem,
   deleteCartItemsId,
   pincodes
-} from "../credentials";
+} from "../../credentials.js";
 
 export const CartContext = createContext();
 

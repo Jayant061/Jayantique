@@ -8,7 +8,7 @@ import orderIcon from "../../assets/order.svg";
 import logoutIcon from "../../assets/logout.svg";
 import femaleIcon from "../../assets/female.svg";
 import moreIcon from "../../assets/moreV.svg";
-import { logOut } from '../../credentials';
+import { logOut } from '../../../credentials.js';
 
 
 function UserSidebar({setPane}) {

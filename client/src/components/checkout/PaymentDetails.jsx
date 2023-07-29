@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
-import { baseURL } from "../../credentials";
+import { baseURL } from "../../../credentials.js";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import getAddress from "./getAddress";

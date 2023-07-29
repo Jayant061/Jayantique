@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import { baseURL, getUser } from '../../credentials';
+import { baseURL, getUser } from '../../../credentials.js';
 import Location from './Location';
 
 function AccountSettings() {

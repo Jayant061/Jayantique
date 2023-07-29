@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import tickIcon from "../../assets/tick.svg";
 import locationIcon from "../../assets/location.svg";
 import { CartContext } from '../../context/CartContext';
-import { deliveryCharge, pincodes } from '../../credentials';
+import { deliveryCharge, pincodes } from '../../../credentials.js';
 function DeliveryAvailabilty() {
     let ref = useRef();
     const[offers,setOffers] = useState({

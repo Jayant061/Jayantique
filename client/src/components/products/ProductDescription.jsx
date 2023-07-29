@@ -5,7 +5,7 @@ import star from "../../assets/star.svg";
 import hollowStar from "../../assets/starHollow.svg";
 import halfStar from "../../assets/starHalf.svg";
 import Product from './Product';
-import { addToCart, addCartItemsId, baseURL, getProducts } from '../../credentials';
+import { addToCart, addCartItemsId, baseURL, getProducts } from '../../../credentials.js';
 import { CartContext } from '../../context/CartContext';
 import axios from 'axios';
 

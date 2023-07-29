@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode"
 import axios from "axios";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./authStyles.css";
-import { baseURL, getUser } from '../../credentials';
+import { baseURL, getUser } from '../../../credentials.js';
 import { UserContext } from '../../context/UserContext';
 import showPasswordIcon from "../../assets/show.svg";
 import hidePasswordIcon from "../../assets/hide.svg";

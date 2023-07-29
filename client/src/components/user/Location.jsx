@@ -5,7 +5,7 @@ import {v4 as uuid} from "uuid";
 import AddressForm from "./AddressForm";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
-import { baseURL, getUser } from "../../credentials";
+import { baseURL, getUser } from "../../../credentials.js";
 import DisplayLocation from "./DisplayLocation";
 
 function Location() {
