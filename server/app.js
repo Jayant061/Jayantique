@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: [process.env.CLIENT1, process.env.CLIENT2,process.env.CLIENT3],
+    origin: [process.env.CLIENT1, process.env.CLIENT2],
     methods: ["GET", "POST"],
   })
 );

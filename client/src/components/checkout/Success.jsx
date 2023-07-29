@@ -13,7 +13,7 @@ function Success() {
   }, []);
   return (
     <div><h2>Payment Successfull!</h2>
-    <h2>you will be rediected to homepage within  5 seconds...</h2></div>
+    <h2>Please wait while we redirect you to home page...</h2></div>
   )
 }
 

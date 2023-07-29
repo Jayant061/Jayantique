@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -20,12 +20,12 @@ import Cancel from "./components/checkout/Cancel";
 // import Footer from "./components/footer/Footer";
 
 function App() {
+  const [accessToken,setAccessToken] = useState("");
   const {userDispatch} = useContext(UserContext);
-  const accessToken = localStorage.getItem("accessToken");
-
+  !accessToken && setAccessToken(localStorage.getItem("accessToken"))
   const ProtectedRoute = ({children})=>{
     const location = useLocation();
-    const accessToken = localStorage.getItem("accessToken");
+    !accessToken && setAccessToken(localStorage.getItem("accessToken"));
     if(accessToken){
       try {
         const data = jwt_decode(accessToken);

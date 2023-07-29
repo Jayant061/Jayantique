@@ -232,6 +232,7 @@ color: #13395B;
 .homeAdresses,.workAddresses{
     flex-basis: 100%;
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 .addressChild{
@@ -239,7 +240,7 @@ color: #13395B;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 100%;
+    width: calc(100% - 40px);
     border: 2px solid #13395b81;
 }
 .addressChild .addressType{
