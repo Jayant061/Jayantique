@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 import getAddress from "./getAddress";
 import deliveryChargeAndTime from "./DeliveryChargeTime";
+import loadingIcon from "../../assets/loading-loop.svg"
 function PaymentDetails() {
   const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
@@ -15,6 +16,7 @@ function PaymentDetails() {
   );
   const [deliveryStat, setDeliveryStat] = useState({});
   const [discount, setDiscount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const { cartItems, itemsQuantity } = useContext(CartContext);
   const cartData = cartItems?.map((item) => {
     return {
@@ -22,14 +24,17 @@ function PaymentDetails() {
       quantity: itemsQuantity.get(item?._id),
     };
   });
-  async function handleClick() {
+  async function handleClick(e) {
+    e.preventDefault();
+    setLoading(true)
     try {
-      const res = await axios.post(`${baseURL}/checkout?`, {
+      const res = await axios.post(`${baseURL}/checkout`, {
         data: cartData,
         DC: deliveryStat.DC,
         discount: discount,
       });
       // console.log(res.data)
+      setLoading(false);
       window.location.href = res.data.url;
     } catch (error) {
       console.log(error);
@@ -49,7 +54,7 @@ function PaymentDetails() {
     getAddress(currentUser.address.work, setDeliveryAddress, "work");
 
   return (
-    <div className="paymentDetails">
+    <form className="paymentDetails" onSubmit={handleClick}>
       <div className="deliveryAddresses">
         <span id="deliveryHeading">
           Please choose an address to deliver your order
@@ -82,10 +87,10 @@ function PaymentDetails() {
           </span>
         )}
       </div>
-      <button className="payBtn" onClick={handleClick}>
-        Pay
+      <button className="payBtn">
+        {loading? <img src={loadingIcon}/>:"Pay"}
       </button>
-    </div>
+    </form>
   );
 }
 

@@ -65,6 +65,10 @@ function handleAddToCart(){
       setIsAddedToCart(false);
     }
   },[cartItems,addedItems,item]);
+  function handleBuyNow(){
+    handleAddToCart();
+    navigate("/addToCart");
+  }
 
  return (
    <div className='productDescription' ref={ref}>
@@ -90,7 +94,7 @@ function handleAddToCart(){
         :
         <span onClick={handleAddToCart} >Add to cart</span>
         }
-        <span>Buy Now</span>
+        <span onClick={handleBuyNow}>Buy Now</span>
       </div>
       </div>
       </div>

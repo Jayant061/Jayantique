@@ -15,6 +15,7 @@ export default function getAddress(arr,setDeliveryAddress,addressType){
                     onClick={() => {
                       setDeliveryAddress(JSON.parse(address));
                     }}
+                    required
                   />
                   <label htmlFor={addressType + index}>
                     <DisplayLocation key={index} data={JSON.parse(address)} />

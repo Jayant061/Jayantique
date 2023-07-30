@@ -38,13 +38,13 @@ const paymentGateway = async (req, res) => {
         discounts: [{
           coupon: 'UraoQAXi',
         }],
-        success_url: `${process.env.CLIENT2}/payment/success`,
-        cancel_url: `${process.env.CLIENT2}/payment/cancel`,
+        success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
+        cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
       });
       res.send({ url: session.url });
     })
     .catch((error) => {
-      res.send({url:`${process.env.CLIENT2}/error`});
+      res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     });
 };
 export default paymentGateway;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./home.css";
 import Trending from "./Trending.jsx";
 import bgimage from "../../assets/image1.png";
@@ -9,8 +9,15 @@ import Testimonial from "./Testimonial";
 function Home() {
   const {state} = useContext(ProductContext);
   const navigate = useNavigate();
-useEffect(()=>{
-  document.title = "Jayantique | Home";
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const paymentSuccess = queryParams.get("paymentSuccess");
+  const paymentCancel = queryParams.get("paymentCancel");
+  useEffect(()=>{
+    document.title = "Jayantique | Home";
+    console.log(paymentCancel,paymentSuccess);
+    paymentSuccess && navigate("/payment/success");
+    paymentCancel && navigate("/payment/cancel");
 },[])
   return (
     <div className="home">

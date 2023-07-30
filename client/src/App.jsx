@@ -17,6 +17,7 @@ import Cart from "./components/addToCart/Cart";
 import PaymentDetails from "./components/checkout/PaymentDetails";
 import Success from "./components/checkout/Success";
 import Cancel from "./components/checkout/Cancel";
+import Error from "./components/checkout/Error";
 // import Footer from "./components/footer/Footer";
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Route exact path="/checkout" element = {<ProtectedRoute><PaymentDetails/></ProtectedRoute>}/>
           <Route exact path="/payment/success" element = {<Success/>}/>
           <Route exact path="/payment/cancel" element = {<Cancel/>}/>
+          <Route exact path="/error" element = {<Error/>}/>
         </Routes>
         {/* <Footer/> */}
       </BrowserRouter>
