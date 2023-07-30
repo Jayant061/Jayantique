@@ -15,7 +15,6 @@ function Home() {
   const paymentCancel = queryParams.get("paymentCancel");
   useEffect(()=>{
     document.title = "Jayantique | Home";
-    console.log(paymentCancel,paymentSuccess);
     paymentSuccess && navigate("/payment/success");
     paymentCancel && navigate("/payment/cancel");
 },[])
