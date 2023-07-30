@@ -66,7 +66,7 @@ function handleAddToCart(){
     }
   },[cartItems,addedItems,item]);
   function handleBuyNow(){
-    handleAddToCart();
+    !isAddedToCart && handleAddToCart();
     navigate("/addToCart");
   }
 
