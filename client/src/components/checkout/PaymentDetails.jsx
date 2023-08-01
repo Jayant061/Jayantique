@@ -43,8 +43,6 @@ function PaymentDetails() {
       deliveryAddress &&
       setDeliveryStat(deliveryChargeAndTime(deliveryAddress.pincode));
     parseInt(price) > 25 && setDiscount((0.1 * price*80).toFixed(2));
-
-    console.log(deliveryAddress.pincode,cartItems.length);
   }, [deliveryAddress]);
   const homeAddresses =
     currentUser.address &&
