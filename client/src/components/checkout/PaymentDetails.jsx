@@ -11,9 +11,7 @@ import loadingIcon from "../../assets/loading-loop.svg"
 function PaymentDetails() {
   const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
-  const [deliveryAddress, setDeliveryAddress] = useState(
-    currentUser.address && JSON.parse(currentUser.address.home[0])
-  );
+  const [deliveryAddress, setDeliveryAddress] = useState({});
   const [deliveryStat, setDeliveryStat] = useState({});
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -65,7 +63,7 @@ function PaymentDetails() {
           <button>Edit or Add new Address</button>
         </Link>
       </div>
-      <div className="deliveryChargeAndTime">
+      <div className="deliveryChargeAndTime" style={(homeAddresses || workAddresses)? {display:"none"}:{}}>
         <span id="deliveryHeading">Delivery Stats</span>
 
         {deliveryStat.deliveryTime && (
@@ -87,9 +85,9 @@ function PaymentDetails() {
           </span>
         )}
       </div>
-      <button className="payBtn">
+      {<button className="payBtn">
         {loading? <img src={loadingIcon}/>:"Pay"}
-      </button>
+      </button>}
     </form>
   );
 }

@@ -75,7 +75,7 @@ function App() {
           <Route exact path="/checkout" element = {<ProtectedRoute><PaymentDetails/></ProtectedRoute>}/>
           <Route exact path="/payment/success" element = {<Success/>}/>
           <Route exact path="/payment/cancel" element = {<Cancel/>}/>
-          <Route exact path="/error" element = {<Error/>}/>
+          <Route exact path="/payment/error" element = {<Error/>}/>
         </Routes>
         {/* <Footer/> */}
       </BrowserRouter>

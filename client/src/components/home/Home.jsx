@@ -13,10 +13,12 @@ function Home() {
   const queryParams = new URLSearchParams(location.search);
   const paymentSuccess = queryParams.get("paymentSuccess");
   const paymentCancel = queryParams.get("paymentCancel");
+  const transactionError = queryParams.get("transactionError");
   useEffect(()=>{
     document.title = "Jayantique | Home";
     paymentSuccess && navigate("/payment/success");
     paymentCancel && navigate("/payment/cancel");
+    transactionError&& navigate("/payment/error")
 },[])
   return (
     <div className="home">

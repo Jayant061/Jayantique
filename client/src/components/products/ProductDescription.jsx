@@ -79,7 +79,7 @@ function handleAddToCart(){
       <div className="descriptionRight">
         <div className="titleNPrice">
           <h2>{item?.title}</h2>
-          <h4>$ {item?.price}</h4>
+          <h4>₹ {(parseFloat(item?.price)*80).toFixed(2)}</h4>
         </div>
         <div className="rating">
           <div className="rate">{stars}</div>
