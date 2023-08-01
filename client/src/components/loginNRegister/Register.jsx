@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import {baseURL, getUser} from "../../../credentials.js"
 import axios from "axios";
 import "./authStyles.css";
 import { UserContext } from "../../context/UserContext.jsx";
+import loadingLoop from "../../assets/loading-loop.svg";
 import showPasswordIcon from "../../assets/show.svg";
 import hidePasswordIcon from "../../assets/hide.svg";
 
@@ -19,6 +20,7 @@ function Register() {
     phone: "",
   });
   const [error,setError] = useState(null);
+  const [loading,setLoading] = useState(false);
   const [showPassword,setShowPassword] = useState(false);
 
   useEffect(()=>{document.title = "Jayantique | register"},[]);
@@ -32,12 +34,14 @@ function Register() {
     error && setError(null);
   }
   const navigate = useNavigate();
+  const location = useLocation();
   async function handleSubmit(e){
     e.preventDefault();
     if(formData.phone.length !== 10){
         setError("Please enter a vaild phone number");
     }
     try {
+      setLoading(true);
     const res = await axios.post(`${baseURL}/register`,formData);
     localStorage.setItem("accessToken",res.data);
             const data = jwt_decode(res.data);
@@ -45,7 +49,13 @@ function Register() {
               type:getUser,
               payload:data?.resData
             });
-            navigate("/");
+            setLoading(false);
+            if(location.state?.from){
+              navigate(location.state.from);
+            }
+            else{
+                navigate("/");
+              }
     } catch (error) {
       setError(error.response.data);
     }
@@ -125,7 +135,7 @@ function Register() {
             onWheel={(e) => e.target.blur()}
             required
           />
-          <button>Sign up</button>
+          <button>{loading?<img src={loadingLoop} alt="loading loop"/>:"Sign up"}</button>
         </form>
         {error && <span style={{color:"red"}}>{error}</span>}
         <span>Already have an Account? <Link to="/login"> Login</Link></span>

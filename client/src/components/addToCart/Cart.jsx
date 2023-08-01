@@ -24,7 +24,7 @@ function Cart() {
       Turn an empty cart into a cart full of dreams!!</span></div>:
       <div className='cart'>
         <div className="promotion">
-        <span>Shop for $500 and more and get 10% discount on your order</span>
+        <span>Shop for ₹2000 and more and get 10% discount on your order</span>
         </div>
         <span style={{fontFamily:"poppins"}}className='cartHeading'>Shopping cart</span>
         <div className="cartWrapper">

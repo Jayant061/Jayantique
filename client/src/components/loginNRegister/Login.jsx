@@ -7,9 +7,11 @@ import { baseURL, getUser } from '../../../credentials.js';
 import { UserContext } from '../../context/UserContext';
 import showPasswordIcon from "../../assets/show.svg";
 import hidePasswordIcon from "../../assets/hide.svg";
+import loadingLoop from "../../assets/loading-loop.svg";
 
 function Login() {
     const [error,setError] = useState(null);
+    const [loading,setLoaing] = useState(false);
     const [formData,setFormData] = useState({
         email:"",
         password:""
@@ -26,19 +28,20 @@ function Login() {
 
     async function handleSubmit(e){
         e.preventDefault();
+        setLoaing(true);
         try {
           const resp = await axios.post(`${baseURL}/login`,formData);
           localStorage.setItem("accessToken",resp.data);
-            const data = jwt_decode(resp.data);
-            userDispatch({
-              type:getUser,
-              payload:data?.resData
-            });
-            // setAuthStatus(true);
-            if(location.state?.from){
-              navigate(location.state.from);
-            }
-            else{
+          const data = jwt_decode(resp.data);
+          userDispatch({
+            type:getUser,
+            payload:data?.resData
+          });
+          setLoaing(false);
+          if(location.state?.from){
+            navigate(location.state.from);
+          }
+          else{
               navigate("/");
             }
         } catch (error) {  
@@ -73,7 +76,7 @@ function Login() {
           <img src={showPassword? hidePasswordIcon : showPasswordIcon} alt="eye" 
           onClick={()=>{setShowPassword(prev=>{return !prev})}}/>
         </div>
-        <button>Sign in</button>
+        <button>{!loading?"Sign in":<img src={loadingLoop} alt='loading loop'/>}</button>
       </form>
       {error && <span style={{color:"red"}}>{error}</span>}
       <span>Don't have an Account? <Link to = "/register">Register</Link></span>

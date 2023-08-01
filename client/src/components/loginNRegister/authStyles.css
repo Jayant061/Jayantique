@@ -76,10 +76,10 @@ input::-webkit-inner-spin-button {
     color: #fff;
     transition: 0.5s;
 }
-.authWrapper form button:hover{
+/* .authWrapper form button:hover{
     color: #13395B;
     background-color: #fff;
-}
+} */
 .authWrapper form .password{
     display: flex;
     justify-content: center;

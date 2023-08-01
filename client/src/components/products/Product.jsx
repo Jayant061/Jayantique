@@ -29,7 +29,7 @@ if(addedItems?.has(product._id)){
   return (
     <div className="product" >
       <img src={product.image} alt="" onClick={handleClick}/>
-      <p>$ {product.price}</p>
+      <p>₹ {(parseFloat(product.price)*80).toFixed(2)}</p>
       <h4 className="productName">{product.title}</h4>
 {     isAddedToCart? 
   <span className="addToCart">Added to cart</span>

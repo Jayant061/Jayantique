@@ -14,29 +14,19 @@ const paymentGateway = async (req, res) => {
           name: product.title,
           images: [product.image],
         },
-        unit_amount: parseInt(product.price) * 100,
+        unit_amount: (parseFloat(product.price)).toFixed(2) * 8000,
       },
       quantity: item.quantity,
     };
   });
   Promise.all(lineItemsPromise)
     .then(async (lineItems) => {
-      lineItems.push({
-        price_data: {
-          currency: "inr",
-          product_data: {
-            name: "Delivery charge",
-          },
-          unit_amount: parseInt(req.body.DC) * 100,
-        },
-        quantity:1,
-      });
-      // res.send(lineItems);
       const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
+        shipping_options:[{shipping_rate:req.body.DC}],
         mode: "payment",
         discounts: [{
-          coupon: 'UraoQAXi',
+          coupon: 'EwbGyFnU',
         }],
         success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
         cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
@@ -44,6 +34,7 @@ const paymentGateway = async (req, res) => {
       res.send({ url: session.url });
     })
     .catch((error) => {
+      console.log(error);
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     });
 };

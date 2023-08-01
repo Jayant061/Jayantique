@@ -28,7 +28,7 @@ function PaymentDetails() {
     try {
       const res = await axios.post(`${baseURL}/checkout`,{
         data: cartData,
-        DC: deliveryStat.DC,
+        DC: deliveryStat.deliveryID,
         discount: discount,
       });
       // console.log(res.data)
@@ -42,7 +42,9 @@ function PaymentDetails() {
     currentUser.address &&
       deliveryAddress &&
       setDeliveryStat(deliveryChargeAndTime(deliveryAddress.pincode));
-    parseInt(price) > 500 && setDiscount((0.1 * price).toFixed(2));
+    parseInt(price) > 25 && setDiscount((0.1 * price*80).toFixed(2));
+
+    console.log(deliveryAddress.pincode,cartItems.length);
   }, [deliveryAddress]);
   const homeAddresses =
     currentUser.address &&
@@ -52,7 +54,7 @@ function PaymentDetails() {
     getAddress(currentUser.address.work, setDeliveryAddress, "work");
 
   return (
-    <form className="paymentDetails" onSubmit={(deliveryAddress.pincode && cartData.length)
+    <form className="paymentDetails" onSubmit={(deliveryAddress.pincode && cartItems.length)
     ? handleClick:(e)=>{e.preventDefault()}}>
       <div className="deliveryAddresses">
         <span id="deliveryHeading">
@@ -64,7 +66,7 @@ function PaymentDetails() {
           <button>Add new Address</button>
         </Link>
       </div>
-      <div className="deliveryChargeAndTime" style={(homeAddresses || workAddresses)? {display:"none"}:{}}>
+      <div className="deliveryChargeAndTime" style={(deliveryAddress.pincode && cartItems.length)?{}:{display:"none"}}>
         <span id="deliveryHeading">Delivery Stats</span>
 
         {deliveryStat.deliveryTime && (
