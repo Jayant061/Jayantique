@@ -26,7 +26,7 @@ function PaymentDetails() {
     e.preventDefault();
     setLoading(true)
     try {
-      const res = await axios.post(`${baseURL}/checkout`, {
+      const res = await axios.post(`${baseURL}/checkout`,{
         data: cartData,
         DC: deliveryStat.DC,
         discount: discount,
@@ -52,7 +52,8 @@ function PaymentDetails() {
     getAddress(currentUser.address.work, setDeliveryAddress, "work");
 
   return (
-    <form className="paymentDetails" onSubmit={handleClick}>
+    <form className="paymentDetails" onSubmit={(deliveryAddress.pincode && cartData.length)
+    ? handleClick:(e)=>{e.preventDefault()}}>
       <div className="deliveryAddresses">
         <span id="deliveryHeading">
           Please choose an address to deliver your order
@@ -60,7 +61,7 @@ function PaymentDetails() {
         {currentUser.address && homeAddresses}
         {currentUser.address && workAddresses}
         <Link to="/auth/user">
-          <button>Edit or Add new Address</button>
+          <button>Add new Address</button>
         </Link>
       </div>
       <div className="deliveryChargeAndTime" style={(homeAddresses || workAddresses)? {display:"none"}:{}}>

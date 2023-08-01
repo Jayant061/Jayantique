@@ -5,7 +5,7 @@ config();
 const stripe = Stripe(process.env.STRIPESECRETKEY);
 const paymentGateway = async (req, res) => {
   const items = req.body.data;
-  const lineItemsPromise = items.map(async (item) => {
+  const lineItemsPromise = items && items.map(async (item) => {
     const product = await Product.findOne({ _id: item.itemId });
     return {
       price_data: {

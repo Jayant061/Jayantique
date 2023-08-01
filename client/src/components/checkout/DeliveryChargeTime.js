@@ -1,6 +1,10 @@
 export default  function deliveryChargeAndTime(pincode){
     const code = Math.floor((parseInt(pincode)/10000));
 
+    if(!pincode){
+        return{}
+    }
+
     if((10<=code && code<=13) ||(40<=code && code<=44)|| (56<=code && code<=64)){
         return{freeDelivery:true,DC:0,deliveryTime:{min:3,max:3+(code%10 - 1)}}
     }
