@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {useNavigate} from "react-router-dom"
 import { addToCart, addCartItemsId } from '../../../credentials.js';
 import { CartContext } from '../../context/CartContext';
+import LazyImage from '../lazyImage/LazyImage.jsx';
 
 function Product({product}) {
   const [isAddedToCart,setIsAddedToCart] = useState(false);
@@ -28,7 +29,8 @@ if(addedItems?.has(product._id)){
     },[cartItems]);
   return (
     <div className="product" >
-      <img src={product.image} alt="" onClick={handleClick}/>
+      {/* <img src={product.image} alt="" onClick={handleClick}/> */}
+      <LazyImage id = {product._id} src={product.image} alt={product.title} handleClick ={handleClick}/>
       <p>₹ {(parseFloat(product.price)*80).toFixed(2)}</p>
       <h4 className="productName">{product.title}</h4>
 {     isAddedToCart? 

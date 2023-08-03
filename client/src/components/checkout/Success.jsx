@@ -17,12 +17,15 @@ function Success() {
     display:"flex",
     flexDirection:"Column",
     alignItems:"center",
+    textAlign:"center",
     gap:"30px",
     color:"green"
 }
   return (
-    <div style={divStyle}><h2>Payment Successfull!</h2>
-    <h2>Please wait while we redirect you to home page...</h2></div>
+    <div style={divStyle}>
+      <h2>Payment Successfull!</h2>
+    <h2>Please wait while we redirect you to home page...</h2>
+    </div>
   )
 }
 

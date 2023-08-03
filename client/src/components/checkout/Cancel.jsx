@@ -17,6 +17,7 @@ function Cancel() {
     display:"flex",
     flexDirection:"Column",
     alignItems:"center",
+    textAlign:"center",
     gap:"30px",
     color:"red"
 }

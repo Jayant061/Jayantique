@@ -1,23 +1,24 @@
-import { useContext, useEffect, useState } from "react";
+import { Suspense, lazy, useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import { getUser } from "../credentials";
 import "./App.css";
-
-import Home from "./components/home/Home";
-import Products from "./components/products/Products";
-import Navbar from "./components/navbar/Navbar";
-import ProductDescription from "./components/products/ProductDescription";
-import Register from "./components/loginNRegister/Register";
-import Login from "./components/loginNRegister/Login";
-import User from "./components/user/User";
 import { UserContext } from "./context/UserContext";
-import Cart from "./components/addToCart/Cart";
-import PaymentDetails from "./components/checkout/PaymentDetails";
-import Success from "./components/checkout/Success";
-import Cancel from "./components/checkout/Cancel";
-import Error from "./components/checkout/Error";
+
+// import Home from "./components/home/Home";
+const Home = lazy(()=>import("./components/home/Home"));
+const Products = lazy(()=>import("./components/products/Products"));
+const Navbar = lazy(()=>import("./components/navbar/Navbar"));
+const ProductDescription = lazy(()=>import("./components/products/ProductDescription"));
+const Register = lazy(()=>import("./components/loginNRegister/Register"));
+const Login = lazy(()=>import("./components/loginNRegister/Login"));
+const User = lazy(()=>import("./components/user/User"));
+const Cart = lazy(()=>import("./components/addToCart/Cart"));
+const PaymentDetails = lazy(()=>import("./components/checkout/PaymentDetails"));
+const Success = lazy(()=>import("./components/checkout/Success"));
+const Cancel = lazy(()=>import("./components/checkout/Cancel")) ;
+const Error = lazy(()=>import("./components/checkout/Error"));
 // import Footer from "./components/footer/Footer";
 
 function App() {
@@ -65,17 +66,17 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/products" element={<Products />} />
-          <Route exact path= "/product/:params" element={<ProductDescription />} />
-          <Route exact path="/register" element = {<Register/>}/>
-          <Route exact path="/login" element = {<Login/>}/>
-          <Route exact path="/auth/user" element = {<ProtectedRoute><User/></ProtectedRoute>}/>
-          <Route exact path="/addToCart" element = {<Cart/>}/>
-          <Route exact path="/checkout" element = {<ProtectedRoute><PaymentDetails/></ProtectedRoute>}/>
-          <Route exact path="/payment/success" element = {<Success/>}/>
-          <Route exact path="/payment/cancel" element = {<Cancel/>}/>
-          <Route exact path="/payment/error" element = {<Error/>}/>
+          <Route exact path="/" element={<Suspense fallback = {<div>Loading...</div>}><Home /></Suspense>} />
+          <Route exact path="/products" element={<Suspense fallback = {<div>Loading...</div>}><Products /></Suspense>} />
+          <Route exact path= "/product/:params" element={<Suspense fallback = {<div>Loading...</div>}><ProductDescription /></Suspense>} />
+          <Route exact path="/register" element = {<Suspense fallback = {<div>Loading...</div>}><Register/></Suspense>}/>
+          <Route exact path="/login" element = {<Suspense fallback = {<div>Loading...</div>}><Login/></Suspense>}/>
+          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><User/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/addToCart" element = {<Suspense fallback = {<div>Loading...</div>}><Cart/></Suspense>}/>
+          <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/payment/success" element = {<Suspense fallback = {<div>Loading...</div>}><Success/></Suspense>}/>
+          <Route exact path="/payment/cancel" element = {<Suspense fallback = {<div>Loading...</div>}><Cancel/></Suspense>}/>
+          <Route exact path="/payment/error" element = {<Suspense fallback = {<div>Loading...</div>}><Error/></Suspense>}/>
         </Routes>
         {/* <Footer/> */}
       </BrowserRouter>

@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { Suspense, lazy, useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import addIcon from "../../assets/add.svg";
 import {v4 as uuid} from "uuid";
-import AddressForm from "./AddressForm";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
 import { baseURL, getUser } from "../../../credentials.js";
-import DisplayLocation from "./DisplayLocation";
+const DisplayLocation = lazy(()=>import("./DisplayLocation"));
+const AddressForm = lazy(()=>import("./AddressForm"));
 
 function Location() {
   const { currentUser,userDispatch } = useContext(UserContext);
@@ -70,19 +70,19 @@ function Location() {
   
   }
 
-  const homeAdress = currentUser?.address?.home?.map(addressIN=>{
+  const homeAdress = currentUser?.address?.home?.map((addressIN)=>{
     const {id,addressType,name,phone,address,locality,town,state,pincode} = JSON.parse(addressIN);
-    return(<DisplayLocation key={id}
+    return(<Suspense key = {id} fallback = {<div>loading...</div>}><DisplayLocation key={id}
       data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
-    />)
+    /></Suspense>)
   })
 
   const workAdress = currentUser?.address?.work?.map(addressIN=>{
     const {id,addressType,name,phone,address,locality,town,state,pincode} = JSON.parse(addressIN);
     
-    return(<DisplayLocation key={id}
+    return(<Suspense key = {id} fallback = {<div>loading...</div>}><DisplayLocation key={id}
       data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
-    />)
+    /></Suspense>)
   })
   return (
     <div className="location">
@@ -98,8 +98,8 @@ function Location() {
           <span>Add a new address</span>
         </div>
       ) : (
-        <AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
-        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress}/>
+        <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
+        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress}/></Suspense>
       )}
 
     <div className="addresses">

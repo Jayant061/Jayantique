@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../context/UserContext'
-import axios from 'axios';
+import React, { Suspense, lazy, useContext, useEffect, useState } from "react"
+import { UserContext } from "../../context/UserContext"
+import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { baseURL, getUser } from '../../../credentials.js';
-import Location from './Location';
-
+import { baseURL, getUser } from "../../../credentials.js";
+const Location = lazy(()=>import("./Location")) ;
 function AccountSettings() {
 
   const {currentUser,userDispatch} = useContext(UserContext);
@@ -63,44 +62,44 @@ function AccountSettings() {
     })})
   },[currentUser]);
   return (
-    <div className='accountSettings'>
+    <div className="accountSettings">
         <h2>Personal Information</h2>
         <div className="personalInfo">
           <div className="username personalInfoChild">
             <span>Name :</span>
           <input type="text" name = "name" value={formData?.name} readOnly = {isReadOnly} 
-          onChange={handleChange} style={isReadOnly?{cursor:'no-drop',backgroundColor:"lightyellow"}:{}}/>
+          onChange={handleChange} style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}/>
           </div>
           <div className="gender personalInfoChild">
             <span>Gender : </span>
-            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:'no-drop',backgroundColor:"lightyellow"}:{}}>
+            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}>
               <div className="radioInput">
                 <input type="radio" id="male" name="gender" value="Male"
                  checked={formData.gender === "Male"}
                   onChange={!isReadOnly ? handleChange : ()=>{}} required={true} 
-                  style={isReadOnly?{cursor:'no-drop'}:{}}
+                  style={isReadOnly?{cursor:"no-drop"}:{}}
                 />
-                <label htmlFor="male" style={isReadOnly?{cursor:'no-drop'}:{}}>Male</label>
+                <label htmlFor="male" style={isReadOnly?{cursor:"no-drop"}:{}}>Male</label>
               </div>
               <div className="radioInput">
                 <input type="radio" id="female" name="gender" value="Female"
                  checked={formData.gender ===  "Female"}
                   onChange={!isReadOnly ? handleChange : ()=>{}} required={true} 
-                  style={isReadOnly?{cursor:'no-drop'}:{}}
+                  style={isReadOnly?{cursor:"no-drop"}:{}}
                 />
-                <label htmlFor="female" style={isReadOnly?{cursor:'no-drop'}:{}}>Female</label>
+                <label htmlFor="female" style={isReadOnly?{cursor:"no-drop"}:{}}>Female</label>
               </div>
             </div>
           </div>
           <div className="email personalInfoChild">
           <span>Email :</span>
             <input type="email" name="email" id="" value={formData?.email} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:'no-drop', backgroundColor:"lightyellow"}:{}}/>
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
           </div>
           <div className="phone personalInfoChild">
           <span>Phone :</span>
-            <input type="number" name='phone' value={formData?.phone} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:'no-drop', backgroundColor:"lightyellow"}:{}}/>
+            <input type="number" name="phone" value={formData?.phone} readOnly = {isReadOnly}  
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
           </div>
           <div className="buttons">
             {isReadOnly ? <button onClick={()=>{setReadOnly(false)}}>Edit</button>
@@ -109,7 +108,7 @@ function AccountSettings() {
           </div>
           {error && <span style={{color:"red",textAlign:"center"}}>{error}</span>}
         </div>
-        <Location/>
+        <Suspense fallback={<div>loading...</div>}><Location/></Suspense>
     </div>
   )
 }

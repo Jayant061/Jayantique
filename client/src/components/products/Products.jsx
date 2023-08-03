@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, lazy, Suspense } from "react";
 import axios from "axios";
 import searchIcon from "../../assets/outline-search.svg";
 import sadIcon from "../../assets/sad.svg";
 import "./product.css";
 import { ProductContext } from "../../context/ProductsContext";
-import Product from "./Product";
 import loader from "../../assets/loading.svg";
 import { baseURL, getProducts } from "../../../credentials.js";
+import loadingLoop from "../../assets/loading-loop.svg";
+const Product = lazy(()=>import("./Product"));
 
 function Products() {
   const {state} = useContext(ProductContext);
@@ -40,7 +41,7 @@ useEffect(()=>{
   const items = state.products?.map((product, index) => {
 
     return (
-      <Product product = {product} key={index}/>
+      <Suspense fallback = {<div>loading...</div>} key={index}><Product product = {product} key={index}/></Suspense>
     );
   });
   

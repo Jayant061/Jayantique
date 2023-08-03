@@ -1,10 +1,10 @@
-import React, { useContext, useEffect} from "react";
+import React, { Suspense, lazy, useContext, useEffect} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./home.css";
-import Trending from "./Trending.jsx";
 import bgimage from "../../assets/image1.png";
 import { ProductContext } from "../../context/ProductsContext";
-import Testimonial from "./Testimonial";
+const Trending = lazy(()=>import("./Trending.jsx")) ;
+const Testimonial = lazy(()=>import("./Testimonial")) ;
 
 function Home() {
   const {state} = useContext(ProductContext);
@@ -36,8 +36,8 @@ function Home() {
           <img src={bgimage} alt="" />
         </div>
       </div>
-      {state.products && <Trending/>}
-      <Testimonial/>
+      {state.products && <Suspense fallback = {<div>loading...</div>}><Trending/></Suspense>}
+      <Suspense fallback = {<div>loading...</div>}><Testimonial/></Suspense>
     </div>
   );
 }
