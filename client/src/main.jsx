@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <UserContextProvider>
   <ProductContextProvider>
     <CartContextProvider>
-  <React.StrictMode>
+    <React.StrictMode>
     <App/>
   </React.StrictMode>
   </CartContextProvider>

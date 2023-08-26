@@ -4,10 +4,8 @@ import User from "../models/user.js";
 
 const addAddress = (req,res)=>{
     const data = req.body;
-    // console.log(data);
     jwt.verify(data.token,process.env.SECRETKEY,async (err,user)=>{
         if(err){
-            console.log(err)
             res.status(401).json("invalidToken");
         }
         if(user){
@@ -23,7 +21,6 @@ const addAddress = (req,res)=>{
                 const resData = await User.findOneAndUpdate({_id:user.resData._id},
                     {address:{home:homeAddresses,work:workAddresses}},
                     {new:true}).select("-password");
-                    console.log(resData);
                     const accessToken = jwt.sign({resData},process.env.SECRETKEY);
                     res.status(200).json(accessToken);
                     

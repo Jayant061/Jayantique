@@ -18,6 +18,11 @@ mongoose.connect(process.env.MONGOURL);
 
 export const secretkey = process.env.SECRETKEY;
 
+//general Route
+app.get("/",(req,res)=>{
+  res.send("Working All good No Problem");
+})
+
 // All products route
 import productsRoute from "./routes/products.js"
 app.use("/products",productsRoute);
@@ -37,6 +42,10 @@ app.use("/auth/updateUser",authRoute);
 // change details route
 import addAddressRoute from "./routes/addAddress.js"
 app.use("/auth/updateUser/addAddress",addAddressRoute);
+
+// add orders;
+import addOrdersRoute from "./routes/orders.js";
+app.use("/auth/addOrders",addOrdersRoute);
 
 // payment route
 import paymentRoute from "./routes/payment.js";

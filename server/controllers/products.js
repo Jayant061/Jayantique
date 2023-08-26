@@ -11,7 +11,6 @@ const getProducts = async (req, res) => {
       res.send(resp);
       
     } catch (error) {
-      // console.log(error);
       res.send(error);
       //do nothing
     }

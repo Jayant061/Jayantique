@@ -23,7 +23,7 @@ function CartBilling() {
         <span className='costHeading'>Order Summary ( {quantity} {quantity === 1 ? "item":"items"})</span>
         <div className="totalCost childCost">
             <span>Subtotal</span>
-            <span className='cost'>{totalProductCost>0? (parseFloat(totalProductCost)*80):parseFloat(0).toFixed(2)} ₹</span>
+            <span className='cost'>{totalProductCost>0? (parseFloat(totalProductCost)*80).toFixed(2):parseFloat(0).toFixed(2)} ₹</span>
         </div>
         <div className="discount childCost">
             <span>Total Discount</span>

@@ -35,7 +35,6 @@ function AccountSettings() {
       });
     }  
     } catch (error) {
-      console.log(error)
       setError(error?.redponse?.data);
     }
   }

@@ -19,6 +19,10 @@ const PaymentDetails = lazy(()=>import("./components/checkout/PaymentDetails"));
 const Success = lazy(()=>import("./components/checkout/Success"));
 const Cancel = lazy(()=>import("./components/checkout/Cancel")) ;
 const Error = lazy(()=>import("./components/checkout/Error"));
+const Footer = lazy(()=>import("./components/footer/Footer"));
+const AboutUs = lazy(()=>import("./components/usefulPages/aboutUs/AboutUs"));
+const PrivacyPolicy = lazy(()=>import("./components/usefulPages/privacy-policy/PrivacyPolicy"))
+const TermsConditions = lazy(()=>import("./components/usefulPages/termsConditions/TermsConditions"));
 // import Footer from "./components/footer/Footer";
 
 function App() {
@@ -52,7 +56,6 @@ function App() {
             });
           }  
         } catch (error) {
-          console.log(error);
         }
       }
     };
@@ -77,8 +80,12 @@ function App() {
           <Route exact path="/payment/success" element = {<Suspense fallback = {<div>Loading...</div>}><Success/></Suspense>}/>
           <Route exact path="/payment/cancel" element = {<Suspense fallback = {<div>Loading...</div>}><Cancel/></Suspense>}/>
           <Route exact path="/payment/error" element = {<Suspense fallback = {<div>Loading...</div>}><Error/></Suspense>}/>
+          <Route exact path="/about-us" element = {<Suspense fallback = {<div>Loading...</div>}><AboutUs/></Suspense>}/>
+          <Route exact path="/privacy-policy" element = {<Suspense fallback = {<div>Loading...</div>}><PrivacyPolicy/></Suspense>}/>
+          <Route exact path="/tnc" element = {<Suspense fallback = {<div>Loading...</div>}><TermsConditions/></Suspense>}/>
+
         </Routes>
-        {/* <Footer/> */}
+        <Suspense fallback = {<div>Loading...</div>}><Footer/></Suspense>
       </BrowserRouter>
     </div>
   );

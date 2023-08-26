@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
-import { baseURL } from "../../../credentials.js";
+import { baseURL, deliveryRange, orderedItems } from "../../../credentials.js";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import getAddress from "./getAddress";
@@ -15,7 +15,7 @@ function PaymentDetails() {
   const [deliveryStat, setDeliveryStat] = useState({});
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { cartItems, itemsQuantity } = useContext(CartContext);
+  const { cartItems, itemsQuantity,cartDispatch } = useContext(CartContext);
   const cartData = cartItems?.map((item) => {
     return {
       itemId: item?._id,
@@ -31,11 +31,12 @@ function PaymentDetails() {
         DC: deliveryStat.deliveryID,
         discount: discount,
       });
-      // console.log(res.data)
       setLoading(false);
+      localStorage.setItem(orderedItems,JSON.stringify(cartData));
+      localStorage.setItem(deliveryRange,JSON.stringify(deliveryStat?.deliveryTime));
+      // window.open(res.data.url,"_blank");
       window.location.href = res.data.url;
     } catch (error) {
-      console.log(error);
     }
   }
   useEffect(() => {

@@ -34,7 +34,6 @@ const paymentGateway = async (req, res) => {
       res.send({ url: session.url });
     })
     .catch((error) => {
-      console.log(error);
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     });
 };

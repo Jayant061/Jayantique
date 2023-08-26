@@ -21,10 +21,6 @@ color: #13395b;
     padding-left: 20px;
     position: relative;
 }
-.deliveryAddress .addressChild{
-    color: #13395b;
-    width: 70%;
-}
 .deliveryAddress input{
     position: absolute;
     left: 0;

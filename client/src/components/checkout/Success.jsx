@@ -1,8 +1,31 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { accessToken, baseURL, deliveryRange, orderedItems } from '../../../credentials';
+import axios from 'axios';
+import { deliveryDate } from './DeliveryChargeTime';
 
 function Success() {
   const navigate = useNavigate();
+  useEffect(()=>{
+    const items = JSON.parse(localStorage.getItem(orderedItems));
+    const token = localStorage.getItem(accessToken);
+    const {min,max}=JSON.parse(localStorage.getItem(deliveryRange));
+    const shippingDate = deliveryDate(min,max);
+    const status = "success";
+    let isSubs = true;
+    const addOrders = async()=>{
+      try {
+        const res = await axios.post(`${baseURL}/auth/addOrders`,{items,token,status,deliveryDate:shippingDate});
+        // localStorage.removeItem(orderedItems);
+        // localStorage.removeItem(deliveryRange);
+      } catch (error) {
+      }
+    }
+    isSubs && items && addOrders();
+    return (()=>{
+      isSubs = false;
+    })
+  },[]);
   useEffect(() => {
     const timeout = setTimeout(()=>{
       navigate("/");
