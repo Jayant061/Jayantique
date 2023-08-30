@@ -1,4 +1,4 @@
-import { freeDeliveryID, freeDeliveryID2, freeDeliveryID3 } from "../../../credentials";
+import { freeDeliveryID, deliveryID40, deliveryID50 } from "../../../credentials";
 
 export default  function deliveryChargeAndTime(pincode){
     const code = Math.floor((parseInt(pincode)/10000));
@@ -11,10 +11,10 @@ export default  function deliveryChargeAndTime(pincode){
         return({freeDelivery:true,DC:0,deliveryTime:{min:3,max:5},deliveryID:freeDeliveryID})
     }
     else if(70<=code && code <=85){
-        return({freeDelivery:false,DC:40,deliveryTime:{min:5,max:7},deliveryID:freeDeliveryID2});
+        return({freeDelivery:false,DC:40,deliveryTime:{min:5,max:7},deliveryID:deliveryID40});
     }   
     else{
-        return({freeDelivery:false,DC:50,deliveryTime:{min:9,max:11},deliveryID:freeDeliveryID3});
+        return({freeDelivery:false,DC:50,deliveryTime:{min:9,max:11},deliveryID:deliveryID50});
     }
 }
 

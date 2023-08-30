@@ -45,6 +45,7 @@ function PaymentDetails() {
       setDeliveryStat(deliveryChargeAndTime(deliveryAddress.pincode));
     parseInt(price) > 25 && setDiscount((0.1 * price*80).toFixed(2));
   }, [deliveryAddress]);
+  
   const homeAddresses =
     currentUser.address &&
     getAddress(currentUser.address.home, setDeliveryAddress, "home");

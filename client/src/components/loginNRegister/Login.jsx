@@ -57,6 +57,7 @@ function Login() {
         <span className='authHeader'>Test</span>
       <form onSubmit={handleSubmit}>
         <input
+          className='input'
           type="email"
           name="email"
           value = {formData.email}
@@ -66,6 +67,7 @@ function Login() {
         />
         <div className='password'>
           <input
+          className='passwordInput'
           type={!showPassword? "password":"text"}
           name="password"
           value={formData.password}

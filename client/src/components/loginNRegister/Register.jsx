@@ -72,7 +72,7 @@ function Register() {
             onChange={handleChange}
             required
           />
-          <div className="registerInput">
+          <div className="genderInput">
             <span>Gender : </span>
             <div id="registrationPartition" className="inputsPartition">
               <div className="radioInput">

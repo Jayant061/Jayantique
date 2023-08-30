@@ -14,7 +14,7 @@ const paymentGateway = async (req, res) => {
           name: product.title,
           images: [product.image],
         },
-        unit_amount: parseInt(product.price)* 8000,
+        unit_amount: parseInt(product.price),
       },
       quantity: item.quantity,
     };
@@ -26,7 +26,7 @@ const paymentGateway = async (req, res) => {
         shipping_options:[{shipping_rate:req.body.DC}],
         mode: "payment",
         discounts: [{
-          coupon: 'EwbGyFnU',
+          coupon: process.env.COUPONID,
         }],
         success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
         cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
@@ -34,6 +34,7 @@ const paymentGateway = async (req, res) => {
       res.send({ url: session.url });
     })
     .catch((error) => {
+      console.log(error)
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     });
 };
