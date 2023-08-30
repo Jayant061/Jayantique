@@ -14,7 +14,7 @@ const paymentGateway = async (req, res) => {
           name: product.title,
           images: [product.image],
         },
-        unit_amount: parseInt(product.price),
+        unit_amount: parseInt(product.price)*8200,
       },
       quantity: item.quantity,
     };
