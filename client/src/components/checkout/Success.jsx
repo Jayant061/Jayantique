@@ -9,15 +9,15 @@ function Success() {
   useEffect(()=>{
     const items = JSON.parse(localStorage.getItem(orderedItems));
     const token = localStorage.getItem(accessToken);
-    const {min,max}=JSON.parse(localStorage.getItem(deliveryRange));
-    const shippingDate = deliveryDate(min,max);
+    const {min,max}=JSON.parse(localStorage.getItem(deliveryRange))? JSON.parse(localStorage.getItem(deliveryRange)):{min:0,max:0};
+    const shippingDate =deliveryDate(min,max);
     const status = "success";
     let isSubs = true;
     const addOrders = async()=>{
       try {
-        const res = await axios.post(`${baseURL}/auth/addOrders`,{items,token,status,deliveryDate:shippingDate});
-        // localStorage.removeItem(orderedItems);
-        // localStorage.removeItem(deliveryRange);
+        const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{items,token,status,deliveryDate:shippingDate});
+        localStorage.removeItem(orderedItems);
+        localStorage.removeItem(deliveryRange);
       } catch (error) {
       }
     }
@@ -36,6 +36,8 @@ function Success() {
     }
   }, []);
   const divStyle = {
+    height:"100vh",
+    overflow:"auto",
     marginTop:"50px",
     display:"flex",
     flexDirection:"Column",

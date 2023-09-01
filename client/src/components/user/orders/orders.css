@@ -1,0 +1,14 @@
+.orders{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 30px;
+    min-height: calc(100vh - 100px);
+    height: 100%;
+}
+.orders h2{
+    font-size: calc(10px + 1vw);
+    font-weight: 600;
+    text-align: center;
+}

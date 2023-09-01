@@ -28,13 +28,19 @@ function UserSidebar({setPane}) {
     })
     return(<Navigate to='/auth/user'/>);
   }
+  useEffect(()=>{
+    setSeeMore(false)
+  },[activePane])
   return (
     <div className='userSidebar'>
         <div className="userHeading">
             <img src={moreIcon} alt="more options" className='moreIcon'
-            style={seeMore?{}:{backgroundColor:'white'}} 
+            style={seeMore?{}:{backgroundColor:'white'}}
+            onMouseDown={()=>{setSeeMore(prev=>{return !prev})}}
+
             ref={ref}
-            onClick={()=>{setSeeMore(prev=>{return !prev});}}/>
+            // onClick={()=>{setSeeMore(prev=>{return !prev});}}/>
+            />
             <img src={currentUser.img || currentUser.gender==="Male"? userIcon:femaleIcon} alt="" />
             <div className="usertext">
                 <p>Hello,</p>
@@ -48,6 +54,13 @@ function UserSidebar({setPane}) {
             onClick={()=>{setActivePane("Account Settings")}}>
             <img src={userIcon} alt="" />
             <h4>Account Settings</h4>
+            </div>
+
+            <div className="addresses-el" 
+            style={activePane === "Address"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("Address")}}>
+            <img src={userIcon} alt="" />
+            <h4>Manage Adresses</h4>
             </div>
 
             <div className="order"

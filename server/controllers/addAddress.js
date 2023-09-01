@@ -11,10 +11,10 @@ const addAddress = (req,res)=>{
         if(user){
             const homeAddresses = user.resData.address.home;
                 const workAddresses = user.resData.address.work;
-                if(data.newAddress.addressType === "HOME"){
+                if(data.newAddress.addressType === "Home"){
                     homeAddresses.push(JSON.stringify(data.newAddress));
                 }
-                else if(data.newAddress.addressType === "WORK"){
+                else if(data.newAddress.addressType === "Work"){
                     workAddresses.push(JSON.stringify(data.newAddress));
                 }
             try {

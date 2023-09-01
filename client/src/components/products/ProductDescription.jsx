@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ProductContext } from '../../context/ProductsContext'
 import { useParams,useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Product from './Product';
+import { CartContext } from '../../context/CartContext';
+import { addToCart, addCartItemsId, baseURL, getProducts } from '../../../credentials.js';
 import star from "../../assets/star.svg";
 import hollowStar from "../../assets/starHollow.svg";
 import halfStar from "../../assets/starHalf.svg";
-import Product from './Product';
-import { addToCart, addCartItemsId, baseURL, getProducts } from '../../../credentials.js';
-import { CartContext } from '../../context/CartContext';
-import axios from 'axios';
+import "./product.css";
 
 function ProductDescription() {
   const ref = useRef()
@@ -35,6 +36,7 @@ function ProductDescription() {
     ref.current?.scrollIntoView({behavior:"smooth"});
   },[item]);
   useEffect(()=>{
+    let subs = true;
     const getItem = async()=>{
       const res = await axios.get(`${baseURL}/products?itemId=${params}`);
       dispatch({
@@ -42,7 +44,10 @@ function ProductDescription() {
         payload:res.data
       });
     }
-    getItem();
+    subs && getItem();
+    return(()=>{
+      subs = false;
+    })
   },[])
 const[isAddedToCart,setIsAddedToCart] = useState(false);
 const {cartDispatch,cartItems,addedItems} = useContext(CartContext);
@@ -71,8 +76,8 @@ function handleAddToCart(){
   }
 
  return (
-   <div className='productDescription' ref={ref}>
-    <div className="descriptionWrapper">
+   <div className='productDescription'>
+    <div className="descriptionWrapper" ref={ref}>
       <div className="descriptionLeft">
           <img src={item?.image} alt="" className='productImg' />
       </div>

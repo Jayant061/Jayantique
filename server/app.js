@@ -45,7 +45,7 @@ app.use("/auth/updateUser/addAddress",addAddressRoute);
 
 // add orders;
 import addOrdersRoute from "./routes/orders.js";
-app.use("/auth/addOrders",addOrdersRoute);
+app.use("/auth/orders",addOrdersRoute);
 
 // payment route
 import paymentRoute from "./routes/payment.js";

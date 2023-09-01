@@ -1,7 +1,7 @@
-import React from 'react'
-import "./userStyles.css"
+import React from 'react';
+import "../userStyles.css";
 
-function DisplayLocation({data,width}) {
+function DisplayAddress({data,width}) {
 
     return (
       <div className="addressChild" key={data?.id} style={width?{maxWidth:width}:{}}>
@@ -14,6 +14,6 @@ function DisplayLocation({data,width}) {
               <span className="pincode">{data?.pincode}</span>
       </div>
     )
-  }
+  };
 
-export default DisplayLocation
+export default DisplayAddress;

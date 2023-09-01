@@ -1,4 +1,4 @@
-import DisplayLocation from "../user/DisplayLocation";
+import DisplayLocation from "../user/address/DisplayAddress";
 
 export default function getAddress(arr,setDeliveryAddress,addressType){
     const addresses = arr.map((address,index)=>{

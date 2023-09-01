@@ -13,6 +13,8 @@ function Cancel() {
     }
   }, []);
   const divStyle = {
+    height:"100vh",
+    overflow:"auto",
     marginTop:"50px",
     display:"flex",
     flexDirection:"Column",

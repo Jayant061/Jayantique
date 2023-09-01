@@ -138,8 +138,8 @@ function AddressForm({newAddress,handleChange,handleSubmit,error,setIsAddingNewA
                   type="radio"
                   id="home"
                   name="addressType"
-                  value="HOME"
-                  checked={newAddress.addressType === "HOME"}
+                  value="Home"
+                  checked={newAddress.addressType === "Home"}
                   onChange={handleChange}
                   required={true}
                 />
@@ -150,8 +150,8 @@ function AddressForm({newAddress,handleChange,handleSubmit,error,setIsAddingNewA
                   type="radio"
                   id="work"
                   name="addressType"
-                  value="WORK"
-                  checked={newAddress.addressType === "WORK"}
+                  value="Work"
+                  checked={newAddress.addressType === "Work"}
                   onChange={handleChange}
                   required={true}
                 />

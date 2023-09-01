@@ -1,9 +1,10 @@
-import React, { Suspense, lazy, useContext, useEffect, useState } from "react"
-import { UserContext } from "../../context/UserContext"
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from "react"
+import { UserContext } from "../../../../context/UserContext"
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { baseURL, getUser } from "../../../credentials.js";
-const Location = lazy(()=>import("./Location")) ;
+import { baseURL, getUser } from "../../../../../credentials.js";
+const Address = lazy(()=>import("../../address/Address")) ;
+
 function AccountSettings() {
 
   const {currentUser,userDispatch} = useContext(UserContext);
@@ -38,7 +39,7 @@ function AccountSettings() {
       setError(error?.redponse?.data);
     }
   }
-
+  const currRef = useRef();
   function handleCancel(){
     setReadOnly(true);
     setFormData(()=>{return({
@@ -48,7 +49,8 @@ function AccountSettings() {
     gender:currentUser?.gender,
     email: currentUser?.email,
     phone : currentUser?.phone,
-    })})
+    })});
+    currRef?.current.scrollIntoView({behavior:"smoth"})
   }
   useEffect(()=>{
     setFormData(()=>{return({
@@ -61,7 +63,7 @@ function AccountSettings() {
     })})
   },[currentUser]);
   return (
-    <div className="accountSettings">
+    <div className="accountSettings" ref={currRef}>
         <h2>Personal Information</h2>
         <div className="personalInfo">
           <div className="username personalInfoChild">
@@ -107,7 +109,7 @@ function AccountSettings() {
           </div>
           {error && <span style={{color:"red",textAlign:"center"}}>{error}</span>}
         </div>
-        <Suspense fallback={<div>loading...</div>}><Location/></Suspense>
+        
     </div>
   )
 }

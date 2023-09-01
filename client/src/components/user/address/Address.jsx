@@ -1,14 +1,15 @@
-import React, { Suspense, lazy, useContext, useState } from "react";
-import { UserContext } from "../../context/UserContext";
-import addIcon from "../../assets/add.svg";
+import React, { Suspense, lazy, useContext, useRef, useState, useEffect } from "react";
+import { UserContext } from "../../../context/UserContext";
+import addIcon from "../../../assets/add.svg";
 import {v4 as uuid} from "uuid";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
-import { baseURL, getUser } from "../../../credentials.js";
-const DisplayLocation = lazy(()=>import("./DisplayLocation"));
+import { baseURL, getUser } from "../../../../credentials.js";
+const DisplayLocation = lazy(()=>import("./DisplayAddress"));
 const AddressForm = lazy(()=>import("./AddressForm"));
 
-function Location() {
+function Address() {
+  const currRef = useRef(null);
   const { currentUser,userDispatch } = useContext(UserContext);
   const [newAddress, setNewAddress] = useState({
     id: uuid(),
@@ -84,9 +85,17 @@ function Location() {
       data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
     /></Suspense>)
   })
+  useEffect(()=>{
+    !isAddingNewAddress && currRef?.current.scrollIntoView({behavior:"smooth"})
+  },[isAddingNewAddress])
+
   return (
-    <div className="location">
+    <div className="address" ref={currRef}>
       <h2>Manage Addresses</h2>
+
+    <div className="addresses">
+      <div className="homeAdresses">{homeAdress}</div>
+      <div className="workAddresses">{workAdress}</div>
       {!isAddingNewAddress ? (
         <div
           className="addNewAddress"
@@ -101,13 +110,9 @@ function Location() {
         <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
         error = {error} setIsAddingNewAddress = {setIsAddingNewAddress}/></Suspense>
       )}
-
-    <div className="addresses">
-      <div className="homeAdresses">{homeAdress}</div>
-      <div className="workAddresses">{workAdress}</div>
     </div>
     </div>
   );
 }
 
-export default Location;
+export default Address;
