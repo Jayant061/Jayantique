@@ -8,18 +8,22 @@ import orderIcon from "../../assets/order.svg";
 import logoutIcon from "../../assets/logout.svg";
 import femaleIcon from "../../assets/female.svg";
 import moreIcon from "../../assets/moreV.svg";
-import { logOut } from '../../../credentials.js';
+import { logOut, refPane } from '../../../credentials.js';
 
 
 function UserSidebar({setPane}) {
     const {currentUser,userDispatch} = useContext(UserContext);
     const [seeMore,setSeeMore] = useState(false);
     const ref = useRef();
-
+    const refPaneVal = sessionStorage.getItem(refPane);
     const [activePane,setActivePane] = useState("Account Settings");
+    useEffect(()=>{
+      refPaneVal ? setActivePane("Addresses") : setActivePane(activePane);
+    })
     useEffect(()=>{
       setPane(activePane);
     },[activePane]);
+
     function handleLogOut () {
     localStorage.clear();
     userDispatch({
@@ -30,7 +34,8 @@ function UserSidebar({setPane}) {
   }
   useEffect(()=>{
     setSeeMore(false)
-  },[activePane])
+  },[activePane]);
+
   return (
     <div className='userSidebar'>
         <div className="userHeading">
@@ -57,15 +62,15 @@ function UserSidebar({setPane}) {
             </div>
 
             <div className="addresses-el" 
-            style={activePane === "Address"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("Address")}}>
+            style={activePane === "Addresses"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("Addresses")}}>
             <img src={userIcon} alt="" />
             <h4>Manage Adresses</h4>
             </div>
 
             <div className="order"
-            style={activePane === "My Orders"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("My Orders")}}>
+            style={activePane === "Orders"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("Orders")}}>
                 <img src={orderIcon} alt="" />
             <h4>My Orders</h4>
             </div>

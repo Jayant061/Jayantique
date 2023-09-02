@@ -162,7 +162,7 @@ function AddressForm({newAddress,handleChange,handleSubmit,error,setIsAddingNewA
           <span style={{ color: "red" }}>{error}</span>
           <div className="addressFormInputs">
             <button type="submit">Save</button>
-            <button type="reset" onClick={() => {setIsAddingNewAddress(false); }}>Cancel</button>
+            <button type="reset" onClick={() => {setIsAddingNewAddress(false);}}>Cancel</button>
           </div>
         </form>
   )

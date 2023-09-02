@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
-import { baseURL, deliveryRange, orderedItems } from "../../../credentials.js";
+import { baseURL, deliveryRange, orderedItems, refPane } from "../../../credentials.js";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import getAddress from "./getAddress";
@@ -22,6 +22,9 @@ function PaymentDetails() {
       quantity: itemsQuantity.get(item?._id),
     };
   });
+  useEffect(()=>{
+    document.title = "Jayantique| Checkout";
+  },[]);
   async function handleClick(e) {
     e.preventDefault();
     setLoading(true)
@@ -32,8 +35,8 @@ function PaymentDetails() {
         discount: discount,
       });
       setLoading(false);
-      localStorage.setItem(orderedItems,JSON.stringify(cartData));
-      localStorage.setItem(deliveryRange,JSON.stringify(deliveryStat?.deliveryTime));
+      sessionStorage.setItem(orderedItems,JSON.stringify(cartData));
+      sessionStorage.setItem(deliveryRange,JSON.stringify(deliveryStat?.deliveryTime));
       // window.open(res.data.url,"_blank");
       window.location.href = res.data.url;
     } catch (error) {
@@ -62,7 +65,8 @@ function PaymentDetails() {
         </span>
         {currentUser.address && homeAddresses}
         {currentUser.address && workAddresses}
-        <Link to="/auth/user">
+        <Link to="/auth/user" onClick={()=>{sessionStorage.setItem(refPane,"Addresses");
+        sessionStorage.setItem("sourcePath",window.location.pathname);}}>
           <button>Add new Address</button>
         </Link>
       </div>

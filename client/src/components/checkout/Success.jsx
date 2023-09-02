@@ -7,24 +7,20 @@ import { deliveryDate } from './DeliveryChargeTime';
 function Success() {
   const navigate = useNavigate();
   useEffect(()=>{
-    const items = JSON.parse(localStorage.getItem(orderedItems));
+    const items = JSON.parse(sessionStorage.getItem(orderedItems));
     const token = localStorage.getItem(accessToken);
-    const {min,max}=JSON.parse(localStorage.getItem(deliveryRange))? JSON.parse(localStorage.getItem(deliveryRange)):{min:0,max:0};
+    const {min,max}=JSON.parse(sessionStorage.getItem(deliveryRange))? JSON.parse(sessionStorage.getItem(deliveryRange)):{min:0,max:0};
     const shippingDate =deliveryDate(min,max);
     const status = "success";
-    let isSubs = true;
     const addOrders = async()=>{
       try {
         const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{items,token,status,deliveryDate:shippingDate});
-        localStorage.removeItem(orderedItems);
-        localStorage.removeItem(deliveryRange);
+        // sessionStorage.removeItem(orderedItems);
+        // sessionStorage.removeItem(deliveryRange);
       } catch (error) {
       }
     }
-    isSubs && items && addOrders();
-    return (()=>{
-      isSubs = false;
-    })
+   items && addOrders();
   },[]);
   useEffect(() => {
     const timeout = setTimeout(()=>{

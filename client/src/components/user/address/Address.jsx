@@ -4,12 +4,15 @@ import addIcon from "../../../assets/add.svg";
 import {v4 as uuid} from "uuid";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
-import { baseURL, getUser } from "../../../../credentials.js";
+import { baseURL, getUser, refPane } from "../../../../credentials.js";
+import { Navigate, useNavigate } from "react-router-dom";
 const DisplayLocation = lazy(()=>import("./DisplayAddress"));
 const AddressForm = lazy(()=>import("./AddressForm"));
 
 function Address() {
   const currRef = useRef(null);
+  const formRef = useRef(null);
+  const srcPath = sessionStorage.getItem("sourcePath");
   const { currentUser,userDispatch } = useContext(UserContext);
   const [newAddress, setNewAddress] = useState({
     id: uuid(),
@@ -25,8 +28,26 @@ function Address() {
     addressType: "",
   });
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
+  const [isNavigate,setisNavigate] = useState(false);
   const [error, setError] = useState("");
+  
+  useEffect(()=>{
+    document.title = "My Addresses";
+    sessionStorage.getItem(refPane) === "Addresses" && setIsAddingNewAddress(true);
+    srcPath && setisNavigate(true);
+    sessionStorage.removeItem(refPane);
+  },[]);
+  
+  const navigate = useNavigate();
+  useEffect(()=>{
+    !isAddingNewAddress ? currRef?.current.scrollIntoView({behavior:"smooth"}) :
+    formRef?.current.scrollIntoView();
 
+    if(!isAddingNewAddress && isNavigate && srcPath){
+      navigate(srcPath);
+      sessionStorage.removeItem("sourcePath")
+    };
+  },[isAddingNewAddress]);
   function handleChange(e) {
     setNewAddress((prev) => {
       return {
@@ -68,6 +89,10 @@ function Address() {
      } catch (error) {
        setError(error?.response?.data);
      }
+     if(srcPath){
+      srcPath && navigate(srcPath);
+      sessionStorage.removeItem("sourcePath")
+     }
   
   }
 
@@ -85,9 +110,6 @@ function Address() {
       data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
     /></Suspense>)
   })
-  useEffect(()=>{
-    !isAddingNewAddress && currRef?.current.scrollIntoView({behavior:"smooth"})
-  },[isAddingNewAddress])
 
   return (
     <div className="address" ref={currRef}>
@@ -107,8 +129,10 @@ function Address() {
           <span>Add a new address</span>
         </div>
       ) : (
-        <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
-        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress}/></Suspense>
+        <div className="newAddressForm" ref={formRef}>
+          <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
+        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress} srcPath = {srcPath}/></Suspense>
+        </div>
       )}
     </div>
     </div>
