@@ -15,8 +15,8 @@ function Success() {
     const addOrders = async()=>{
       try {
         const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{items,token,status,deliveryDate:shippingDate});
-        // sessionStorage.removeItem(orderedItems);
-        // sessionStorage.removeItem(deliveryRange);
+        sessionStorage.removeItem(orderedItems);
+        sessionStorage.removeItem(deliveryRange);
       } catch (error) {
       }
     }
