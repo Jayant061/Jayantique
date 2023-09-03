@@ -163,7 +163,7 @@ color: #13395B;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    width: calc(100% - 40px);
+    width: calc(95% - 40px);
     border: 2px solid #13395b81;
     border-radius: 10px;
 }
@@ -228,9 +228,10 @@ color: #13395B;
     gap: 30px;
 }
 .homeAdresses,.workAddresses{
-    flex-basis: 100%;
+    flex-basis: 95%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 .addressChild{
@@ -296,6 +297,12 @@ color: #13395B;
 
 
 @media screen and (max-width:550px) {
+    .user{
+        padding: 10px;
+    }
+    .userSidebar,.userContent{
+        width: 100%;
+    }
     .accountSettings{
         padding: 20px 10px;
     }

@@ -14,7 +14,7 @@ import { logOut, refPane } from '../../../credentials.js';
 function UserSidebar({setPane}) {
     const {currentUser,userDispatch} = useContext(UserContext);
     const [seeMore,setSeeMore] = useState(false);
-    const ref = useRef();
+    const sidebarRef = useRef();
     const refPaneVal = sessionStorage.getItem(refPane);
     const [activePane,setActivePane] = useState("Account Settings");
     useEffect(()=>{
@@ -35,24 +35,29 @@ function UserSidebar({setPane}) {
   useEffect(()=>{
     setSeeMore(false)
   },[activePane]);
+  useEffect(()=>{
+    document.addEventListener("mousedown",(e)=>{
+    if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      setSeeMore(false);
+    }
+  })
+  })
 
   return (
     <div className='userSidebar'>
         <div className="userHeading">
-            <img src={moreIcon} alt="more options" className='moreIcon'
+            {!seeMore && <img src={moreIcon} alt="more options" className='moreIcon'
             style={seeMore?{}:{backgroundColor:'white'}}
-            onMouseDown={()=>{setSeeMore(prev=>{return !prev})}}
-
-            ref={ref}
-            // onClick={()=>{setSeeMore(prev=>{return !prev});}}/>
-            />
+            // onMouseDown={()=>{setSeeMore(prev=>{return !prev})}}
+            onClick={()=>{setSeeMore(prev=>{return !prev});}}
+            />}
             <img src={currentUser.img || currentUser.gender==="Male"? userIcon:femaleIcon} alt="" />
             <div className="usertext">
                 <p>Hello,</p>
             <h2>{currentUser.name}</h2>
             </div>
         </div>
-        <div className="mainMenu" style={seeMore?{display:"flex"}:{}}>
+        <div className="mainMenu" style={seeMore?{display:"flex"}:{}} ref={sidebarRef}>
 
             <div className="accSetting" 
             style={activePane === "Account Settings"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}

@@ -35,8 +35,10 @@ function Register() {
   }
   const navigate = useNavigate();
   const location = useLocation();
+
   async function handleSubmit(e){
     e.preventDefault();
+    setError(null);
     if(formData.phone.length !== 10){
         setError("Please enter a vaild phone number");
     }
@@ -57,6 +59,7 @@ function Register() {
                 navigate("/");
               }
     } catch (error) {
+      setLoading(false);
       setError(error.response.data);
     }
   }

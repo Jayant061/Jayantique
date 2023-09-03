@@ -10,7 +10,7 @@ export default function Footer() {
     shippingNReturns:"/shipping-and-returns",
     tnc:"/tnc",
     facebook:"",
-    github:"",
+    github:"https://github.com/Jayant061/Jayantique",
     twitter:""
   })
   return (
