@@ -1,7 +1,10 @@
 .products{
     padding: 10px 20px;
+    padding-top: 60px;
     min-height:calc(100vh - 56px);
-    background-color: #f1f1f14d;
+    background-color: #d6dee65e
+    /* #f1f1f1ab; */
+    
 }
 .productsHeading{
     font-family: Poppins;
@@ -98,13 +101,13 @@
     border-radius: 10px;
     color: #fff;
     visibility: hidden;
-    transition: 0.2s;
+    /* transition: right 0.5s ease; */
 }
 .product img{
     width: 250px;
     height: 278px;
-    border-radius: 20px;
-    box-shadow: 5px -5px 5px #bbbbbb;
+    /* border-radius: 20px; */
+    /* box-shadow: 5px -5px 5px #bbbbbb; */
 }
 .product:hover{
     transform: translateY(-5px);

@@ -28,7 +28,8 @@ const LazyImage = ({src, alt,id, handleClick}) => {
             ref={ref} 
             style={{width: "250px",height: "278px",
             borderRadius: "20px",
-            boxShadow: "5px -5px 5px #bbbbbb"}}
+            // boxShadow: "5px -5px 5px #bbbbbb"
+        }}
         />
     );
 };

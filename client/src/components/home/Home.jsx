@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className="home">
       <div className="homeHeader">
-        <div className="text">
+        {/* <div className="text">
           <h4>Up to 25% off on your first order.</h4>
           <div className="para">
           <p>Discount is automatically applied.</p>
@@ -31,7 +31,7 @@ function Home() {
             <p>Cannot be combined with other offers.</p>
           </div>
           <button onClick={()=>{navigate("/products")}}>Shop Now &#x2192;</button>
-        </div>
+        </div> */}
         <div className="bgimage">
           <img src={bgimage} alt="" />
         </div>

@@ -1,22 +1,21 @@
-
 .homeHeader{
+    position: relative;
+    padding-top: 60px;
     display: flex;
     justify-content:center;
     align-items: center;
     color: white;
-    background-color: #13395B;
+    background-color: #f0f8ff;
+    height: 100vh;
 }
 .bgimage{
-    flex-basis: 50%;
+    position:absolute;
+    width: 50%;
+    right: 0;
 }
 
-.text{
-    flex-basis: 40%;
-
-    padding: 50px 10%;
-}
 .text h4{
-    font-size: calc(12px + 1.5vw);
+    font-size: 2rem;
     font-weight: 600;
     font-family: Inter;
     /* text-align: center; */

@@ -3,3 +3,6 @@
 /* #13395B */
 /* hover color #A1B0BD */
 /* other bg #EFEFEF */
+.app{
+    position: relative;
+}
