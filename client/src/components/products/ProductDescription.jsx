@@ -45,9 +45,9 @@ function ProductDescription() {
       });
     }
     subs && getItem();
-    return(()=>{
+    return()=>{
       subs = false;
-    })
+    }
   },[])
 const[isAddedToCart,setIsAddedToCart] = useState(false);
 const {cartDispatch,cartItems,addedItems} = useContext(CartContext);

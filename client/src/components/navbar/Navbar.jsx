@@ -64,9 +64,7 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <div
-    //  style={{paddingBottom:"50px"}}
-     >
+    <>
       <div className="navbar" style={!isNavbarVisible?{top:"-100%"}:
       specialNavStyle?{background:"transparent"}:{opacity:"99%",backgroundColor: "white"}}>
         <div
@@ -121,7 +119,7 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-    </ div>
+    </>
   );
 }
 const divStyles = {

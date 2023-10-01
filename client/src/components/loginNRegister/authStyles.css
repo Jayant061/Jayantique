@@ -1,6 +1,8 @@
 .auth{
     width: 100%;
-    height: calc(100vh - 56px);
+    min-height: calc(100vh);
+    height: 100%;
+    padding-top: 60px;
     background-color: #f1f1f1ec;
     display: flex;
     justify-content: center;
