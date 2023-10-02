@@ -8,6 +8,7 @@ import orderIcon from "../../assets/order.svg";
 import logoutIcon from "../../assets/logout.svg";
 import femaleIcon from "../../assets/female.svg";
 import moreIcon from "../../assets/moreV.svg";
+import addressBook from "../../assets/notebook.svg";
 import { logOut, refPane } from '../../../credentials.js';
 
 
@@ -63,21 +64,21 @@ function UserSidebar({setPane}) {
             style={activePane === "Account Settings"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
             onClick={()=>{setActivePane("Account Settings")}}>
             <img src={userIcon} alt="" />
-            <h4>Account Settings</h4>
+            <h4>Account</h4>
             </div>
 
             <div className="addresses-el" 
             style={activePane === "Addresses"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
             onClick={()=>{setActivePane("Addresses")}}>
-            <img src={userIcon} alt="" />
-            <h4>Manage Adresses</h4>
+            <img src={addressBook} alt="" />
+            <h4>Adresses</h4>
             </div>
 
             <div className="order"
             style={activePane === "Orders"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
             onClick={()=>{setActivePane("Orders")}}>
                 <img src={orderIcon} alt="" />
-            <h4>My Orders</h4>
+            <h4>Orders</h4>
             </div>
 
             <div className='payment'

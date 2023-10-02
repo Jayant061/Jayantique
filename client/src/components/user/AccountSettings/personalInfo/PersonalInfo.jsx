@@ -69,11 +69,11 @@ function AccountSettings() {
           <div className="username personalInfoChild">
             <span>Name :</span>
           <input type="text" name = "name" value={formData?.name} readOnly = {isReadOnly} 
-          onChange={handleChange} style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}/>
+          onChange={handleChange} style={isReadOnly?{cursor:"no-drop", }:{}}/>
           </div>
           <div className="gender personalInfoChild">
             <span>Gender : </span>
-            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}>
+            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:"no-drop", }:{}}>
               <div className="radioInput">
                 <input type="radio" id="male" name="gender" value="Male"
                  checked={formData.gender === "Male"}
@@ -95,17 +95,17 @@ function AccountSettings() {
           <div className="email personalInfoChild">
           <span>Email :</span>
             <input type="email" name="email" id="" value={formData?.email} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop",  }:{}}/>
           </div>
           <div className="phone personalInfoChild">
           <span>Phone :</span>
             <input type="number" name="phone" value={formData?.phone} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop",  }:{}}/>
           </div>
           <div className="buttons">
+            {!isReadOnly && <button onClick={handleSubmit}>Save Changes</button>}
             {isReadOnly ? <button onClick={()=>{setReadOnly(false)}}>Edit</button>
             :<button onClick={handleCancel} >Cancel</button>}
-            {!isReadOnly && <button onClick={handleSubmit}>Save</button>}
           </div>
           {error && <span style={{color:"red",textAlign:"center"}}>{error}</span>}
         </div>

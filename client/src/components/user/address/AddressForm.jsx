@@ -55,7 +55,7 @@ function AddressForm({newAddress,handleChange,handleSubmit,error,setIsAddingNewA
               />
             </div>
           </div>
-          <div className="addressFormInput">
+          <div className="addressFormInput" id='addressSub'>
             <label htmlFor="address">Address (Area & Street)*:</label>
             <textarea
               name="address"
@@ -160,7 +160,7 @@ function AddressForm({newAddress,handleChange,handleSubmit,error,setIsAddingNewA
             </div>
           </div>
           <span style={{ color: "red" }}>{error}</span>
-          <div className="addressFormInputs">
+          <div className="addressFormInputs addressButtons">
             <button type="submit">Save</button>
             <button type="reset" onClick={() => {setIsAddingNewAddress(false);}}>Cancel</button>
           </div>

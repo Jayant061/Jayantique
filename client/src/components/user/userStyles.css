@@ -4,6 +4,7 @@
     align-items: start;
     gap: 20px;
     padding: 20px;
+    padding-top: 90px;
     flex-wrap: wrap;
     /* background-color: #f1f1f1; */
     background:radial-gradient(#ffffd6 0%, lightgray 100%);
@@ -84,7 +85,7 @@
 }
 .userContent{
     width: calc(70% - 20px);
-    min-width: 449px;
+    /* min-width: 449px; */
     background-color: #fff;
     box-shadow: -5px 2px 5px  lightgray;
     padding: 20px 0;
@@ -94,7 +95,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     padding: 20px 30px;
 }
 .accountSettings h2,.address h2{
@@ -103,11 +104,12 @@
     text-align: center;
 }
 .personalInfo .personalInfoChild{
-    width: 330px;
+    /* width: 330px; */
     display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding: 15px 0;
+    flex-direction: column;
+    gap: 10px;
+    /* justify-content:space-between; */
+    /* align-items: center; */
 }
 .personalInfo .personalInfoChild .inputsPartition{
     display: flex;
@@ -115,7 +117,7 @@
     align-items: center;
     gap: 40px;
     padding: 10px;
-    background-color: rgba(211, 211, 211,0.4);
+    /* background-color: rgba(211, 211, 211,0.4); */
 }
 .personalInfo .personalInfoChild .inputsPartition .radioInput{
     display: flex;
@@ -127,29 +129,29 @@
     font-size: calc(8px + 1vw);
     font-weight: 500;
 }
-.personalInfo .personalInfoChild input{
+.personalInfo .personalInfoChild input,.personalInfo .personalInfoChild .inputsPartition{
 font-size: calc(8px + 0.8vw);
 padding: 10px;
-background-color: rgba(211, 211, 211,0.4);
-border: none;
+/* background-color: rgba(211, 211, 211,0.4); */
+border: 1px solid #13395B;
 outline: none;
 color: #13395B;
 }
 .personalInfo .buttons{
-    width: 330px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    flex-direction: column;
+    gap: 30px;
 }
 .personalInfo .buttons button, .addressFormInputs button{
     padding: 5px 15px;
-    font-size: calc(8px + 1vw);
+    /* font-size: calc(8px + 1vw); */
+    font-size: 1.25rem;
     cursor: pointer;
-    border: 2px solid #13395B;
+    border: 1px solid #13395B;
     color: white;
     background-color: #13395B;
-    border-radius: 10px;
     transition: 0.3s;
 }
 .personalInfo .buttons button:hover, .addressFormInputs button:hover{
@@ -171,6 +173,7 @@ color: #13395B;
     height: 24px;
 }
 .address .addressForm{
+    width: calc(100% - 40px);
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -179,12 +182,13 @@ color: #13395B;
     padding: 20px;
     background-color: rgb(250, 250, 250);
 }
-.addressForm .addressFormInputs{
-    flex-basis: calc(100% - 40px);
+.addressForm .addressFormInputs, .addressForm #addressSub{
+    /* flex-basis: calc(100% - 40px); */
+    width: 100%;
     display: flex;
     justify-content: start;
-    gap: 20px;
-    align-items: center;
+    gap: 10px;
+    align-items: start;
 }
 .addressFormInput{
     flex-basis: calc(50% - 10px);
@@ -211,14 +215,13 @@ color: #13395B;
     padding: 10px;
 }
 .addressFormInput input, .addressFormInput textarea, .addressFormInput select{
-    width: calc(100% - 10px);
+    width: calc(100% - 20px);
     font-size: calc(8px + 1vw);
     padding: 10px;
-    border: none;
+    border: 1px solid #13395B;
     outline: none;
     resize: none;
     color: #13395B;
-    max-width: 100%;
 } 
 .addresses{
     display: flex;
@@ -227,7 +230,7 @@ color: #13395B;
     align-items: start;
     gap: 30px;
 }
-.homeAdresses,.workAddresses{
+.homeAdresses,.workAddresses,.newAddressForm{
     flex-basis: 95%;
     display: flex;
     flex-direction: column;
@@ -271,8 +274,12 @@ color: #13395B;
 
 
 @media screen and (max-width:709px) {
+    .user{
+        padding: 10px;
+        padding-top: 80px;
+    }
     .userSidebar{
-        width:calc(70% - 20px);
+        width:100%;
         min-width: 90vw;
         position: relative;
         box-shadow: none;
@@ -288,7 +295,19 @@ color: #13395B;
         display: none;
     }
     .userContent{
-        min-width: 90vw;
+        width: 100%;
+    }.personalInfo{
+        padding: 20px 0;
+    }
+     .personalInfo .personalInfoChild{
+        width: 100%;
+    } 
+    /* .personalInfoChild input{
+        flex-basis: 70%;
+    }  */
+    .address{
+        padding: 20px 0;
+
     }
     .address .addressForm{
         width: calc(100% - 40px);
@@ -299,6 +318,7 @@ color: #13395B;
 @media screen and (max-width:550px) {
     .user{
         padding: 10px;
+        padding-top: 80px;
     }
     .userSidebar,.userContent{
         width: 100%;
@@ -309,14 +329,14 @@ color: #13395B;
     .personalInfo{
         padding: 20px;
     }
-    .personalInfo .personalInfoChild,.personalInfo .buttons {
+    /* .personalInfo .personalInfoChild,.personalInfo .buttons {
         width: 90%;
         display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: start;
         padding: 15px 0;
-    }
+    } */
     .address{
         padding: 20px 0;
     }
