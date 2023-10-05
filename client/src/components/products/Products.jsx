@@ -17,9 +17,16 @@ function Products() {
   const [error,setError] = useState("");
 useEffect(()=>{
 document.title = "Jayantique | All products"
+const queryParams = new URLSearchParams(window.location.search);
+    const query = queryParams.get('query');
+    setQuery(query);
 },[]);
 useEffect(()=>{
-  const getProductItems = async ()=>{
+  const productsRequest = async()=>{
+    const newURL= window.location.origin + window.location.pathname + `?query=${query}`;
+    if(query){
+      window.history.pushState(newURL,"",newURL);
+    }
     try {
       const result = await axios.get(`${baseURL}/products?query=${query}`);
       setLoading(false);
@@ -33,15 +40,19 @@ useEffect(()=>{
       setLoading(false);
     }
   }
-  if(!query?.length || query.length>2){
+  const timeOut = setTimeout(()=>{
     setLoading(true);
-    getProductItems();
+    productsRequest();
+  },1000);
+  return()=>{
+    clearTimeout(timeOut);
+    setLoading(false);
   }
 },[query])
   const items = state.products?.map((product, index) => {
 
     return (
-      <Suspense fallback = {<div>loading...</div>} key={index}><Product product = {product} key={index}/></Suspense>
+      <Suspense fallback = {<div><img src={loadingLoop} alt="" /></div>} key={index}><Product product = {product} key={index}/></Suspense>
     );
   });
   
@@ -60,14 +71,6 @@ useEffect(()=>{
       <div className="items">
         {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
-        {(items?.length === 0 && loading === false && !error)&& <div className="notFound">
-          <span>We apologize, but we couldn't locate 
-        the exact product you were searching for. Our inventory is constantly being 
-        updated, so we recommend checking back later or exploring our new 
-        or trending products.</span>
-        <img src={sadIcon} alt="" />
-        
-        </div>}
         </div>
     </div>
   );
