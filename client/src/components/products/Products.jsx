@@ -18,13 +18,17 @@ function Products() {
 useEffect(()=>{
 document.title = "Jayantique | All products"
 const queryParams = new URLSearchParams(window.location.search);
-    const query = queryParams.get('query');
-    setQuery(query);
+    const q = queryParams.get('query');
+    q && setQuery(q);
 },[]);
 useEffect(()=>{
   const productsRequest = async()=>{
     const newURL= window.location.origin + window.location.pathname + `?query=${query}`;
     if(query){
+      window.history.pushState(newURL,"",newURL);
+    }
+    else{
+      const newURL= window.location.origin + window.location.pathname;
       window.history.pushState(newURL,"",newURL);
     }
     try {
