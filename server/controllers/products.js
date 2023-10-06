@@ -5,7 +5,6 @@ const getProducts = async (req, res) => {
   let skipEl = req.query.page?(req.query.page - 1):0;
   const isTrendingProduct = req.query.trendingProduct;
   const itemId = req.query.itemId;
-  console.log(skipEl);
   if(isTrendingProduct){
     try {
       const resp = await Product.find({
