@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./home.css";
 import LazyImage from '../lazyImage/LazyImage';
 import loader from "../../assets/loading.svg";
-import { baseURL, trendingItemsId} from '../../../credentials.js';
+import { baseURL } from '../../../credentials.js';
 import { useNavigate } from 'react-router-dom';
 
 function Trending() {
@@ -14,7 +14,7 @@ function Trending() {
   useEffect(()=>{
     const getTrendingProducts = async()=>{
       try {  
-        const res = await axios.get(`${baseURL}/products?trendingProduct=true&id1:${trendingItemsId[0]}&id2:${trendingItemsId[1]}&id3:${trendingItemsId[2]}`);
+        const res = await axios.get(`${baseURL}/products?trendingProduct=true`);
         setTrendingProduct(res.data);
         setLoading(false);
       } catch (error) {
