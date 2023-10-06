@@ -1,0 +1,17 @@
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pageButton{
+    background-color: #13395b;
+    width: 25px;
+}
+.pageButton img{
+    width: 60%;
+    margin: auto;
+}
+.pagination input{
+    width: 50px;
+    height: 100%;
+}

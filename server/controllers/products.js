@@ -1,13 +1,17 @@
 import Product from "../models/Product.js";
 
 const getProducts = async (req, res) => {
+  const limitEl = 20;
+  let skipEl = req.query.page?(req.query.page - 1):0;
   const isTrendingProduct = req.query.trendingProduct;
   const itemId = req.query.itemId;
+  console.log(skipEl);
   if(isTrendingProduct){
     try {
-      const resp = (await Product.find({category:{ "$regex": "decoration", "$options": "i" }}))
-      .splice(1,3);
-      res.json(resp);
+      const resp = await Product.find({
+        image:{ $regex: "jpg", $options: 'i' }
+      }).skip(47).limit(4);
+      res.send(resp);
       
     } catch (error) {
       res.json(error);
@@ -17,9 +21,8 @@ const getProducts = async (req, res) => {
   }
   else if(itemId){
     try {
-      
       const resp = await Product.findOne({_id: itemId});
-      const finalRes = await Product.find({category: resp.category});
+      const finalRes = await Product.find({category: resp.category}).skip(limitEl*skipEl).limit(limitEl);
       res.json(finalRes);
 
     } catch (error) {
@@ -29,9 +32,13 @@ const getProducts = async (req, res) => {
   }
   else{
     try {
-      const resp = (await Product.find(
-        {title:{ "$regex": req.query.query, "$options": "i" }} 
-        ));
+      const resp = await Product.find({
+        $or: [
+          { title: { $regex: req.query.query, $options: 'i' } },
+          { category: { $regex: req.query.query, $options: 'i' } },
+        ],
+      }).skip(skipEl*limitEl).limit(limitEl);
+      
       res.json(resp);
       
     } catch (error) {

@@ -65,8 +65,10 @@ export default function Navbar() {
   }, []);
   return (
     <>
-      <div className="navbar" style={!isNavbarVisible?{top:"-100%"}:
-      specialNavStyle?{background:"transparent"}:{opacity:"99%",backgroundColor: "white"}}>
+      <div className="navbar" 
+      style={!isNavbarVisible?{top:"-100%"}:
+      specialNavStyle?{background:"transparent"}:{backgroundColor: "white"}}
+      >
         <div
           className="logo"
           onClick={() => {
