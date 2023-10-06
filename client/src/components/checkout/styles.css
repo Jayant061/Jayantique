@@ -1,6 +1,6 @@
 .paymentDetails{
-    padding: 50px;
-    width: calc(100% - 100px);
+    padding: 80px;
+    width: calc(100% - 160px);
     display: flex;
     flex-direction: column;
     gap: 30px;

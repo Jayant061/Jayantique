@@ -13,6 +13,7 @@ function Cancel() {
     }
   }, []);
   const divStyle = {
+    paddingTop:"80px",
     height:"100vh",
     overflow:"auto",
     marginTop:"50px",

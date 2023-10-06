@@ -1,15 +1,17 @@
-import React,{ useEffect, useState} from 'react';
+import React,{ useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import "./home.css";
 import LazyImage from '../lazyImage/LazyImage';
 import loader from "../../assets/loading.svg";
-import { baseURL } from '../../../credentials.js';
+import { addCartItemsId, addToCart, baseURL } from '../../../credentials.js';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 function Trending() {
   const [trendingProduct,setTrendingProduct] = useState([]);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
+  const {cartDispatch} = useContext(CartContext);
   const navigate = useNavigate();
   useEffect(()=>{
     const getTrendingProducts = async()=>{
@@ -23,13 +25,24 @@ function Trending() {
     }
     getTrendingProducts();
   },[]);
+  function handleBuyNow(item){
+      cartDispatch({
+        type:addToCart,
+        payload:item
+      });
+      cartDispatch({
+        type: addCartItemsId,
+        payload:item?._id
+      });
+      navigate("/addToCart")
+  }
   const trendingItems =trendingProduct[0] && trendingProduct?.map(item=>{
    return (
     <div className="trendingProduct" key={item.id}>
     <div className="texts">
     <h4 onClick={()=>{navigate(`/product/${item._id}`)}}>{item.title}</h4>
     <p>{item.description}</p>
-    <button className='priceBtn' onClick={()=>{console.log("second")}}
+    <button className='priceBtn' onClick={()=>{handleBuyNow(item)}}
     > Buy Now @ ₹ {parseFloat(item.price*80).toFixed(2)}</button>
     </div>
     <div className="trPrImg">

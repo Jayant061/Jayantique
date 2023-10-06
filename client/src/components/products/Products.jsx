@@ -90,8 +90,7 @@ useEffect(()=>{
         {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>
-        {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:
-        <Pagination setPage = {setPage} itemNumber = {state.products.length}/>}
+        <Pagination setPage = {setPage} itemNumber = {state.products.length}/>
     </div>
   );
 }
