@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./home.css";
 import LazyImage from '../lazyImage/LazyImage';
 import loader from "../../assets/loading.svg";
+// import loader from "../../assets/loading-loop.svg";
 import { addCartItemsId, addToCart, baseURL } from '../../../credentials.js';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
@@ -21,6 +22,7 @@ function Trending() {
         setLoading(false);
       } catch (error) {
         setError(error.message);
+        setLoading(false);
       }
     }
     getTrendingProducts();
@@ -55,8 +57,8 @@ function Trending() {
   return (
     <div className='trending'>
       <span>Trending Now</span>
-      <div className="trendingProducts">
-      {loading && !error ? <img src={loader} style={{width:"120px"}} alt="three dots loading"/>: trendingItems}
+      <div className="trendingProducts" style={loading?{justifyContent:"center"}:{justifyContent:"space-between"}}>
+      {loading ?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>: trendingItems}
       {error && <p style={{color:'red'}}>{error}</p>}
       </div>
     </div>

@@ -2,6 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+}
+.pageInput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 .pageButton{
     background-color: #13395b;
@@ -14,4 +21,5 @@
 .pagination input{
     width: 50px;
     height: 100%;
+    outline: none;
 }

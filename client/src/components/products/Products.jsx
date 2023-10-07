@@ -79,18 +79,18 @@ useEffect(()=>{
       <div className="productsHeading">
         <h2>All Products</h2>
       </div>
-      <div className="searchBar">
+      <div className="searchBar" ref={productRef}>
         <div className="input">
           <img src={searchIcon} alt="" />
           <input type="text" name="query" id="" placeholder="Search products by name"
           onChange={(e)=>{setQuery(e.target.value);setPage(1)}}/>
         </div>
       </div>
-      <div className="items" ref={productRef}>
+      <div className="items">
         {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>
-        <Pagination setPage = {setPage} itemNumber = {state.products.length}/>
+        {state?.products?.length? <Pagination setPage = {setPage} itemNumber = {state.products.length} isLoading={loading}/>:<></>}
     </div>
   );
 }
