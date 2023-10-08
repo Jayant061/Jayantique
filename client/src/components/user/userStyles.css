@@ -242,8 +242,8 @@ color: #13395B;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: calc(100% - 40px);
     border: 2px solid #13395b81;
+    width: calc(100% - 44px);
     border-radius: 10px;
 }
 .addressChild .addressType{

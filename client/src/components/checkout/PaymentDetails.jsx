@@ -8,6 +8,7 @@ import "./styles.css";
 import getAddress from "./getAddress";
 import deliveryChargeAndTime from "./DeliveryChargeTime";
 import loadingIcon from "../../assets/loading-loop.svg"
+import checkoutImg from "../../assets/checkoutImg.png";
 function PaymentDetails() {
   const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
@@ -57,6 +58,9 @@ function PaymentDetails() {
     getAddress(currentUser.address.work, setDeliveryAddress, "work");
 
   return (
+    <div className="checkoutPage">
+
+      <img src={checkoutImg} alt="image" className="checkoutImg" />
     <form className="paymentDetails" onSubmit={(deliveryAddress.pincode && cartItems.length)
     ? handleClick:(e)=>{e.preventDefault()}}>
       <div className="deliveryAddresses">
@@ -87,7 +91,7 @@ function PaymentDetails() {
         {deliveryStat.deliveryTime && (
           <span>
             {deliveryStat.DC
-              ? `Please note that a delivery charge of ${deliveryStat.DC} will apply to your order.`
+              ? `Delivery charge of ${deliveryStat.DC} will apply to your order.`
               : "Free delivery is available to your order"}
           </span>
         )}
@@ -96,6 +100,7 @@ function PaymentDetails() {
         {loading? <img src={loadingIcon}/>:"Pay"}
       </button>}
     </form>
+    </div>
   );
 }
 
