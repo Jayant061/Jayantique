@@ -19,8 +19,19 @@ function Home() {
     document.title = "Jayantique | Home";
     paymentSuccess && navigate("/payment/success");
     paymentCancel && navigate("/payment/cancel");
-    transactionError && navigate("/payment/error"); 
+    transactionError && navigate("/payment/error");
   }, []);
+  function setProductReq(){
+    if(state.products.length !==0){
+      if(state.products[0].category.includes("watch")){
+        sessionStorage.setItem("isProductReq","false");
+      }else{
+        sessionStorage.setItem("isProductReq","true");
+      }
+    }else{
+      sessionStorage.setItem("isProductReq","true");
+    }
+  }
   return (
     <div className="home">
       <div className="homeHeader">
@@ -35,18 +46,20 @@ function Home() {
             your favorite items from the comfort of your home
           </p>
           <button
-          onClick={()=>{navigate("/products?query=watch")}}>
+          onClick={()=>{
+            setProductReq();
+            navigate("/products?query=watch")}}>
             Shop Now &#10132;
           </button>
         </div>
         <LazyImage src = {`homepage.png`} alt={`background image`} id={`bgimg`}/>
       </div>
-      {state.products && (
+      {/* {state.products && ( */}
         
           <Suspense fallback={<div>loading...</div>}>
           <Trending />
         </Suspense>
-      )}
+      {/* )} */}
       <Suspense fallback={<div>loading...</div>}>
         <Testimonial />
       </Suspense>

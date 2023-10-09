@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from 'react'
 import { ProductContext } from '../../context/ProductsContext'
 import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Product from './Product';
+// import Product from './Product';
+const Product = lazy(()=>import("./Product"));
+
 import { CartContext } from '../../context/CartContext';
 import { addToCart, addCartItemsId, baseURL, getProducts } from '../../../credentials.js';
 import star from "../../assets/star.svg";
 import hollowStar from "../../assets/starHollow.svg";
 import halfStar from "../../assets/starHalf.svg";
+import loader from "../../assets/loading.svg";
 import "./product.css";
 
 function ProductDescription() {
@@ -15,9 +18,9 @@ function ProductDescription() {
   const navigate = useNavigate();
   const {state,dispatch} = useContext(ProductContext);
   const {params} = useParams();
-  const item = state.products?.find(product=>product._id === params);
+  const [item,setItem] = useState({});
   let stars = [1,2,3,4,5];
-    const rate =item?.rating.rate;
+    const rate =item?.rating?.rate;
     stars = stars.map((i)=>{
         if(i<=rate){
         return(<img src={star} alt='' key={i}/>)
@@ -29,8 +32,6 @@ function ProductDescription() {
          return(<img src={hollowStar} alt=''  key={i}/>)
         }
   })
-  let similarProducts = state.products.filter(product =>product.category === item?.category && product._id !== item._id);
-    similarProducts = similarProducts?.map(product=>{return(<Product product = {product} key={product._id}/>)})
   useEffect(()=>{
     document.title = item?.title
     ref.current?.scrollIntoView({behavior:"smooth"});
@@ -39,8 +40,9 @@ function ProductDescription() {
     let subs = true;
     const getItem = async()=>{
       const res = await axios.get(`${baseURL}/products?itemId=${params}`);
+      setItem(res.data.find(i=>{if(i._id === params)return i}))
       dispatch({
-        type:getProducts,
+        type:"similarProducts",
         payload:res.data
       });
     }
@@ -48,7 +50,7 @@ function ProductDescription() {
     return()=>{
       subs = false;
     }
-  },[])
+  },[]);
 const[isAddedToCart,setIsAddedToCart] = useState(false);
 const {cartDispatch,cartItems,addedItems} = useContext(CartContext);
 function handleAddToCart(){
@@ -74,9 +76,16 @@ function handleAddToCart(){
     !isAddedToCart && handleAddToCart();
     navigate("/addToCart");
   }
+  let similarProductItems = state?.similarProducts?.filter(product =>product._id !== item._id);
+    similarProductItems = similarProductItems?.map((product,index)=>{return(
+    <Suspense fallback = {<div>Loadinng...</div>} key={index}><Product product = {product} key={product._id}/></Suspense>
+
+    )})
 
  return (
    <div className='productDescription'>
+    {item?._id?
+    <>
     <div className="descriptionWrapper" ref={ref}>
       <div className="descriptionLeft">
           <img src={item?.image} alt="" className='productImg' />
@@ -86,27 +95,33 @@ function handleAddToCart(){
           <h2>{item?.title}</h2>
           <h4>₹ {(parseFloat(item?.price)*80).toFixed(2)}</h4>
         </div>
-        <div className="rating">
-          <div className="rate">{stars}</div>
-          <span className="ratingCount">({item?.rating.count}) reviews</span>
+        <div className="item-category">
+          <span>{item?.category}</span>
         </div>
-        <span className='itemDescription'>{item?.description}</span>
+        
 
-        <span className='itemCategory'>{item?.category}</span>
       <div className="buttons">
         {isAddedToCart?
         <span style={{backgroundColor:"#13395B",color:"white"}} onClick={()=>{navigate("/addToCart")}}>Go to cart</span>
         :
         <span onClick={handleAddToCart} >Add to cart</span>
-        }
+      }
         <span onClick={handleBuyNow}>Buy Now</span>
       </div>
+      <span className='itemDescription'>{item?.description}</span>
+      <div className="rating">
+          <div className="rate">{stars}</div>
+          <span className="ratingCount">({item?.rating.count}) reviews</span>
+        </div>
       </div>
       </div>
-        <h4 className='similarProductsHeading'>Similar Products</h4>
+      <div className='similarProductsHeading'>
+      <h4>Similar Products</h4>
+      </div>
       <div className="similarProducts">
-        {similarProducts && similarProducts}
+        {similarProductItems && similarProductItems}
       </div>
+    </>:<img src={loader} alt = "loading icon"/>}
     </div>
   )
 }

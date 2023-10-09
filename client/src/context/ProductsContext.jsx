@@ -8,6 +8,7 @@ export const ProductContextProvider = ({children})=>{
     
     const INITIAL_STATE= {
         products:[],
+        similarProducts:[]
     }
 
     // reducer
@@ -18,7 +19,12 @@ export const ProductContextProvider = ({children})=>{
                 return {
                    ...state,
                    products:action.payload
-                };   
+                };
+            case "similarProducts":
+                return{
+                    ...state,
+                    similarProducts:action.payload
+                }   
             default:
                return state
         }

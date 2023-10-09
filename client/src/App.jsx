@@ -44,6 +44,7 @@ function App() {
   return(<Navigate to={"/login"} state={{from: location}} replace/>)
   }
   useEffect(() => {
+    sessionStorage.setItem("isProductReq","true");
     let subs = true;
     const getData = async () => {
       if(accessToken){

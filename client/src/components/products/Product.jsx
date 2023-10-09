@@ -31,8 +31,10 @@ if(addedItems?.has(product._id)){
     <div className="product" >
       {/* <img src={product.image} alt="" onClick={handleClick}/> */}
       <LazyImage id = {product._id} src={product.image} alt={product.title} handleClick ={handleClick}/>
-      <p>₹ {(parseFloat(product.price)*80).toFixed(2)}</p>
+      <div className="itemContent">
       <h4 className="productName">{product.title}</h4>
+      <p>₹ {(parseFloat(product.price)*80).toFixed(2)}</p>
+      </div>
 {     isAddedToCart? 
   <span className="addToCart">Added to cart</span>
 :

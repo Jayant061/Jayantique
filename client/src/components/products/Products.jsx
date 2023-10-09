@@ -20,9 +20,10 @@ function Products() {
 useEffect(()=>{
 document.title = "Jayantique | All products"
 const queryParams = new URLSearchParams(window.location.search);
-    const q = queryParams.get('query');
-    q && setQuery(q);
-    q && setPage(1);
+    const q = queryParams.get("query");
+    q && setQuery(q) & setPage(1);
+    const p = queryParams.get("page");
+    p && setPage(parseInt(p));
 },[]);
 useEffect(()=>{
   const productsRequest = async()=>{
@@ -47,15 +48,16 @@ useEffect(()=>{
         type: getProducts,
         payload: result.data,
       });
+      sessionStorage.setItem("isProductReq","false");
       
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   }
-  const timeOut = setTimeout(()=>{
-    setLoading(true);
+  const timeOut = sessionStorage.getItem("isProductReq")==="true" && setTimeout(()=>{
     productsRequest();
+    setLoading(true);
   },1000);
   return()=>{
     clearTimeout(timeOut);
@@ -67,7 +69,7 @@ useEffect(()=>{
   productRef.current?.scrollIntoView({behavior:"smooth"});
 },[state])
 
-  const items = state.products?.map((product, index) => {
+  const items = state?.products?.map((product, index) => {
 
     return (
       <Suspense fallback = {<div><img src={loadingLoop} alt="" /></div>} key={index}><Product product = {product} key={index}/></Suspense>
@@ -75,22 +77,22 @@ useEffect(()=>{
   });
   
   return (
-    <div className="products">
+    <div className="products" ref={productRef}>
       <div className="productsHeading">
         <h2>All Products</h2>
       </div>
-      <div className="searchBar" ref={productRef}>
+      <div className="searchBar">
         <div className="input">
           <img src={searchIcon} alt="" />
           <input type="text" name="query" id="" placeholder="Search products by name"
-          onChange={(e)=>{setQuery(e.target.value);setPage(1)}}/>
+          onChange={(e)=>{setQuery(e.target.value);setPage(1);sessionStorage.setItem("isProductReq","true")}}/>
         </div>
       </div>
       <div className="items">
-        {loading?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>:items}
+        {loading?<img src={loader} style={{width:"30%",margin:"0 35%"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>
-        {state?.products?.length? <Pagination setPage = {setPage} itemNumber = {state.products.length} isLoading={loading}/>:<></>}
+        {state?.products?.length && !loading? <Pagination setPage = {setPage} itemNumber = {state.products.length} isLoading={loading}/>:<></>}
     </div>
   );
 }
