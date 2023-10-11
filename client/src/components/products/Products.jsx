@@ -24,8 +24,15 @@ const queryParams = new URLSearchParams(window.location.search);
     q && setQuery(q) & setPage(1);
     const p = queryParams.get("page");
     p && setPage(parseInt(p));
+    if(!state?.products.length){
+      if(q && (state?.products[0]?.title.includes(q) || state?.products[0]?.category.includes(q))){
+      }
+    }
 },[]);
 useEffect(()=>{
+  if(sessionStorage.getItem("isProductReq") === "false"){
+    setLoading(false);
+  }
   const productsRequest = async()=>{
     let newURL= window.location.origin + window.location.pathname;
     if(query && page){
@@ -56,8 +63,8 @@ useEffect(()=>{
     }
   }
   const timeOut = sessionStorage.getItem("isProductReq")==="true" && setTimeout(()=>{
-    productsRequest();
     setLoading(true);
+    productsRequest();
   },1000);
   return()=>{
     clearTimeout(timeOut);
@@ -89,7 +96,7 @@ useEffect(()=>{
         </div>
       </div>
       <div className="items">
-        {loading?<img src={loader} style={{width:"30%",margin:"0 35%"}} alt="three dots loading"/>:items}
+        {loading?<img src={loader} style={{width:"30%"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>
         {state?.products?.length && !loading? <Pagination setPage = {setPage} itemNumber = {state.products.length} isLoading={loading}/>:<></>}

@@ -34,12 +34,12 @@ if(addedItems?.has(product._id)){
       <div className="itemContent">
       <h4 className="productName">{product.title}</h4>
       <p>₹ {(parseFloat(product.price)*80).toFixed(2)}</p>
-      </div>
 {     isAddedToCart? 
   <span className="addToCart">Added to cart</span>
 :
 <span className="addToCart"  onClick={handleAddToCart}>Add to cart</span>
 }    </div>
+      </div>
   )
 }
 

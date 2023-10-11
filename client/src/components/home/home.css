@@ -1,9 +1,9 @@
 
 .homeHeader {
-    padding:80px 30px;
+  padding:100px 30px;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10%;
   overflow: hidden;
   margin-bottom: 50px;
   background-color: #e3e3e3d8;
@@ -14,17 +14,19 @@
 }
 
 .text {
+  margin-top: auto;
   position: relative;
   width: 50%;
   z-index: 10;
   color: black;
   transition: 1s;
   color: #13395b;
+  padding-bottom: 30px;
 }
 @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(100px);
     }
     to {
       opacity: 1;
@@ -32,9 +34,9 @@
     }
   }
 .text h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 600;
-  font-family: Inter;
+  font-family: poppins;
   animation: slideIn 1s ease 0.5s forwards;
 }
 
@@ -272,7 +274,7 @@
     }
 }
 
-
+  
 @media screen and (max-width: 760px) {
   .homeHeader {
     display: flex;
@@ -281,7 +283,11 @@
   }
   .homeHeader .text {
     padding-bottom: 30px;
+    width: 100%;
+  }
+  .homeHeader img{
     width: 80%;
+    max-width: 80%;
   }
   .text p {
     font-size: 1rem;
@@ -328,9 +334,6 @@
   }
 }
 @media screen and (max-width: 480px) {
-    .homeHeader .text{
-        width: 100%;
-    }
     .text h1{
         font-size: 1.75rem;
     }

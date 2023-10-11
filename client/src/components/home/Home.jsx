@@ -22,7 +22,7 @@ function Home() {
     transactionError && navigate("/payment/error");
   }, []);
   function setProductReq(){
-    if(state.products.length !==0){
+    if(state?.products?.length !==0){
       if(state.products[0].category.includes("watch")){
         sessionStorage.setItem("isProductReq","false");
       }else{
@@ -52,7 +52,7 @@ function Home() {
             Shop Now &#10132;
           </button>
         </div>
-        <LazyImage src = {`homepage.png`} alt={`background image`} id={`bgimg`}/>
+        <LazyImage src = {`homepage2.png`} alt={`background image`} id={`bgimg`}/>
       </div>
       {/* {state.products && ( */}
         

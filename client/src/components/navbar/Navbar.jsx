@@ -5,6 +5,7 @@ import cartIcon from "../../assets/cart2.svg";
 import moreIcon from "../../assets/more.svg";
 import "./navbar.css";
 import { CartContext } from "../../context/CartContext";
+import { ProductContext } from "../../context/ProductsContext";
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -13,6 +14,7 @@ export default function Navbar() {
   const [isSeeMore, setSeeMore] = useState(false);
   const { quantity } = useContext(CartContext);
   const [firstElStyle, setFirstElStyle] = useState({});
+  const {state} = useContext(ProductContext);
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
@@ -34,6 +36,17 @@ export default function Navbar() {
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [specialNavStyle,setSpecialNavStyle] = useState(true);
+  function setProductReq(){
+    if(state?.products?.length !==0){
+      if(state.products[0].category.includes("watch")){
+        sessionStorage.setItem("isProductReq","true");
+      }else{
+        sessionStorage.setItem("isProductReq","false");
+      }
+    }else{
+      sessionStorage.setItem("isProductReq","true");
+    }
+  }
   useEffect(() => {
       let prevScrollPos = window.scrollY;
       
@@ -99,8 +112,8 @@ export default function Navbar() {
           style={isSeeMore ? { height: "fit-content" } : {}}
           ref={navRef}
         >
-          <li id="firstEl" style={firstElStyle}>
-            <Link to="/products" style={{ textDecoration: "none" }}>
+          <li id="firstEl" style={firstElStyle} onClick={setProductReq}>
+            <Link to="/products?page=1" style={{ textDecoration: "none" }}>
               <p style={{ fontSize: "1.5rem" }}>Products</p>
             </Link>
           </li>
