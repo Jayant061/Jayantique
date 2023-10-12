@@ -101,9 +101,6 @@ export default function Navbar() {
               setSeeMore((prev) => {
                 return !prev;
               });
-              if (window.innerWidth <= 480) {
-                setFirstElStyle({ paddingTop: "20px" });
-              }
             }}
           />
         )}
