@@ -39,7 +39,8 @@ function PaymentDetails() {
       sessionStorage.setItem(orderedItems,JSON.stringify(cartData));
       sessionStorage.setItem(deliveryRange,JSON.stringify(deliveryStat?.deliveryTime));
       // window.open(res.data.url,"_blank");
-      window.location.href = res.data.url;
+      // window.location.href = res.data.url;
+      console.log(res.data);
     } catch (error) {
     }
   }

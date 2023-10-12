@@ -21,7 +21,8 @@ const paymentGateway = async (req, res) => {
   });
   Promise.all(lineItemsPromise)
     .then(async (lineItems) => {
-      const session = await stripe.checkout.sessions.create({
+      try {
+        const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         shipping_options:[{shipping_rate:req.body.DC}],
         mode: "payment",
@@ -31,10 +32,12 @@ const paymentGateway = async (req, res) => {
         success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
         cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
       });
-      res.send({ url: session.url });
+      res.send({ url: session.url});
+    } catch (error) {
+      res.send({url:`${process.env.CLIENT2}?transactionError=true`});
+    }
     })
     .catch((error) => {
-      console.log(error)
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     });
 };
