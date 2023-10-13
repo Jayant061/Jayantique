@@ -9,21 +9,25 @@ export default function Pagination({ setPage, itemNumber }) {
   const [loading, setLoading] = useState(false);
   const { state } = useContext(ProductContext);
   function handleClick() {
-    if (number !== 0 && !number) {
+    if (number !== 0 && number) {
       setPage(number);
     }
     else{
       setPage(1);
     }
-    setLoading(true);
-    sessionStorage.setItem("isProductReq","true");
+    if(number !== parseInt(q)){
+      setLoading(true);
+      sessionStorage.setItem("isProductReq","true");
+    }
   }
-  const query = new URLSearchParams(window.location.search);
-  const q = query.get('page')
   useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const q = query.get('page')
     setLoading(false);
-    setNumber(parseInt(q));
+    q?setNumber(parseInt(q)):setNumber(1);
   }, [state]);
+  const query = new URLSearchParams(window.location.search);
+    const q = query.get('page')
   return (
     <>
       {!(number === 1 && itemNumber < 20) ? (
@@ -33,7 +37,7 @@ export default function Pagination({ setPage, itemNumber }) {
               className="pageButton"
               onClick={() => {
                 setPage((prev) => {
-                  return prev - 1;
+                  return parseInt(prev) - 1;
                 });
                 setLoading(true);
                 sessionStorage.setItem("isProductReq","true");
@@ -45,12 +49,13 @@ export default function Pagination({ setPage, itemNumber }) {
           {!loading ? (
             <div className="pageInput">
               <input
-                type="text"
+                type="number"
                 name="page"
                 id=""
+                value={number}
                 placeholder=""
                 onChange={(e) => {
-                  setNumber(parseInt(e.target.value));
+                  setNumber(e.target.value);
                 }}
               />
               <button onClick={handleClick}>Go To Page</button>
@@ -63,7 +68,7 @@ export default function Pagination({ setPage, itemNumber }) {
               className="pageButton"
               onClick={() => {
                 setPage((prev) => {
-                  return prev + 1;
+                  return parseInt(prev) + 1;
                 });
                 setLoading(true);
                 sessionStorage.setItem("isProductReq","true");

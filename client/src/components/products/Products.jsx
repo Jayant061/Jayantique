@@ -19,7 +19,6 @@ function Products() {
   const [error,setError] = useState("");
   const productRef = useRef();
 
-  const location = useLocation();
 
   useEffect(()=>{
     document.title = "Jayantique | All products"
@@ -27,17 +26,22 @@ function Products() {
     if(!state.products.length){
       sessionStorage.setItem("isProductReq","true");
     }
-},[]);
-useEffect(()=>{
-  function handleState(){
-    const queryParams = new URLSearchParams(location.search);
+    const queryParams = new URLSearchParams(window.location.search);
     const q = queryParams.get("query");
     const p = queryParams.get("page");
-    q && setQuery(q) & setPage(1);
     p && setPage(parseInt(p));
-    if(!state.products.length){
+    q && setQuery(q);
+},[]);
+
+useEffect(()=>{
+  
+  function handleState(){
+    const queryParams = new URLSearchParams(window.location.search);
+    const q = queryParams.get("query");
+    const p = queryParams.get("page");
+    p && setPage(parseInt(p));
+    q && setQuery(q);
       sessionStorage.setItem("isProductReq","true");
-    }
   }
   window.addEventListener("popstate",handleState);
   
@@ -54,10 +58,10 @@ useEffect(()=>{
     if(query && page){
       newURL = newURL + `?query=${query}&page=${page}`;
     }
-    else if(query){
+    else if(query && !page){
       newURL = newURL + `?query=${query}`;
     }
-    else if(page){
+    else if(page && !query){
       newURL = newURL + `?page=${page}`;
     }
     else{
