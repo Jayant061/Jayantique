@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { accessToken, baseURL, deliveryRange, orderedItems } from '../../../credentials';
+import { baseURL } from '../../../credentials';
 import axios from 'axios';
-import { deliveryDate } from './DeliveryChargeTime';
 
 function Success() {
   const navigate = useNavigate();
   useEffect(()=>{
-    const items = JSON.parse(sessionStorage.getItem(orderedItems));
-    const token = localStorage.getItem(accessToken);
-    const {min,max}=JSON.parse(sessionStorage.getItem(deliveryRange))? JSON.parse(sessionStorage.getItem(deliveryRange)):{min:0,max:0};
-    const shippingDate =deliveryDate(min,max);
-    const status = "success";
     const addOrders = async()=>{
       try {
-        const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{items,token,status,deliveryDate:shippingDate});
-        sessionStorage.removeItem(orderedItems);
-        sessionStorage.removeItem(deliveryRange);
+        const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{token:localStorage.getItem("accessToken")});
+        console.log(res.data);
       } catch (error) {
       }
     }
-   items && addOrders();
+   addOrders();
   },[]);
   useEffect(() => {
     const timeout = setTimeout(()=>{

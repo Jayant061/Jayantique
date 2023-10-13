@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
-import { baseURL, deliveryRange, orderedItems, refPane } from "../../../credentials.js";
-import { Link } from "react-router-dom";
+import { baseURL, refPane } from "../../../credentials.js";
 import "./styles.css";
 import getAddress from "./getAddress";
-import deliveryChargeAndTime from "./DeliveryChargeTime";
+import deliveryChargeAndTime, { deliveryDate } from "./DeliveryChargeTime";
 import loadingIcon from "../../assets/loading-loop.svg"
 import checkoutImg from "../../assets/checkoutImg.png";
 function PaymentDetails() {
@@ -34,13 +34,11 @@ function PaymentDetails() {
         data: cartData,
         DC: deliveryStat.deliveryID,
         discount: discount,
+        user: currentUser._id,
+        DeliveryDate:deliveryDate(deliveryStat.deliveryTime.min,deliveryStat.deliveryTime.max)
       });
       setLoading(false);
-      sessionStorage.setItem(orderedItems,JSON.stringify(cartData));
-      sessionStorage.setItem(deliveryRange,JSON.stringify(deliveryStat?.deliveryTime));
-      // window.open(res.data.url,"_blank");
-      // window.location.href = res.data.url;
-      console.log(res.data);
+      window.location.href = res.data.url;
     } catch (error) {
     }
   }

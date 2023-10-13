@@ -1,6 +1,9 @@
 import Stripe from "stripe";
 import { config } from "dotenv";
 import Product from "../models/Product.js";
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+import Order from "../models/order.js";
 config();
 const stripe = Stripe(process.env.STRIPESECRETKEY);
 const paymentGateway = async (req, res) => {
@@ -32,6 +35,17 @@ const paymentGateway = async (req, res) => {
         success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
         cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
       });
+      const orders = items.map(item=>{return{product:item.itemId,quantity:item.quantity}});
+      const orderRes = await Order.find({paymentId:session.id});
+      if(!orderRes.length){
+        const order = new Order({
+          user:req.body.user,
+          orderItems:orders,
+          deliveryDate:req.body.DeliveryDate,
+          paymentId:session.id
+        });
+        await order.save();
+      }
       res.send({ url: session.url});
     } catch (error) {
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});

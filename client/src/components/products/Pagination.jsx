@@ -9,7 +9,7 @@ export default function Pagination({ setPage, itemNumber }) {
   const [loading, setLoading] = useState(false);
   const { state } = useContext(ProductContext);
   function handleClick() {
-    if (number !== 0) {
+    if (number !== 0 && !number) {
       setPage(number);
     }
     else{
@@ -18,17 +18,17 @@ export default function Pagination({ setPage, itemNumber }) {
     setLoading(true);
     sessionStorage.setItem("isProductReq","true");
   }
+  const query = new URLSearchParams(window.location.search);
+  const q = query.get('page')
   useEffect(() => {
     setLoading(false);
-    const query = new URLSearchParams(window.location.search);
-    const q = query.get('page')
     setNumber(parseInt(q));
   }, [state]);
   return (
     <>
       {!(number === 1 && itemNumber < 20) ? (
         <div className="pagination">
-          {number !== 1?
+          {parseInt(q) !== 1?
             <div
               className="pageButton"
               onClick={() => {

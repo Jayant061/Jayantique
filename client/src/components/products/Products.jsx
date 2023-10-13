@@ -6,6 +6,7 @@ import { ProductContext } from "../../context/ProductsContext";
 import loader from "../../assets/loading.svg";
 import { baseURL, getProducts } from "../../../credentials.js";
 import loadingLoop from "../../assets/loading-loop.svg";
+import { useLocation } from "react-router-dom";
 const Product = lazy(()=>import("./Product"));
 const Pagination = lazy(()=>import("./Pagination"));
 
@@ -17,17 +18,32 @@ function Products() {
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
   const productRef = useRef();
-useEffect(()=>{
-document.title = "Jayantique | All products"
-const queryParams = new URLSearchParams(window.location.search);
-    const q = queryParams.get("query");
-    q && setQuery(q) & setPage(1);
-    const p = queryParams.get("page");
-    p && setPage(parseInt(p));
-    if(!state?.products.length){
-      if(q && (state?.products[0]?.title.includes(q) || state?.products[0]?.category.includes(q))){
-      }
+
+  const location = useLocation();
+
+  useEffect(()=>{
+    document.title = "Jayantique | All products"
+
+    if(!state.products.length){
+      sessionStorage.setItem("isProductReq","true");
     }
+},[]);
+useEffect(()=>{
+  function handleState(){
+    const queryParams = new URLSearchParams(location.search);
+    const q = queryParams.get("query");
+    const p = queryParams.get("page");
+    q && setQuery(q) & setPage(1);
+    p && setPage(parseInt(p));
+    if(!state.products.length){
+      sessionStorage.setItem("isProductReq","true");
+    }
+  }
+  window.addEventListener("popstate",handleState);
+  
+  return()=>{
+    window.removeEventListener("popstate",handleState);
+  }
 },[]);
 useEffect(()=>{
   if(sessionStorage.getItem("isProductReq") === "false"){
@@ -84,18 +100,19 @@ useEffect(()=>{
   });
   
   return (
-    <div className="products" ref={productRef}>
+    <div className="products">
       <div className="productsHeading">
         <h2>All Products</h2>
       </div>
       <div className="searchBar">
         <div className="input">
           <img src={searchIcon} alt="" />
-          <input type="text" name="query" id="" placeholder="Search products by name"
+          <input type="text" name="query" id="" placeholder="Search products by name or categories"
+          value={query}
           onChange={(e)=>{setQuery(e.target.value);setPage(1);sessionStorage.setItem("isProductReq","true")}}/>
         </div>
       </div>
-      <div className="items">
+      <div className="items" ref={productRef}>
         {loading?<img src={loader} style={{width:"30%"}} alt="three dots loading"/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>

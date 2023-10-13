@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 function Error() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-    const FminTimeOut = setTimeout(() => {
-      setMessage("You will be redirected to home page in a moment");
-    }, [5000]);
-    const SminTimeOut = setTimeout(() => {
-      navigate("/");
-    }, [8000]);
-    return () => {
-      clearTimeout(FminTimeOut);
-      clearTimeout(SminTimeOut);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const FminTimeOut = setTimeout(() => {
+  //     setMessage("You will be redirected to home page in a moment");
+  //   }, [5000]);
+  //   const SminTimeOut = setTimeout(() => {
+  //     navigate("/");
+  //   }, [8000]);
+  //   return () => {
+  //     clearTimeout(FminTimeOut);
+  //     clearTimeout(SminTimeOut);
+  //   };
+  // }, []);
   const stylesText = { textAlign: "center", color: "red", maxWidth: "600px" };
   const stylesMessage = {
     textAlign: "center",

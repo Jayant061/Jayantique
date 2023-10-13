@@ -21,7 +21,7 @@ const getProducts = async (req, res) => {
   else if(itemId){
     try {
       const resp = await Product.findOne({_id: itemId});
-      const finalRes = await Product.find({category: resp.category}).skip(limitEl*skipEl).limit(limitEl);
+      const finalRes = await Product.find({category: { $regex: resp.category, $options: 'i' }}).skip(limitEl*skipEl).limit(limitEl);
       res.json(finalRes);
 
     } catch (error) {

@@ -80,7 +80,7 @@ function handleAddToCart(){
     similarProductItems = similarProductItems?.map((product,index)=>{return(
     <Suspense fallback = {<div>Loadinng...</div>} key={index}><Product product = {product} key={product._id}/></Suspense>
 
-    )})
+    )});
 
  return (
    <div className='productDescription'>
