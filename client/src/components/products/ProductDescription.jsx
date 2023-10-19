@@ -35,12 +35,13 @@ function ProductDescription() {
   useEffect(()=>{
     document.title = item?.title
     ref.current?.scrollIntoView({behavior:"smooth"});
+    // sessionStorage.setItem("isProductReq","true");
   },[item]);
   useEffect(()=>{
     let subs = true;
     const getItem = async()=>{
       const res = await axios.get(`${baseURL}/products?itemId=${params}`);
-      setItem(res.data.find(i=>{if(i._id === params)return i}))
+      setItem(res.data.find(i=>{if(i._id === params)return i}));
       dispatch({
         type:"similarProducts",
         payload:res.data
@@ -50,7 +51,7 @@ function ProductDescription() {
     return()=>{
       subs = false;
     }
-  },[]);
+  },[params]);
 const[isAddedToCart,setIsAddedToCart] = useState(false);
 const {cartDispatch,cartItems,addedItems} = useContext(CartContext);
 function handleAddToCart(){
@@ -119,7 +120,7 @@ function handleAddToCart(){
       <h4>Similar Products</h4>
       </div>
       <div className="similarProducts">
-        {similarProductItems && similarProductItems}
+        {similarProductItems.length && similarProductItems}
       </div>
     </>:<img src={loader} alt = "loading icon"/>}
     </div>
