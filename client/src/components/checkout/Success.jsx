@@ -6,15 +6,13 @@ import axios from 'axios';
 function Success() {
   const navigate = useNavigate();
   useEffect(()=>{
-    const addOrders = async()=>{
-      try {
-        const res = await axios.post(`${baseURL}/auth/orders?type=addOrders`,{token:localStorage.getItem("accessToken")});
-        console.log(res.data);
-      } catch (error) {
-      }
+    const sessionId = localStorage.getItem("sessionId");
+    const updateOrderStatus = async()=>{
+      const res = await axios.post(`${baseURL}/auth/orders`,{sessionId});
+      console.log(res.data);
     }
-   addOrders();
-  },[]);
+    updateOrderStatus();
+  },[])
   useEffect(() => {
     const timeout = setTimeout(()=>{
       navigate("/");

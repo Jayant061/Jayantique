@@ -33,13 +33,11 @@ const getProducts = async (req, res) => {
     try {
       const resp = await Product.find({
         $or: [
-          { title: { $regex: req.query.query, $options: 'i' } },
-          { category: { $regex: req.query.query, $options: 'i' } },
+          { title: { $regex: `^${req.query.query}|\\s${req.query.query}`, $options: 'i' } },
+          { category: { $regex: `^${req.query.query}|\\s${req.query.query}`, $options: 'i' } },
         ],
-      }).skip(skipEl*limitEl).limit(limitEl);
-      
-      res.json(resp);
-      
+      }).skip(skipEl*limitEl).limit(limitEl).exec();
+      res.json(resp); 
     } catch (error) {
       res.json(error);
       //do nothing

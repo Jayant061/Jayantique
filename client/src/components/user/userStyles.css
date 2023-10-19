@@ -315,7 +315,7 @@ color: #13395B;
 }
 
 
-@media screen and (max-width:550px) {
+@media screen and (max-width:600px) {
     .user{
         padding: 10px;
         padding-top: 80px;

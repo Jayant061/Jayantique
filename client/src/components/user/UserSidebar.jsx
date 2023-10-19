@@ -36,13 +36,21 @@ function UserSidebar({setPane}) {
   useEffect(()=>{
     setSeeMore(false)
   },[activePane]);
+
   useEffect(()=>{
     document.addEventListener("mousedown",(e)=>{
     if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
       setSeeMore(false);
     }
-  })
-  })
+  });
+  return()=>{
+    document.removeEventListener("mousedown",(e)=>{
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+        setSeeMore(false);
+      }
+    })
+  }
+  },[])
 
   return (
     <div className='userSidebar'>

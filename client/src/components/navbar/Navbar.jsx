@@ -35,7 +35,7 @@ export default function Navbar() {
   }, []);
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const [specialNavStyle,setSpecialNavStyle] = useState(true);
+  // const [specialNavStyle,setSpecialNavStyle] = useState(true);
   function setProductReq(){
     if(state?.products?.length !==0){
       if(state.products[0].category.includes("watch")){
@@ -53,8 +53,8 @@ export default function Navbar() {
       const handleScroll = () => {
       const currentScrollPos = window.scrollY;
 
-      if (currentScrollPos>=25){
-        setSpecialNavStyle(false);
+      if (currentScrollPos>=15){
+        // setSpecialNavStyle(false);
         // Scrolling up
         if(prevScrollPos < currentScrollPos) {
           setIsNavbarVisible(false);
@@ -63,9 +63,6 @@ export default function Navbar() {
          setIsNavbarVisible(true);
        }
        // Scrolling down
-      }
-      else{
-        setSpecialNavStyle(true);
       }
       prevScrollPos = currentScrollPos;
     };
@@ -79,8 +76,7 @@ export default function Navbar() {
   return (
     <>
       <div className="navbar" 
-      style={!isNavbarVisible?{top:"-100%"}:
-      specialNavStyle?{background:"transparent"}:{backgroundColor: "white"}}
+      style={!isNavbarVisible?{top:"-100%"}:{}}
       >
         <div
           className="logo"

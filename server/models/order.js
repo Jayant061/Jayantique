@@ -12,7 +12,8 @@ const orderSchema = new mongoose.Schema({
     ],
     orderStatus:{type:String,enum:["success","cancel","pending"],default:"pending"},
     deliveryDate:{type: Date},
-    paymentId:String
+    paymentId:String,
+    address:String
   });
 const Order = mongoose.model("OrderDetail",orderSchema);
 export default Order;

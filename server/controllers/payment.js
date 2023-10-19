@@ -42,11 +42,12 @@ const paymentGateway = async (req, res) => {
           user:req.body.user,
           orderItems:orders,
           deliveryDate:req.body.DeliveryDate,
-          paymentId:session.id
+          paymentId:session.id,
+          address:req.body.deliveryAddress
         });
         await order.save();
       }
-      res.send({ url: session.url});
+      res.send({ url: session.url,id:session.id});
     } catch (error) {
       res.send({url:`${process.env.CLIENT2}?transactionError=true`});
     }

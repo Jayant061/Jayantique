@@ -12,7 +12,7 @@ import checkoutImg from "../../assets/checkoutImg.png";
 function PaymentDetails() {
   const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
-  const [deliveryAddress, setDeliveryAddress] = useState({});
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryStat, setDeliveryStat] = useState({});
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -35,11 +35,15 @@ function PaymentDetails() {
         DC: deliveryStat.deliveryID,
         discount: discount,
         user: currentUser._id,
+        deliveryAddress:JSON.stringify(deliveryAddress),
         DeliveryDate:deliveryDate(deliveryStat.deliveryTime.min,deliveryStat.deliveryTime.max)
       });
       setLoading(false);
+      localStorage.setItem("sessionId",res.data.id);
       window.location.href = res.data.url;
+      
     } catch (error) {
+      console.log(error)
     }
   }
   useEffect(() => {
