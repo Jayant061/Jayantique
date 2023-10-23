@@ -8,8 +8,8 @@ const getProducts = async (req, res) => {
   if(isTrendingProduct){
     try {
       const resp = await Product.find({
-        image:{ $regex: "jpg", $options: 'i' }
-      }).skip(47).limit(4);
+        title:{ $regex: "lamp", $options: 'i' }
+      }).limit(4);
       res.send(resp);
       
     } catch (error) {

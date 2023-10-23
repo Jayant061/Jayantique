@@ -21,10 +21,11 @@ export default function Pagination({ setPage, itemNumber }) {
     }
   }
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const q = query.get('page')
-    setLoading(false);
-    q?setNumber(parseInt(q)):setNumber(1);
+      const query = new URLSearchParams(window.location.search);
+      const q = query.get('page')
+      setLoading(false);
+      q?setNumber(parseInt(q)):setNumber(1);
+      q?setPage(parseInt(q)):setPage(1)
   }, [state]);
   const query = new URLSearchParams(window.location.search);
     const q = query.get('page')

@@ -6,11 +6,11 @@ export const productSchema = mongoose.Schema({
     price:Number,
     description:String,
     category:String,
-    image:String,
+    images:[String],
     rating:{
         rate:Number,
         count:Number
     }
 });
-const  Product = mongoose.model("Product",productSchema);
+const  Product = mongoose.model("ActualProduct",productSchema);
 export default Product;

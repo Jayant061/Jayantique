@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import userIcon from "../../assets/user.svg";
 import cartIcon from "../../assets/cart2.svg";
 import moreIcon from "../../assets/more.svg";
+import searchIcon from "../../assets/outline-search.svg";
 import "./navbar.css";
 import { CartContext } from "../../context/CartContext";
 import { ProductContext } from "../../context/ProductsContext";
@@ -13,8 +14,9 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [isSeeMore, setSeeMore] = useState(false);
   const { quantity } = useContext(CartContext);
-  const [firstElStyle, setFirstElStyle] = useState({});
-  const {state} = useContext(ProductContext);
+  const [SearchBarvisibility, setSearchBarvisibility] = useState(false);
+  const [query,setQuery] = useState("");
+  const {state,dispatch} = useContext(ProductContext);
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
@@ -33,50 +35,62 @@ export default function Navbar() {
       });
     };
   }, []);
+  const [scrollingDown, setScrollingDown] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  // const [specialNavStyle,setSpecialNavStyle] = useState(true);
-  function setProductReq(){
-    if(state?.products?.length !==0){
-      if(state.products[0].category.includes("watch")){
-        sessionStorage.setItem("isProductReq","true");
-      }else{
-        sessionStorage.setItem("isProductReq","false");
-      }
-    }else{
-      sessionStorage.setItem("isProductReq","true");
-    }
-  }
   useEffect(() => {
-      let prevScrollPos = window.scrollY;
-      
-      const handleScroll = () => {
+    const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-
-      if (currentScrollPos>=15){
-        // setSpecialNavStyle(false);
-        // Scrolling up
-        if(prevScrollPos < currentScrollPos) {
-          setIsNavbarVisible(false);
-        } 
-        else {
-         setIsNavbarVisible(true);
-       }
-       // Scrolling down
+      if(currentScrollPos>=30){
+        setScrollingDown(currentScrollPos > prevScrollPos);
+        setPrevScrollPos(currentScrollPos);
       }
-      prevScrollPos = currentScrollPos;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [prevScrollPos]);
+
+  const navbarStyle = {
+    transform: scrollingDown ? 'translateY(-100%)' : 'translateY(0)',
+    transition: 'transform 0.3s ease-in-out',
+  };
+  useEffect(()=>{
+    if(query === state.query){
+      
+      sessionStorage.setItem("isProductReq","false");
+    }
+    else{
+      sessionStorage.setItem("isProductReq","true");
+    }
+    const timeOut = query && setTimeout(()=>{
+      (query && state.query !== query) && dispatch({
+        type:"Query",
+        payload:query
+      });
+    if(window.location.pathname !=="/products"){
+      navigate(`/products?query=${query}&page=1`);
+    }
+    else{
+
+      let newURL= window.location.origin + window.location.pathname;
+      newURL = newURL + `?query=${query}&page=1`;
+      window.history.pushState(newURL,"",newURL);
+    }
+    },1000);
+    return()=>{clearTimeout(timeOut)}
+  },[query]);
+  function handleChange(e){
+    setQuery(e.target.value);
+  }
+
   return (
     <>
       <div className="navbar" 
-      style={!isNavbarVisible?{top:"-100%"}:{}}
+      style={navbarStyle}
       >
         <div
           className="logo"
@@ -100,17 +114,20 @@ export default function Navbar() {
             }}
           />
         )}
+          <div className="navSearchBar">
+          <img src={searchIcon} alt="search Icon"/>
+          <input type="text" placeholder="Search product by name, category etc." value={query}
+          onChange={handleChange} />
+          </div>
         <ul
           className="navItems"
           style={isSeeMore ? { height: "fit-content" } : {}}
           ref={navRef}
         >
-          <li id="firstEl" style={firstElStyle} onClick={setProductReq}>
-            <Link to="/products?page=1" style={{ textDecoration: "none" }}>
-              <p style={{ fontSize: "1.5rem" }}>Products</p>
-            </Link>
-          </li>
-          <li>
+          {/* <li  style={firstElStyle}> */}
+
+          {/* </li> */}
+          <li id="firstEl">
             <Link to="/auth/user">
               <img src={userIcon} alt="" />
             </Link>
@@ -126,7 +143,7 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-      </div>
+        </div>
     </>
   );
 }

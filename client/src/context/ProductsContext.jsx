@@ -8,7 +8,8 @@ export const ProductContextProvider = ({children})=>{
     
     const INITIAL_STATE= {
         products:[],
-        similarProducts:[]
+        similarProducts:[],
+        query: "",
     }
 
     // reducer
@@ -24,7 +25,12 @@ export const ProductContextProvider = ({children})=>{
                 return{
                     ...state,
                     similarProducts:action.payload
-                }   
+                } 
+            case "Query":
+                return{
+                    ...state,
+                    query:action.payload
+                }
             default:
                return state
         }
