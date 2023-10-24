@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const LazyImage = ({src, alt,id, handleClick,}) => {
+const LazyImage = ({src, alt,id, handleClick,onLoad}) => {
     const ref = useRef()
     const [inview,setInview] = useState(false);
     let callback = (entries,observer)=>{
@@ -21,7 +21,8 @@ const LazyImage = ({src, alt,id, handleClick,}) => {
     }, []);
 
     return (
-        inview? <img id={id} src = {src} alt={alt} onClick={handleClick&& handleClick}/>
+        inview? <img id={id} src = {src} alt={alt} onClick={handleClick&& handleClick}
+        onLoad={onLoad && onLoad}/>
         :
         <img
             id={id}

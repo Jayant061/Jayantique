@@ -18,49 +18,60 @@ function Trending() {
     const getTrendingProducts = async()=>{
       try {  
         const res = await axios.get(`${baseURL}/products?trendingProduct=true`);
-        setTrendingProduct(res.data);
+        res.status===200 && setTrendingProduct(res.data);
         setLoading(false);
       } catch (error) {
         setError(error.message);
         setLoading(false);
       }
     }
-    getTrendingProducts();
+    const timeOut = setTimeout(()=>{
+      getTrendingProducts();
+      
+    },1000);
+    return()=>{clearTimeout(timeOut)}
   },[]);
-  function handleBuyNow(item){
-      cartDispatch({
-        type:addToCart,
-        payload:item
-      });
-      cartDispatch({
-        type: addCartItemsId,
-        payload:item?._id
-      });
-      navigate("/addToCart")
-  }
-  const trendingItems =trendingProduct[0] && trendingProduct?.map(item=>{
-   return (
-    <div className="trendingProduct" key={item.id}>
-    <div className="texts">
-    <h4 onClick={()=>{navigate(`/product/${item._id}`)}}>{item.title}</h4>
-    <p>{item.description}</p>
-    <button className='priceBtn' onClick={()=>{handleBuyNow(item)}}
-    > Buy Now @ ₹ {parseFloat(item.price*80).toFixed(2)}</button>
-    </div>
-    <div className="trPrImg">
-    <LazyImage src={item.image} alt={`product image`} id={item.id}/>
-
-    </div>
-  </div>
-   )
+  // function handleBuyNow(item){
+  //     cartDispatch({
+  //       type:addToCart,
+  //       payload:item
+  //     });
+  //     cartDispatch({
+  //       type: addCartItemsId,
+  //       payload:item?._id
+  //     });
+  //     navigate("/addToCart")
+  // }
+  const trendingItems = trendingProduct.length && trendingProduct?.map((items,index)=>{
+   
+    const products = items.map((item)=>{
+    return(
+      <div className="trendingProduct" key={item.id}>
+      <LazyImage src={item.images[0]} alt={`product image`} id={item.id}/>
+      <div className="texts">
+      <h4 onClick={()=>{navigate(`/product/${item._id}`)}}>{item.title}</h4>
+      <p>₹ {item.price}</p>
+      </div>
+    </div>);
+    });
+    return (
+      <div className="trending" key={index}>
+      {index ===0 && <h4>In Men</h4>}
+      {index ===1 && <h4>In Women</h4>}
+      {index ===2 && <h4>In Home Decor</h4>}
+      <div className='trendingProducts'
+      style={index===0?{backgroundColor: "#e3e3e377"}:{}}>
+      {products}
+      </div>
+      </div>
+    )
   })
   return (
-    <div className='trending'>
+    <div className='trendingPage'>
       <span>Trending Now</span>
-      <div className="trendingProducts" style={loading?{justifyContent:"center"}:{justifyContent:"space-between"}}>
-      {loading ?<img src={loader} style={{width:"120px"}} alt="three dots loading"/>: trendingItems}
-      {error && <p style={{color:'red'}}>{error}</p>}
-      </div>
+      {loading?<img src={loader} alt='loading...' style={{width:"300px"}}/>:<></>}
+      {error? <span style={{textAlign:"center",color:"red"}}>{error}</span>:<></>}
+      {trendingItems.length?trendingItems:<></>}
     </div>
   )
 }

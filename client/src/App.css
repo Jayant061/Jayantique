@@ -3,7 +3,21 @@
 /* #13395B */
 /* hover color #A1B0BD */
 /* other bg #EFEFEF */
+/* homepage bg clr #BA8863  #E6CFCD  #ECC292*/
 .app{
     position: relative;
     /* background-color: #e3e3e3d8; */
+}
+.app .head{
+    position: relative;
+}
+@media screen and (min-width:701px){
+    .app .head{
+        padding-bottom: 69px;
+    }
+}
+@media screen and (max-width:700px){
+    .app .head{
+        padding-bottom: 113px;
+    }
 }

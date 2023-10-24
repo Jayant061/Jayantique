@@ -24,8 +24,10 @@
     letter-spacing: 2px;
     font-weight: 500;
     color: #13395B;
-    cursor: pointer;
     flex: 1;
+}
+.logo span{
+    cursor: pointer;
 }
 .navItems{
     display: flex;
@@ -71,7 +73,6 @@
 .navSearchBar input{
     font-size: 1.2rem;
     width: 100%;
-    padding: 2px;
     border: none;
     border-radius: 2px;
     outline: none;
@@ -85,7 +86,7 @@
         flex-wrap: wrap;
     }
 .navSearchBar{
-    width:100%;
+    width:calc(100% - 12px);
     flex: none;
 }
 .navItems{

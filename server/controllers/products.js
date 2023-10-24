@@ -6,23 +6,45 @@ const getProducts = async (req, res) => {
   const isTrendingProduct = req.query.trendingProduct;
   const itemId = req.query.itemId;
   if(isTrendingProduct){
-    try {
-      const resp = await Product.find({
-        title:{ $regex: "lamp", $options: 'i' }
-      }).limit(4);
-      res.send(resp);
+    const queries = ["men shoe", "women jeans", "lamp"];
+    const result = [];
+
+try {
+  (async () => {
+    for (let index = 0; index < queries.length; index++) {
+      const query = queries[index];
+      const keywords = query.split(' ');
+      const resPromise = await Product.find({
+        $and: keywords.map(keyword => (
+          {
+        $or: [
+          { title: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
+          { category: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
+        ],
+      }
+      ))
+      }).skip(index ===0?3:0).limit(4).exec();
       
-    } catch (error) {
-      res.json(error);
-      //do nothing
+
+      const resp = await Promise.all(resPromise);
+      result.push(resp);
     }
+
+    res.status(200).send(result);
+  })();
+} catch (error) {
+  res.status(400).send(error);
+}
+
     
   }
   else if(itemId){
     try {
       const resp = await Product.findOne({_id: itemId});
       const finalRes = await Product.find({category: { $regex: resp.category, $options: 'i' }}).skip(limitEl*skipEl).limit(limitEl);
-      res.json(finalRes);
+      const finalData = await Promise.all(finalRes);
+      finalData.push(resp);
+      res.json(finalData);
 
     } catch (error) {
       res.json(error);
@@ -30,15 +52,23 @@ const getProducts = async (req, res) => {
     }
   }
   else{
+    const arr = req.query.query.split(' ');
+    // const keyword = req.query.query;
+
     try {
       const resp = await Product.find({
+        $and: arr.map(keyword => (
+          {
         $or: [
-          { title: { $regex: `^${req.query.query}|\\s${req.query.query}`, $options: 'i' } },
-          { category: { $regex: `^${req.query.query}|\\s${req.query.query}`, $options: 'i' } },
+          { title: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
+          { category: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
         ],
+      }
+      ))
       }).skip(skipEl*limitEl).limit(limitEl).exec();
       res.json(resp); 
     } catch (error) {
+      console.log(error);
       res.json(error);
       //do nothing
     }

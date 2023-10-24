@@ -68,7 +68,12 @@ function App() {
   return (
     <div className="app">
       <BrowserRouter>
+        <div className="head">
+
         <Navbar />
+        </div>
+        <div className="main">
+
         <Routes>
           <Route exact path="/" element={<Suspense fallback = {<div>Loading...</div>}><Home /></Suspense>} />
           <Route exact path="/products" element={<Suspense fallback = {<div>Loading...</div>}><Products /></Suspense>} />
@@ -86,7 +91,10 @@ function App() {
           <Route exact path="/tnc" element = {<Suspense fallback = {<div>Loading...</div>}><TermsConditions/></Suspense>}/>
 
         </Routes>
+        </div>
+        <div className="mainFooter">  
         <Suspense fallback = {<div>Loading...</div>}><Footer/></Suspense>
+        </div>
       </BrowserRouter>
     </div>
   );

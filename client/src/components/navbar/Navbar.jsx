@@ -15,8 +15,8 @@ export default function Navbar() {
   const [isSeeMore, setSeeMore] = useState(false);
   const { quantity } = useContext(CartContext);
   const [SearchBarvisibility, setSearchBarvisibility] = useState(false);
-  const [query,setQuery] = useState("");
   const {state,dispatch} = useContext(ProductContext);
+  const [query,setQuery] = useState(state.query);
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
@@ -94,12 +94,12 @@ export default function Navbar() {
       >
         <div
           className="logo"
-          onClick={() => {
+          
+        >
+          <span onClick={() => {
             navigate("/");
             setSeeMore(false);
-          }}
-        >
-          <span>Jayantique</span>
+          }}>Jayantique</span>
         </div>
         {!isSeeMore && (
           <img

@@ -1,13 +1,13 @@
 import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./home.css";
-// import rightArr from "../../assets/rightArr.svg";
 import LazyImage from "../lazyImage/LazyImage";
 import { ProductContext } from "../../context/ProductsContext";
 const Trending = lazy(() => import("./Trending.jsx"));
 const Testimonial = lazy(() => import("./Testimonial"));
 
 function Home() {
+  const [homePageAnimation,setHomePageAnimation] = useState(false);
   const { state } = useContext(ProductContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,9 +17,10 @@ function Home() {
   const transactionError = queryParams.get("transactionError");
   useEffect(() => {
     document.title = "Jayantique | Home";
-    paymentSuccess && navigate("/payment/success");
-    paymentCancel && navigate("/payment/cancel");
-    transactionError && navigate("/payment/error");
+    // paymentSuccess && navigate("/payment/success");
+    // paymentCancel && navigate("/payment/cancel");
+    // transactionError && navigate("/payment/error");
+    return()=>{setHomePageAnimation(false)}
   }, []);
   function setProductReq(){
     if(state?.products?.length !==0){
@@ -32,34 +33,35 @@ function Home() {
       sessionStorage.setItem("isProductReq","true");
     }
   }
+  function onLoad(){
+    setHomePageAnimation(true);
+  }
   return (
     <div className="home">
       <div className="homeHeader">
-        
-        {/* <img src= alt="" /> */}
         <div className="text">
-          <h1>
-            Give your Fashion a new Style
+          <h1 style={homePageAnimation?{animation:"slideIn 1s ease 0.1s forwards"}:{}}>
+            Your Perfect Home Starts Here
           </h1>
-          <p >
-            Explore our curated selection of high-quality products and shop for
-            your favorite items from the comfort of your home
+          <p style={homePageAnimation?{animation:"slideIn 1s ease 0.2s forwards"}:{}}>
+            Explore Exquisite Fashion and Home Decor Choices to Redefine Your Space with Elegance.
           </p>
           <button
+          style={homePageAnimation?{animation:"slideIn 1s ease 0.35s forwards"}:{}}
           onClick={()=>{
             setProductReq();
-            navigate("/products?query=watch")}}>
+            navigate("/products?query=women perfume")}}>
             Shop Now &#10132;
           </button>
         </div>
-        <LazyImage src = {`homepage2.png`} alt={`background image`} id={`bgimg`}/>
+        <LazyImage src = {`
+        https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/JayantiqueHomepage.png?alt=media&token=ba006548-b59b-4d1b-985a-8d84da113844&_gl=1*1r4cqd0*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY5ODE1NzU3Mi4zLjEuMTY5ODE1NzY4NC4xMS4wLjA.
+        `} alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
       </div>
-      {/* {state.products && ( */}
         
           <Suspense fallback={<div>loading...</div>}>
           <Trending />
         </Suspense>
-      {/* )} */}
       <Suspense fallback={<div>loading...</div>}>
         <Testimonial />
       </Suspense>
