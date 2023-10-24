@@ -54,7 +54,7 @@ try {
   else{
     const arr = req?.query?.query?.split(' ');
     // const keyword = req.query.query;
-    if(!arr.length){
+    if(!arr){
       try {
         const resPromise = await Product.find({}).skip(skipEl*limitEl).limit(limitEl).exec();
         const resp = await Promise.all(resPromise);
