@@ -52,7 +52,7 @@ try {
     }
   }
   else{
-    const arr = req.query.query.split(' ');
+    const arr = req?.query?.query?.split(' ');
     // const keyword = req.query.query;
 
     try {
