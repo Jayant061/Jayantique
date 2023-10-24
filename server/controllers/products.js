@@ -57,7 +57,7 @@ try {
 
     try {
       const resp = await Product.find({
-        $and: arr.map(keyword => (
+        $and: arr?.map(keyword => (
           {
         $or: [
           { title: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
