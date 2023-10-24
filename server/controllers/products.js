@@ -44,17 +44,26 @@ try {
       const finalRes = await Product.find({category: { $regex: resp.category, $options: 'i' }}).skip(limitEl*skipEl).limit(limitEl);
       const finalData = await Promise.all(finalRes);
       finalData.push(resp);
-      res.json(finalData);
+      res.status(200).send(finalData);
 
     } catch (error) {
-      res.json(error);
+      res.status(400).send(error);
       //do nothing
     }
   }
   else{
     const arr = req?.query?.query?.split(' ');
     // const keyword = req.query.query;
-
+    if(!arr.length){
+      try {
+        const resPromise = await Product.find({}).skip(skipEl*limitEl).limit(limitEl).exec();
+        const resp = await Promise.all(resPromise);
+        res.status(200).send(resp);
+      } catch (error) {
+        res.status(400).send(error);
+      }
+    }
+    else{
     try {
       const resp = await Product.find({
         $and: arr?.map(keyword => (
@@ -66,12 +75,12 @@ try {
       }
       ))
       }).skip(skipEl*limitEl).limit(limitEl).exec();
-      res.json(resp); 
+      res.status(200).send(resp); 
     } catch (error) {
-      console.log(error);
-      res.json(error);
+      res.status(400).send(error);
       //do nothing
     }
   }
+}
   };
   export default getProducts;
