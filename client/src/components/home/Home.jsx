@@ -41,7 +41,8 @@ function Home() {
       <div className="homeHeader">
         <div className="text">
           <h1 style={homePageAnimation?{animation:"slideIn 1s ease 0.1s forwards"}:{}}>
-            Your Perfect Home Starts Here
+            {/* Your Perfect Home Starts Here */}
+            Design Your Signature Space
           </h1>
           <p style={homePageAnimation?{animation:"slideIn 1s ease 0.2s forwards"}:{}}>
             Explore Exquisite Fashion and Home Decor Choices to Redefine Your Space with Elegance.
@@ -54,9 +55,12 @@ function Home() {
             Shop Now &#10132;
           </button>
         </div>
-        <LazyImage src = {`
-        https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/JayantiqueHomepage.png?alt=media&token=ba006548-b59b-4d1b-985a-8d84da113844&_gl=1*1r4cqd0*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY5ODE1NzU3Mi4zLjEuMTY5ODE1NzY4NC4xMS4wLjA.
-        `} alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
+        <div className="homeImg">
+        <img src = {
+          `https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/JayantiqueHomepage.png?alt=media&token=ba006548-b59b-4d1b-985a-8d84da113844&_gl=1*1r4cqd0*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY5ODE1NzU3Mi4zLjEuMTY5ODE1NzY4NC4xMS4wLjA.`
+        // "shopping.png"
+        } alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
+        </div>
       </div>
         
           <Suspense fallback={<div>loading...</div>}>

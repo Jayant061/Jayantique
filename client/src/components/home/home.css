@@ -6,16 +6,19 @@
   align-items: end;
   gap: 5%;
   overflow: hidden;
-  background-color: #ECC292;
+  background: radial-gradient(#ECC292,#BC804A);
 }
-.homeHeader img {
+.homeHeader .homeImg {
   flex-basis: 45%;
   max-width: 45%;
-  /* transform: scale(1.2); */
+}
+.homeImg img{
+  width: 100%;
+  object-fit: contain;
+
 }
 
 .text {
-  /* margin-top: auto; */
   margin: auto;
   position: relative;
   width: 50%;
@@ -35,11 +38,20 @@
       transform: translateY(0);
     }
   }
+@keyframes imgSlide {
+  from{
+    transform: translateX(50px);
+  }
+  to{
+    transform: translateX(0);
+
+  }
+  
+}
 .text h1 {
   font-size: 2.5rem;
   font-weight: 600;
   font-family: poppins;
-  /* animation: slideIn 1s ease 0.5s forwards; */
 }
 
 .text p {
@@ -51,10 +63,10 @@
   flex-direction: column;
   align-items: start;
   gap: 10px;
-  /* animation: slideIn 1s ease 0.6s forwards; */
 }
 .text button{
-  background-color: #ECC292;
+  background:transparent;
+  transition: 0.3s;
 }
 .text button,
 .texts .priceBtn {
@@ -78,6 +90,7 @@
 }
 
 .trendingPage {
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,23 +99,33 @@
   padding-top: 30px;
   color: #13395b;
 }
+.trendingPage .trendingHeading, .testimonial .testimonialhead{
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
 .trendingPage .trending{
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
+.trending .trendigSubHeading{
+  font-size: 2rem;
+  font-weight: 500;
+}
 .trendingPage span,
 .testimonial .testimonialHeading {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 3rem;
+  padding: 0 5px;
+  font-family: "inter";
+  font-weight: 400;
   color: #13395b;
   /* margin-bottom: 20px; */
   position: relative;
   width: fit-content;
   text-align: center;
-  display: inline;
+  display: inline-block;
 }
 
 .trendingPage span::after,
@@ -111,11 +134,25 @@
   position: absolute;
   content: " ";
   background: #13395b;
-  bottom: -5px;
-  right: 0;
+  top: 50%;
+  transform: translateY(50%);
+  right: -100%;
   width: 100%;
   content: " ";
-  height: 4px;
+  height: 2px;
+}
+.trendingPage span::before,
+.testimonial .testimonialHeading::before {
+  display: block;
+  position: absolute;
+  content: " ";
+  background: #13395b;
+  top: 50%;
+  transform: translateY(50%);
+  right: 100%;
+  width: 100%;
+  content: " ";
+  height: 2px;
 }
 .trendingProducts {
   display: flex;
@@ -152,7 +189,6 @@
 }
 .trendingProduct img {
   width: 100%;
-  transition: 0.5s;
 }
 .trendingProduct .texts{
   display: flex;
@@ -179,23 +215,27 @@
 }
 
 .testimonial {
+  padding: 0 30px;
   padding-top: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
   align-items: center;
 }
 .testimonial .reviews {
   margin: 30px 0;
+  padding: 1px;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
   height: max-content;
+  justify-content: start;
+  gap: 5%;
+  background-color: #13395b18;
+  width: calc(100% - 2px);
 }
 .reviews .review {
-  width: 27%;
-  min-width: 300px;
+  width: 30%;
+  max-width: calc(30% - 30px);
   padding: 10px 10px 10px 20px;
   position: relative;
   display: flex;
@@ -203,16 +243,13 @@
   align-items: center;
   justify-content: start;
   gap: 20px;
-  background-color: #13395b18;
+  background-color: white;
   text-align: left;
   color: #13395b;
-  font-size: calc(9px + 0.7vw);
-  box-shadow: 0 0 10px 0 rgb(138, 137, 137);
-  border-radius: 10px;
+  font-size: 18px;
+  /* box-shadow: 0 0 10px 0 rgb(138, 137, 137); */
+  border-radius: 2px;
   transition: 0.5s;
-}
-.reviews .review:hover {
-  box-shadow: 0 0 15px 2px rgb(138, 137, 137);
 }
 .review .quotation {
   display: flex;
@@ -250,16 +287,6 @@
   border-radius: 50%;
 }
 
-@media screen and (max-width: 900px){
-    .trendingProduct{
-        flex-basis: 100%;
-        margin: 20px 0;
-    }
-    .trendingProduct img{
-        transform: scale(1);
-    }
-}
-
   
 @media screen and (max-width: 760px) {
   .homeHeader {
@@ -269,77 +296,60 @@
   }
   .homeHeader .text {
     padding-bottom: 30px;
-    width: 100%;
+    width: 80%;
   }
-  .homeHeader img{
+  .text h1{
+    font-size: 3rem;
+  }
+  .text p{
+    font-size: 1.5rem;
+  }
+  .homeHeader .homeImg{
     width: 80%;
     max-width: 80%;
   }
-  .text p {
-    font-size: 1rem;
+  .trendingProducts{
+    gap:20px 2%;
   }
-  .trendingProducts {
-    padding: 10px;
-    width: calc(100% - 20px);
-  }
-  
   .trendingProduct {
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 20px;
-    /* justify-content: center; */
+    flex-basis: 49%;
+    max-width: 49%;
   }
-  .trendingProduct .texts{
-    width: fit-content;
-    max-width: 400px;
-  }
-  .trendingProduct .texts{
-    align-items: center;
-    gap: 15px;
-  }
-  .trendingProduct .trPrImg{
-    width: 265px;
-  }
-  .trendingProduct img{
-    transform: scale(1);
-}
   /* .testimonial .reviews {
     gap: 20px;
   } */
   .testimonial .reviews {
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
   }
   .reviews .review {
-    width: 90%;
-    padding: 20px 3%;
-    box-shadow: none;
-    min-width: 90vw;
+    width: 100%;
+    min-width: calc(100% - 30px);
   }
   .reviews .review:hover {
     box-shadow: none;
   }
 }
-@media screen and (max-width: 480px) {
+ @media screen and (max-width: 600px) {
+    .homeHeader{
+      padding: 10px;
+      gap: 20px;
+      padding-bottom: 0;
+    }
+    .homeHeader  .text,.homeHeader .homeImg{
+      width: 100%;
+      max-width: 100%;
+    }
     .text h1{
-        font-size: 1.75rem;
+      font-size: 35px;
     }
-    .homeHeader img{
-        max-width: 100%;
+    .text p{
+      font-size: 20px;
     }
-    .trendingProduct .trPrImg{
-        width: 100%;
-        max-width: 265px;
+    .trendingPage{
+      padding: 20px 0;
     }
-    .trending span::after,
-.testimonial .testimonialHeading::after{
-    /* bottom: 0; */
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 4px;
-}
-.trending span::before,
-.testimonial .testimonialHeading::before{
-    width: 0;
-}
-}
+    .testimonial{
+      padding: 0;
+    }
+} 

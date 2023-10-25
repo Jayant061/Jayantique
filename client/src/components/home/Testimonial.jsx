@@ -1,7 +1,7 @@
 import React from 'react'
 import testimonialData from "../../assets/testimonialData.json";
 import quoteIcon from "../../assets/quote.svg";
-import starIcon from  "../../assets/star.svg";
+import starIcon from  "../../assets/coloredStar.svg";
 function Testimonial() {
   const reviews = testimonialData?.map((review,index)=>{
     return(
@@ -32,7 +32,9 @@ function Testimonial() {
   })
   return (
     <div className='testimonial'>
+        <div className="testimonialhead">
         <span className='testimonialHeading'>Testimonial</span>
+        </div>
         <div className="reviews">
           {reviews}
         </div>

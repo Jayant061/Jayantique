@@ -2,8 +2,6 @@
     padding: 10px 20px;
     min-height:100vh;
     background-color: white;
-    /* #f1f1f1ab; */
-    
 }
 .productsHeading{
     font-family: Poppins;
@@ -126,7 +124,8 @@
     padding: 0.8rem  0 0.4rem 0.4rem;
     font-size: 0.8em;
     border-top: 1px solid lightgray;
-    background-color: #F1F1F1;
+    border-bottom: 1px solid lightgray;
+    background-color: white;
     flex: 1;
 }
 .itemContent p{
@@ -243,7 +242,14 @@
     font-size: 20px;
 }
 
-
+@media screen and (max-width:800px){
+    .productDescription{
+        flex-direction: column;
+    }
+    .productSize .sizes{
+        flex-wrap: wrap;
+    }
+}
 @media screen and (max-width:760px){
     .items,.similarProducts{
         gap:2.6%
@@ -274,7 +280,6 @@
 @media screen and (max-width:480px) {
     .products{
         padding: 10px;
-        padding-top: 70px;
     }
     .items.similarProducts{
         gap: 6%;
@@ -284,7 +289,10 @@
     }
     .productDescription{
         padding: 10px 0;
-        padding-top: 70px;
         overflow: hidden;
+    }
+    .contentSection .buttons{
+        flex-direction: column;
+        gap: 20px;
     }
 }

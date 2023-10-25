@@ -48,7 +48,7 @@ function Trending() {
     return(
       <div className="trendingProduct" key={item.id}>
       <LazyImage src={item.images[0]} alt={`product image`} id={item.id}/>
-      <div className="texts">
+      <div className="texts" style={index===0?{paddingLeft:"5px"}:{}}>
       <h4 onClick={()=>{navigate(`/product/${item._id}`)}}>{item.title}</h4>
       <p>₹ {item.price}</p>
       </div>
@@ -56,9 +56,9 @@ function Trending() {
     });
     return (
       <div className="trending" key={index}>
-      {index ===0 && <h4>In Men</h4>}
-      {index ===1 && <h4>In Women</h4>}
-      {index ===2 && <h4>In Home Decor</h4>}
+      {index ===0 && <h3 className='trendigSubHeading'>Men</h3>}
+      {index ===1 && <h3 className='trendigSubHeading'>Women</h3>}
+      {index ===2 && <h3 className='trendigSubHeading'>Home Decor</h3>}
       <div className='trendingProducts'
       style={index===0?{backgroundColor: "#e3e3e377"}:{}}>
       {products}
@@ -68,7 +68,9 @@ function Trending() {
   })
   return (
     <div className='trendingPage'>
-      <span>Trending Now</span>
+      <div className="trendingHeading">
+      <span>TRENDING</span>
+      </div>
       {loading?<img src={loader} alt='loading...' style={{width:"300px"}}/>:<></>}
       {error? <span style={{textAlign:"center",color:"red"}}>{error}</span>:<></>}
       {trendingItems.length?trendingItems:<></>}
