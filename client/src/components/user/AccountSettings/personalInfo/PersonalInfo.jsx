@@ -50,7 +50,7 @@ function AccountSettings() {
     email: currentUser?.email,
     phone : currentUser?.phone,
     })});
-    currRef?.current.scrollIntoView({behavior:"smoth"})
+    currRef?.current.scrollIntoView({behavior:"smooth"})
   }
   useEffect(()=>{
     setFormData(()=>{return({

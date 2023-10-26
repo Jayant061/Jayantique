@@ -4,14 +4,15 @@ const Address = lazy(()=>import("./address/Address"));
 const Orders = lazy(()=>import("./orders/Orders"));
 
 import "./userStyles.css";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 
 function UserContent({activePane}) {
 
   return (
     <div className="userContent">
-      {activePane === "Account Settings" && <Suspense fallback = {<div>loading...</div>}><PersonalInfo/></Suspense>}
-      {activePane==="Addresses" && <Suspense fallback = {<div>loading...</div>}><Address/></Suspense>}
-      {activePane==="Orders" && <Suspense fallback = {<div>loading...</div>}><Orders/></Suspense>}      
+      {activePane === "Account Settings" && <Suspense fallback = {<LoadingSpinner/>}><PersonalInfo/></Suspense>}
+      {activePane==="Addresses" && <Suspense fallback = {<LoadingSpinner/>}><Address/></Suspense>}
+      {activePane==="Orders" && <Suspense fallback = {<LoadingSpinner/>}><Orders/></Suspense>}      
     </div>
   )
 }

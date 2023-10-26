@@ -7,6 +7,7 @@ import loader from "../../assets/loading.svg";
 import { baseURL, getProducts } from "../../../credentials.js";
 import loadingLoop from "../../assets/loading-loop.svg";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 const Product = lazy(()=>import("./Product"));
 const Pagination = lazy(()=>import("./Pagination"));
 
@@ -97,7 +98,7 @@ useEffect(()=>{
   const items = state?.products?.map((product, index) => {
 
     return (
-      <Suspense fallback = {<div><img src={loadingLoop} alt="" /></div>} key={index}><Product product = {product} key={index}/></Suspense>
+      <Suspense fallback = {<LoadingSpinner/>} key={index}><Product product = {product} key={index}/></Suspense>
     );
   });
   

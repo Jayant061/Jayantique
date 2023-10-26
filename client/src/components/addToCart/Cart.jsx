@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useContext, useEffect } from "react"
 
 import "./cartPageStyles.css";
 import { CartContext } from "../../context/CartContext";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 const CartItem = lazy(()=>import("./CartItem"));
 const DeliveryAvailabilty = lazy(()=>import("./DeliveryAvailabilty"));
 const CartBilling = lazy(()=>import("./CartBilling"));
@@ -14,7 +15,7 @@ function Cart() {
     const {cartItems,addedItems,itemsQuantity} = useContext(CartContext);
     const items = cartItems?.map(item=>{
              return(
-        <Suspense key={item?._id} fallback = {<div>loading...</div>}><CartItem product = {item} key={item?._id} qty = {itemsQuantity.get(item?._id)}/></Suspense>
+        <Suspense key={item?._id} fallback = {<LoadingSpinner/>}><CartItem product = {item} key={item?._id} qty = {itemsQuantity.get(item?._id)}/></Suspense>
        )
     });
   return (
@@ -38,8 +39,8 @@ function Cart() {
         {items}
         </div>
         <div className="billing">
-        <Suspense fallback = {<div>loading...</div>}><DeliveryAvailabilty/></Suspense>
-        <Suspense fallback = {<div>loading...</div>}><CartBilling /></Suspense>
+        <Suspense fallback = {<LoadingSpinner/>}><DeliveryAvailabilty/></Suspense>
+        <Suspense fallback = {<LoadingSpinner/>}><CartBilling /></Suspense>
         </div>
         </div>
         </div>}

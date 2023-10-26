@@ -2,11 +2,11 @@ import React,{ useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import "./home.css";
 import LazyImage from '../lazyImage/LazyImage';
-import loader from "../../assets/loading.svg";
 // import loader from "../../assets/loading-loop.svg";
 import { baseURL } from '../../../credentials.js';
 import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../../context/ProductsContext';
+import LoadingSpinner from '../../assets/loadingSpinner/LoadingSpinner';
 
 function Trending() {
   // const [trendingProduct,setTrendingProduct] = useState([]);
@@ -75,7 +75,7 @@ function Trending() {
       <div className="trendingHeading">
       <span>TRENDING</span>
       </div>
-      {loading?<img src={loader} alt='loading...' style={{width:"300px"}}/>:<></>}
+      {loading?<LoadingSpinner/>:<></>}
       {error? <span style={{textAlign:"center",color:"red"}}>{error}</span>:<></>}
       {trendingItems.length?trendingItems:<></>}
     </div>

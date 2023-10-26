@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./home.css";
 import LazyImage from "../lazyImage/LazyImage";
 import { ProductContext } from "../../context/ProductsContext";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 const Trending = lazy(() => import("./Trending.jsx"));
 const Testimonial = lazy(() => import("./Testimonial"));
 
@@ -62,11 +63,10 @@ function Home() {
         } alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
         </div>
       </div>
-        
-          <Suspense fallback={<div>loading...</div>}>
+          <Suspense fallback={<LoadingSpinner/>}>
           <Trending />
         </Suspense>
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<LoadingSpinner/>}>
         <Testimonial />
       </Suspense>
     </div>

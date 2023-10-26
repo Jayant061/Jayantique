@@ -6,7 +6,6 @@ import LazyImage from "../lazyImage/LazyImage.jsx";
 
 function Product({ product }) {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [img, setImg] = useState("");
   const navigate = useNavigate();
   const { cartDispatch, cartItems, addedItems } = useContext(CartContext);
   function handleClick() {

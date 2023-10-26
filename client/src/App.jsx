@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import { getUser } from "../credentials";
 import "./App.css";
 import { UserContext } from "./context/UserContext";
+import LoadingSpinner from "./assets/loadingSpinner/LoadingSpinner";
 
 // import Home from "./components/home/Home";
 const Home = lazy(()=>import("./components/home/Home"));
@@ -69,31 +70,29 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <div className="head">
-
-        <Navbar />
+        <Suspense fallback={<LoadingSpinner/>}><Navbar /></Suspense>
         </div>
+
         <div className="main">
-
         <Routes>
-          <Route exact path="/" element={<Suspense fallback = {<div>Loading...</div>}><Home /></Suspense>} />
-          <Route exact path="/products" element={<Suspense fallback = {<div>Loading...</div>}><Products /></Suspense>} />
-          <Route exact path= "/product/:params" element={<Suspense fallback = {<div>Loading...</div>}><ProductDescription /></Suspense>} />
-          <Route exact path="/register" element = {<Suspense fallback = {<div>Loading...</div>}><Register/></Suspense>}/>
-          <Route exact path="/login" element = {<Suspense fallback = {<div>Loading...</div>}><Login/></Suspense>}/>
-          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><User/></Suspense></ProtectedRoute>}/>
-          <Route exact path="/addToCart" element = {<Suspense fallback = {<div>Loading...</div>}><Cart/></Suspense>}/>
-          <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
-          <Route exact path="/payment/success" element = {<Suspense fallback = {<div>Loading...</div>}><Success/></Suspense>}/>
-          <Route exact path="/payment/cancel" element = {<Suspense fallback = {<div>Loading...</div>}><Cancel/></Suspense>}/>
-          <Route exact path="/payment/error" element = {<Suspense fallback = {<div>Loading...</div>}><Error/></Suspense>}/>
-          <Route exact path="/about-us" element = {<Suspense fallback = {<div>Loading...</div>}><AboutUs/></Suspense>}/>
-          <Route exact path="/privacy-policy" element = {<Suspense fallback = {<div>Loading...</div>}><PrivacyPolicy/></Suspense>}/>
-          <Route exact path="/tnc" element = {<Suspense fallback = {<div>Loading...</div>}><TermsConditions/></Suspense>}/>
-
+          <Route exact path="/" element={<Suspense fallback = {<LoadingSpinner/>}><Home /></Suspense>} />
+          <Route exact path="/products" element={<Suspense fallback = {<LoadingSpinner/>}><Products /></Suspense>} />
+          <Route exact path= "/product/:params" element={<Suspense fallback = {<LoadingSpinner/>}><ProductDescription /></Suspense>} />
+          <Route exact path="/register" element = {<Suspense fallback = {<LoadingSpinner/>}><Register/></Suspense>}/>
+          <Route exact path="/login" element = {<Suspense fallback = {<LoadingSpinner/>}><Login/></Suspense>}/>
+          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><User/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/addToCart" element = {<Suspense fallback = {<LoadingSpinner/>}><Cart/></Suspense>}/>
+          <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/payment/success" element = {<Suspense fallback = {<LoadingSpinner/>}><Success/></Suspense>}/>
+          <Route exact path="/payment/cancel" element = {<Suspense fallback = {<LoadingSpinner/>}><Cancel/></Suspense>}/>
+          <Route exact path="/payment/error" element = {<Suspense fallback = {<LoadingSpinner/>}><Error/></Suspense>}/>
+          <Route exact path="/about-us" element = {<Suspense fallback = {<LoadingSpinner/>}><AboutUs/></Suspense>}/>
+          <Route exact path="/privacy-policy" element = {<Suspense fallback = {<LoadingSpinner/>}><PrivacyPolicy/></Suspense>}/>
+          <Route exact path="/tnc" element = {<Suspense fallback = {<LoadingSpinner/>}><TermsConditions/></Suspense>}/>
         </Routes>
         </div>
         <div className="mainFooter">  
-        <Suspense fallback = {<div>Loading...</div>}><Footer/></Suspense>
+        <Suspense fallback = {<LoadingSpinner/>}><Footer/></Suspense>
         </div>
       </BrowserRouter>
     </div>

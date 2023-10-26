@@ -1,14 +1,12 @@
 .user{
     display: flex;
     justify-content: center;
-    align-items: start;
     gap: 20px;
     padding: 20px;
     flex-wrap: wrap;
     /* background-color: #f1f1f1; */
     background:radial-gradient(#ffffd6 0%, lightgray 100%);
     color: #13395B;
-    min-height: calc(100vh - 96px);
 }
 .userSidebar{
     /* margin-left: 5%; */
@@ -16,8 +14,8 @@
     min-width: 201px;
     display: flex;
     flex-direction: column;
-    opacity: 95%;
     z-index: 2;
+    background-color: #fff;
 } 
 .userSidebar .userHeading{
     position: relative;
@@ -48,10 +46,10 @@
     justify-content: center;
 }
 .userSidebar .userHeading .usertext p{
-    font-size: calc(8px + 0.7vw);
+    font-size: 16px;
 }
 .userSidebar .userHeading .usertext h2{
-    font-size: calc(10px + 1vw);
+    font-size: 20px;
 }
 
 .userSidebar .mainMenu{
@@ -60,7 +58,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     padding: 20px 0;
     transition: 0.5s;
 }
@@ -87,7 +85,6 @@
     /* min-width: 449px; */
     background-color: #fff;
     box-shadow: -5px 2px 5px  lightgray;
-    padding: 20px 0;
     opacity: 85%;
 }
 .accountSettings, .personalInfo,.address{
@@ -98,7 +95,7 @@
     padding: 20px 30px;
 }
 .accountSettings h2,.address h2{
-    font-size: calc(10px + 1vw);
+    font-size: 20px;
     font-weight: 600;
     text-align: center;
 }
@@ -125,11 +122,11 @@
     gap: 10px;
 }
 .personalInfo .personalInfoChild span{
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     font-weight: 500;
 }
 .personalInfo .personalInfoChild input,.personalInfo .personalInfoChild .inputsPartition{
-font-size: calc(8px + 0.8vw);
+font-size: 16px;
 padding: 10px;
 /* background-color: rgba(211, 211, 211,0.4); */
 border: 1px solid #13395B;
@@ -145,7 +142,7 @@ color: #13395B;
 }
 .personalInfo .buttons button, .addressFormInputs button{
     padding: 5px 15px;
-    /* font-size: calc(8px + 1vw); */
+    width: calc(100% - 32px);
     font-size: 1.25rem;
     cursor: pointer;
     border: 1px solid #13395B;
@@ -209,13 +206,13 @@ color: #13395B;
 }
 
 .addressFormInput label{
-    font-size: calc(8px + 1vw);
+    font-size: 16px;
     font-weight: 500;
     padding: 10px;
 }
 .addressFormInput input, .addressFormInput textarea, .addressFormInput select{
-    width: calc(100% - 20px);
-    font-size: calc(8px + 1vw);
+    width: calc(100% - 22px);
+    font-size: 16px;
     padding: 10px;
     border: 1px solid #13395B;
     outline: none;
@@ -249,7 +246,7 @@ color: #13395B;
     display: inline-block;
     width: fit-content;
     font-weight: 600;
-    font-size: calc(8px + 0.9vw);
+    font-size: 16px;
     padding: 10px 20px;
     background-color: rgba(211, 211, 211, 0.418);
     border-radius: 10px;
@@ -267,12 +264,12 @@ color: #13395B;
 .addressChild .addressDesc, .addressChild .pincode{
     color: #000a31;
     font-weight: 400;
-    font-size: calc(7px + 0.8vw);
+    font-size: 18px;
 }
 
 
 
-@media screen and (max-width:709px) {
+@media screen and (max-width:730px) {
     .user{
         padding: 10px;
     }
@@ -284,6 +281,7 @@ color: #13395B;
     }
     .userSidebar .userHeading .moreIcon{
         visibility: visible;
+        cursor: pointer;
     }
     .userSidebar .mainMenu{
         position: absolute;
@@ -354,11 +352,11 @@ color: #13395B;
     .addressFormInput label,.addressFormInput input,
     .personalInfo .personalInfoChild input,.personalInfo .personalInfoChild span,
     .addressChild .mainInfo,.addressChild .addressType{
-        font-size: calc(10px + 1vw);
+        font-size: 16px;
     }
     .addressChild .addressDesc, .addressChild .pincode {
         color: #000a31;
         font-weight: 400;
-        font-size: calc(9px + 1vw);
+        font-size: 16px;
     }
 }

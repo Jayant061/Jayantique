@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 import { config } from "dotenv";
 import Product from "../models/Product.js";
-import User from "../models/user.js";
-import jwt from "jsonwebtoken";
 import Order from "../models/order.js";
 config();
 const stripe = Stripe(process.env.STRIPESECRETKEY);
@@ -14,8 +12,8 @@ const paymentGateway = async (req, res) => {
       price_data: {
         currency: "inr",
         product_data: {
-          name: product.title,
-          images: [product.image],
+          name: product?.title,
+          images: [product?.images[0]],
         },
         unit_amount: parseInt(product.price*82),
       },
@@ -32,8 +30,8 @@ const paymentGateway = async (req, res) => {
         discounts: [{
           coupon: process.env.COUPONID,
         }],
-        success_url: `${process.env.CLIENT2}?paymentSuccess=true`,
-        cancel_url: `${process.env.CLIENT2}?paymentCancel=true`,
+        success_url: `${process.env.CLIENT2}/payment/success`,
+        cancel_url: `${process.env.CLIENT2}/payment/cancel`,
       });
       const orders = items.map(item=>{return{product:item.itemId,quantity:item.quantity}});
       const orderRes = await Order.find({paymentId:session.id});
@@ -49,11 +47,14 @@ const paymentGateway = async (req, res) => {
       }
       res.send({ url: session.url,id:session.id});
     } catch (error) {
-      res.send({url:`${process.env.CLIENT2}?transactionError=true`});
+      res.send({url:`${process.env.CLIENT2}/payment/error`});
+      console.log(error);
     }
     })
     .catch((error) => {
-      res.send({url:`${process.env.CLIENT2}?transactionError=true`});
+      res.send({url:`${process.env.CLIENT2}/payment/error`});
+      console.log(error);
+
     });
 };
 export default paymentGateway;

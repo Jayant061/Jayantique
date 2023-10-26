@@ -9,6 +9,7 @@ import { CartContext } from '../../context/CartContext';
 import { addToCart, addCartItemsId, baseURL, getProducts } from '../../../credentials.js';
 import star from "../../assets/star.svg";
 import "./product.css";
+import LoadingSpinner from '../../assets/loadingSpinner/LoadingSpinner';
 
 function ProductDescription() {
   const ref = useRef()
@@ -53,7 +54,7 @@ function ProductDescription() {
 const[isAddedToCart,setIsAddedToCart] = useState(false);
 const {cartDispatch,cartItems,addedItems} = useContext(CartContext);
 function handleAddToCart(){
-    if(itemSizeId === null){
+    if(itemSizeId === null && itemSize?.length){
       setNote("Note: Please select size before proceeding")
     }
     else{
@@ -78,7 +79,7 @@ function handleAddToCart(){
   },[cartItems,addedItems,item]);
 
   function handleBuyNow(){
-    if(itemSizeId === null){
+    if(itemSizeId === null && itemSize?.length){
       setNote("Note: Please select size before proceeding")
     }
     else{
@@ -88,7 +89,7 @@ function handleAddToCart(){
   }
   let similarProductItems = state?.similarProducts?.filter(product =>product?._id !== item?._id);
     similarProductItems = similarProductItems?.map((product,index)=>{return(
-    <Suspense fallback = {<div>Loadinng...</div>} key={index}><Product product = {product} key={product._id}/></Suspense>
+    <Suspense fallback = {<LoadingSpinner/>} key={index}><Product product = {product} key={product._id}/></Suspense>
 
     )});
     const imgs = item?.images?.map((img,index)=>{
@@ -113,8 +114,8 @@ function handleAddToCart(){
     })
  return (
    <>
-   <div className="productDescription">
-    <div className="imgSection" ref={ref}>
+   <div className="productDescription" ref={ref}>
+    <div className="imgSection" >
   <div className="mainImg">
     <img src={currImg} alt="" />
   </div>

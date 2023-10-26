@@ -13,7 +13,7 @@ function Orders() {
       const orderItems = await axios.get(
         `${baseURL}/auth/orders/getOrders?token=${token}`
       );
-      setOrders(orderItems?.data);
+      orderItems?.data[0].product && setOrders(orderItems?.data);
       setLoading(false);
     };
     getOrders();
@@ -31,7 +31,7 @@ function Orders() {
     return(
       <div className="order-product" key={index}>
         <div className="product-image">
-          <img src={product?.product.image} alt="" />
+          <img src={product?.product?.images} alt="" />
         </div>
         <div className="product-info">
           <h4>{product?.product.title}</h4>
@@ -63,7 +63,7 @@ function Orders() {
       <button>Search</button>
     </form>
     <div className="all-orders">
-    {allOrders}
+    {/* {allOrders} */}
     </div>
   </div>;
 }

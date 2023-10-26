@@ -161,7 +161,7 @@ text-align: center;
     align-items: start;
     /* gap: 20px; */
     justify-content: space-between;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
 }
 .offer{
     display: flex;
@@ -179,7 +179,7 @@ text-align: center;
 }
 .costHeading{
     padding:0 10px 10px 10px;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     font-weight: 600;
     color: #022747;
     padding-bottom: 10px;
@@ -189,7 +189,7 @@ text-align: center;
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
-    font-size: calc(8px + 1vw);
+    font-size: 16px;
     color: #13395b;
 }
 .childCost .cost{
@@ -208,7 +208,7 @@ text-align: center;
 }
 .billing .buttons .continueShopping{
     border:none;
-    font-size: calc(9px + 0.8vw);
+    font-size: 17px;
     background-color: white;
     font-weight: 600;
     color: rgb(5, 21, 51);
@@ -218,7 +218,7 @@ text-align: center;
     border: 2px solid rgb(5, 21, 51);
     padding: 10px;
     border-radius: 10px;
-    font-size: calc(9px + 0.8vw);
+    font-size: 18px;
     color: white;
     font-weight: 600;
     background-color: rgb(5, 21, 51);
@@ -257,7 +257,7 @@ text-align: center;
         max-width: 300px;
     }
     .billing .buttons{
-        font-size: calc(9px + 1vw);
+        font-size: 18px;
         flex-direction: column;
         gap: 20px;
     }
@@ -282,22 +282,23 @@ text-align: center;
 @media screen and (max-width:600px) {
     .cartWrapper{
         padding: 20px 0;
+        border-radius: 0;
     }
     .wrapperHeader{
         display: none;
     }
     .cartItems .cartItem{
-        padding:0 20px;
+        padding:0 5px;
         margin: auto;
         position: relative;
-        font-size: calc(8px + 1vw);
+        font-size: 15px;
         min-height: 140px;
         align-items: center;
     }
     .productInfo{
         flex-direction: row;
         flex-basis: 50%;
-        font-size: calc(7px + 1vw);
+        font-size: 16px;
         align-items: center;
     }
     .productInfo img{

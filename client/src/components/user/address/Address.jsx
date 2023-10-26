@@ -6,6 +6,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode"
 import { baseURL, getUser, refPane } from "../../../../credentials.js";
 import { Navigate, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../assets/loadingSpinner/LoadingSpinner";
 const DisplayLocation = lazy(()=>import("./DisplayAddress"));
 const AddressForm = lazy(()=>import("./AddressForm"));
 
@@ -130,7 +131,7 @@ function Address() {
         </div>
       ) : (
         <div className="newAddressForm" ref={formRef}>
-          <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
+          <Suspense fallback = {<LoadingSpinner/>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
         error = {error} setIsAddingNewAddress = {setIsAddingNewAddress} srcPath = {srcPath}/></Suspense>
         </div>
       )}
