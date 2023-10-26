@@ -64,12 +64,18 @@ useEffect(()=>{
       sessionStorage.setItem("isProductReq","false");
       
     } catch (error) {
-      setError(error.message);
+      !state.products?.length && setError(error.message);
       setLoading(false);
+      const makereq = setTimeout(()=>{
+        productsRequest();
+        if(state.product?.length){
+          clearTimeout(makereq);
+        }
+      },2000);
     }
   }
     const timeOut = sessionStorage.getItem("isProductReq")==="true" && setTimeout(()=>{
-      setLoading(true);
+      !state.products?.length && setLoading(true);
       productsRequest();
     },1000);
   return()=>{
@@ -85,6 +91,7 @@ useEffect(()=>{
   let newURL= window.location.origin + window.location.pathname;
   newURL = newURL + `?query=${query}&page=${page}`;
   window.history.pushState(newURL,"",newURL);
+  state.products?.length && setError("");
 },[state,page]);
 
   const items = state?.products?.map((product, index) => {
@@ -97,7 +104,7 @@ useEffect(()=>{
   return (
     <div className="products">
       <div className="productsHeading">
-        <h2 ref={inputRef}>All Products</h2>
+        <span ref={inputRef}>All Products</span>
       </div>
       <div className="items">
         {loading?<img src={loader} style={{width:"30%"}} alt="three dots loading"/>:items}

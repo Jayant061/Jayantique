@@ -2,27 +2,10 @@
     padding: 10px 20px;
     min-height:100vh;
     background-color: white;
-}
-.productsHeading{
-    font-family: Poppins;
-    font-size: 1rem;
-    text-align: center;
-    margin: 20px 0;
-    color: #13395B;
-}
-.productsHeading h2{
-    position: relative;
-    display: inline-block;
-}
-.productsHeading h2::after{
-    content:' ';
-  height:4px;
-  width:80%;
-  background:rgb(0, 77, 102);
-  position: absolute;
-  bottom:-10px;
-  right: 10%;
-  border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 .searchBar{
     display: flex;
@@ -47,7 +30,13 @@
 .input img{
     width: 24px;
 }
-
+.similar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+}
 .items,.similarProducts{
     display: flex;
     justify-content: start;
@@ -134,6 +123,7 @@
 }
 .productDescription{
     padding: 10px 20px;
+    padding-bottom: 50px;
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -240,7 +230,15 @@
     flex-direction: column;
     gap: 20px;
     font-size: 20px;
+    font-family: "inter";
 }
+.itemDescription .descriptions,.itemDescription .category{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 18px;
+}
+
 
 @media screen and (max-width:800px){
     .productDescription{
@@ -279,7 +277,7 @@
 
 @media screen and (max-width:480px) {
     .products{
-        padding: 10px;
+        padding: 10px 0;
     }
     .items.similarProducts{
         gap: 6%;

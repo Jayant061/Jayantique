@@ -4,7 +4,6 @@
     align-items: start;
     gap: 20px;
     padding: 20px;
-    padding-top: 90px;
     flex-wrap: wrap;
     /* background-color: #f1f1f1; */
     background:radial-gradient(#ffffd6 0%, lightgray 100%);
@@ -276,7 +275,6 @@ color: #13395B;
 @media screen and (max-width:709px) {
     .user{
         padding: 10px;
-        padding-top: 80px;
     }
     .userSidebar{
         width:100%;
@@ -318,7 +316,6 @@ color: #13395B;
 @media screen and (max-width:600px) {
     .user{
         padding: 10px;
-        padding-top: 80px;
     }
     .userSidebar,.userContent{
         width: 100%;

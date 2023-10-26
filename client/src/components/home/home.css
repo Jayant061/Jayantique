@@ -110,49 +110,10 @@
   align-items: center;
   gap: 20px;
 }
-.trending .trendigSubHeading{
+.trendigSubHeading h3{
   font-size: 2rem;
   font-weight: 500;
-}
-.trendingPage span,
-.testimonial .testimonialHeading {
-  font-size: 3rem;
-  padding: 0 5px;
-  font-family: "inter";
-  font-weight: 400;
-  color: #13395b;
-  /* margin-bottom: 20px; */
-  position: relative;
-  width: fit-content;
-  text-align: center;
-  display: inline-block;
-}
-
-.trendingPage span::after,
-.testimonial .testimonialHeading::after {
-  display: block;
-  position: absolute;
-  content: " ";
-  background: #13395b;
-  top: 50%;
-  transform: translateY(50%);
-  right: -100%;
-  width: 100%;
-  content: " ";
-  height: 2px;
-}
-.trendingPage span::before,
-.testimonial .testimonialHeading::before {
-  display: block;
-  position: absolute;
-  content: " ";
-  background: #13395b;
-  top: 50%;
-  transform: translateY(50%);
-  right: 100%;
-  width: 100%;
-  content: " ";
-  height: 2px;
+  text-decoration: underline;
 }
 .trendingProducts {
   display: flex;

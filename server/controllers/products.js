@@ -41,7 +41,7 @@ try {
   else if(itemId){
     try {
       const resp = await Product.findOne({_id: itemId});
-      const finalRes = await Product.find({category: { $regex: resp.category, $options: 'i' }}).skip(limitEl*skipEl).limit(limitEl);
+      const finalRes = await Product.find({category: { $regex: resp.category, $options: 'i' }}).skip(limitEl*skipEl).limit(limitEl/2);
       const finalData = await Promise.all(finalRes);
       finalData.push(resp);
       res.status(200).send(finalData);

@@ -114,7 +114,7 @@ function handleAddToCart(){
  return (
    <>
    <div className="productDescription">
-    <div className="imgSection">
+    <div className="imgSection" ref={ref}>
   <div className="mainImg">
     <img src={currImg} alt="" />
   </div>
@@ -156,10 +156,18 @@ function handleAddToCart(){
         </div>
         <div className="category">
           <h4>Category:</h4>
-          {item?.category}
+          <p>{item?.category}</p>
         </div>
       </div>
     </div>
+   </div>
+   <div className="similar">
+    <div className="similarProductsheading">
+        <span>Similar Products</span>
+    </div>
+      <div className="similarProducts">
+        {similarProductItems}
+      </div>
    </div>
    </>
   )

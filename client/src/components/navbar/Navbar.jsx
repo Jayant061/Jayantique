@@ -41,7 +41,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      if(currentScrollPos>=30){
+      if(currentScrollPos>=150){
         setScrollingDown(currentScrollPos > prevScrollPos);
         setPrevScrollPos(currentScrollPos);
       }
@@ -121,7 +121,7 @@ export default function Navbar() {
           </div>
         <ul
           className="navItems"
-          style={isSeeMore ? { height: "fit-content" } : {}}
+          style={isSeeMore ? { display:"flex", height:"max-content" } : {}}
           ref={navRef}
         >
           {/* <li  style={firstElStyle}> */}

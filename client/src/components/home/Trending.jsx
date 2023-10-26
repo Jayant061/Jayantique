@@ -4,45 +4,47 @@ import "./home.css";
 import LazyImage from '../lazyImage/LazyImage';
 import loader from "../../assets/loading.svg";
 // import loader from "../../assets/loading-loop.svg";
-import { addCartItemsId, addToCart, baseURL } from '../../../credentials.js';
+import { baseURL } from '../../../credentials.js';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../../context/CartContext';
+import { ProductContext } from '../../context/ProductsContext';
 
 function Trending() {
-  const [trendingProduct,setTrendingProduct] = useState([]);
+  // const [trendingProduct,setTrendingProduct] = useState([]);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
-  const {cartDispatch} = useContext(CartContext);
+  const {state,dispatch} = useContext(ProductContext);
   const navigate = useNavigate();
   useEffect(()=>{
     const getTrendingProducts = async()=>{
       try {  
         const res = await axios.get(`${baseURL}/products?trendingProduct=true`);
-        res.status===200 && setTrendingProduct(res.data);
+        // res.status===200 && setTrendingProduct(res.data);
+        res.status===200 && dispatch({type:"trendingProducts",payload:res.data});
         setLoading(false);
       } catch (error) {
         setError(error.message);
+        const makeReq = setTimeout(()=>{
+          getTrendingProducts();
+          clearTimeout(makeReq);
+        },2000);
         setLoading(false);
       }
     }
     const timeOut = setTimeout(()=>{
-      getTrendingProducts();
+      !state.trendingProduct?.length && getTrendingProducts();
       
     },1000);
-    return()=>{clearTimeout(timeOut)}
+    return()=>{
+      clearTimeout(timeOut);
+    }
   },[]);
-  // function handleBuyNow(item){
-  //     cartDispatch({
-  //       type:addToCart,
-  //       payload:item
-  //     });
-  //     cartDispatch({
-  //       type: addCartItemsId,
-  //       payload:item?._id
-  //     });
-  //     navigate("/addToCart")
-  // }
-  const trendingItems = trendingProduct.length && trendingProduct?.map((items,index)=>{
+  useEffect(()=>{
+    if(state.trendingProducts?.length){
+      setError("");
+      setLoading(false);
+    }
+  },[state]);
+  const trendingItems = state.trendingProducts?.length && state.trendingProducts?.map((items,index)=>{
    
     const products = items.map((item)=>{
     return(
@@ -56,9 +58,11 @@ function Trending() {
     });
     return (
       <div className="trending" key={index}>
-      {index ===0 && <h3 className='trendigSubHeading'>Men</h3>}
-      {index ===1 && <h3 className='trendigSubHeading'>Women</h3>}
-      {index ===2 && <h3 className='trendigSubHeading'>Home Decor</h3>}
+      <div className='trendigSubHeading'>
+      {index ===0 && <h3>Men</h3>}
+      {index ===1 && <h3>Women</h3>}
+      {index ===2 && <h3>Home Decor</h3>}
+      </div>
       <div className='trendingProducts'
       style={index===0?{backgroundColor: "#e3e3e377"}:{}}>
       {products}
