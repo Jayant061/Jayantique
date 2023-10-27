@@ -166,6 +166,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: 0.5s;
+  text-transform: capitalize;
 }
 .texts h4:hover {
   text-decoration: underline;

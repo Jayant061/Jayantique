@@ -5,6 +5,8 @@ import { CartContext } from "../../context/CartContext";
 import LazyImage from "../lazyImage/LazyImage.jsx";
 
 function Product({ product }) {
+  // this code is to maintain the minimum height of div to improve lazyImage and load min image in begining
+  const [isDivHeight,setIsDivHeight] = useState(true)
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const navigate = useNavigate();
   const { cartDispatch, cartItems, addedItems } = useContext(CartContext);
@@ -27,26 +29,29 @@ function Product({ product }) {
       setIsAddedToCart(true);
     }
   }, [cartItems]);
-
+  function setDivHeight(){
+    setIsDivHeight(false);
+  }
   return (
-    <div className="product">
+    <div className="product" style={isDivHeight?{aspectRatio:"3 / 4"}:{}}>
       {/* <img src={product.image} alt="" onClick={handleClick}/> */}
       <LazyImage
         id={product._id}
         src={ product.images[0]}
         alt={product.title}
         handleClick={handleClick}
+        onLoad={setDivHeight}
       />
       <div className="itemContent">
         <h4 className="productName">{product?.title}</h4>
         <p>₹ {product?.price}</p>
-        {isAddedToCart ? (
-          <span className="addToCart">Added to cart</span>
+        {!isDivHeight && (isAddedToCart ? (
+          <span className="addToCart"onClick={()=>{navigate("/addToCart")}}>Go to cart</span>
         ) : (
           <span className="addToCart" onClick={handleAddToCart}>
             Add to cart
           </span>
-        )}{" "}
+        ))}
       </div>
     </div>
   );

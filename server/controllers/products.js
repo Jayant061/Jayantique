@@ -6,7 +6,7 @@ const getProducts = async (req, res) => {
   const isTrendingProduct = req.query.trendingProduct;
   const itemId = req.query.itemId;
   if(isTrendingProduct){
-    const queries = ["men shoe", "women jeans", "lamp"];
+    const queries = ["men shoe", "invictus", "lamp"];
     const result = [];
 
 try {

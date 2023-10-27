@@ -1,26 +1,19 @@
-import React, { Suspense, lazy, useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
-import LazyImage from "../lazyImage/LazyImage";
-import { ProductContext } from "../../context/ProductsContext";
 import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
+import { ProductContext } from "../../context/ProductsContext";
 const Trending = lazy(() => import("./Trending.jsx"));
 const Testimonial = lazy(() => import("./Testimonial"));
 
 function Home() {
+  const homeRef = useRef();
   const [homePageAnimation,setHomePageAnimation] = useState(false);
   const { state } = useContext(ProductContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const paymentSuccess = queryParams.get("paymentSuccess");
-  const paymentCancel = queryParams.get("paymentCancel");
-  const transactionError = queryParams.get("transactionError");
   useEffect(() => {
     document.title = "Jayantique | Home";
-    // paymentSuccess && navigate("/payment/success");
-    // paymentCancel && navigate("/payment/cancel");
-    // transactionError && navigate("/payment/error");
+    homeRef?.current && homeRef?.current?.scrollIntoView({behavior:"smooth"})
     return()=>{setHomePageAnimation(false)}
   }, []);
   function setProductReq(){
@@ -38,7 +31,7 @@ function Home() {
     setHomePageAnimation(true);
   }
   return (
-    <div className="home">
+    <div className="home" ref={homeRef}>
       <div className="homeHeader">
         <div className="text">
           <h1 style={homePageAnimation?{animation:"slideIn 1s ease 0.1s forwards"}:{}}>

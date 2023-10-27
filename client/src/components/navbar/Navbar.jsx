@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import userIcon from "../../assets/user.svg";
-import cartIcon from "../../assets/cart2.svg";
+import cartIcon from "../../assets/cart.svg";
 import moreIcon from "../../assets/more.svg";
 import searchIcon from "../../assets/outline-search.svg";
 import "./navbar.css";
@@ -20,7 +20,6 @@ export default function Navbar() {
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
-
   useEffect(() => {
     document.addEventListener("mousedown", (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -34,14 +33,14 @@ export default function Navbar() {
         }
       });
     };
-  }, []);
+  }, [navRef]);
   const [scrollingDown, setScrollingDown] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      if(currentScrollPos>=150){
+      if(currentScrollPos>=50){
         setScrollingDown(currentScrollPos > prevScrollPos);
         setPrevScrollPos(currentScrollPos);
       }
@@ -85,6 +84,7 @@ export default function Navbar() {
   },[query]);
   function handleChange(e){
     setQuery(e.target.value);
+    setScrollingDown(false);
   }
 
   return (
@@ -154,11 +154,11 @@ const spanStyle = {
   minWidth: "fit-content",
   textDecoration: "none",
   position: "absolute",
-  top: "2px",
+  top: "50%",
   left: "50%",
-  transform: "translateX(-50%)",
+  transform: "translate(-50%,-50%)",
   fontWeight: "500",
   fontSize: "15px",
   zindex: "10",
-  color: "#fff",
+  color: "#13395b",
 };

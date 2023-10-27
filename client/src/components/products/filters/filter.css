@@ -1,0 +1,73 @@
+
+.items .filter{
+    width: calc(23.5% - 1px);
+   display: flex; 
+   flex-direction: column;
+   gap: 30px;
+   padding: 10px 0;
+   border-right: 1px solid lightgray;
+   color: #13395b;
+   animation: expand 0.2s ease-in-out;
+}
+@keyframes expand{
+    from{
+        height:0
+    }
+    to{
+        height:100%
+    }
+}
+.items .filterIcon{
+    position: absolute;
+    transform: translateY(-40px);
+    left:10px;
+    display: none;
+}
+.filterIcon img{
+    width:40px;
+    transition: transform 0.4s;
+}
+.genders,.categories{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.genders span,.categories span{
+    font-weight: 500;
+    font-size: 18px;
+}
+.genders .gender, .categories .category{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    
+}
+.items{
+    border-top: 1px solid lightgray;
+}
+@media screen and (max-width:650px){
+    .items{
+        position: relative;
+    }
+    .products{
+        gap: 40px;
+    }
+    .items .filter{
+        width: calc(30% - 1px);
+        height: 0;
+        overflow: hidden;
+        display: none;
+    }
+    .items .filterIcon{
+        display: inline-block;
+    }
+}
+@media screen and (max-width:480px){
+    .items .filter{
+        width: calc(100% - 21px);
+        padding: 10px;
+    }
+}

@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext, lazy, Suspense, useRef } from "react";
 import axios from "axios";
-import searchIcon from "../../assets/outline-search.svg";
 import "./product.css";
+import filterIcon from "../../assets/filter.svg";
 import { ProductContext } from "../../context/ProductsContext";
-import loader from "../../assets/loading.svg";
 import { baseURL, getProducts } from "../../../credentials.js";
-import loadingLoop from "../../assets/loading-loop.svg";
-import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
+import Filter from "./filters/Filter";
 const Product = lazy(()=>import("./Product"));
 const Pagination = lazy(()=>import("./Pagination"));
 
@@ -17,6 +15,7 @@ function Products() {
   const [page,setPage] = useState(1);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
+  const [isFilterVisible,setIsFilterVisible] = useState(false);
   const inputRef = useRef();
 
   useEffect(()=>{
@@ -75,8 +74,9 @@ useEffect(()=>{
       },2000);
     }
   }
+    setIsFilterVisible(false);
     const timeOut = sessionStorage.getItem("isProductReq")==="true" && setTimeout(()=>{
-      !state.products?.length && setLoading(true);
+      setLoading(true);
       productsRequest();
     },1000);
   return()=>{
@@ -94,21 +94,28 @@ useEffect(()=>{
   window.history.pushState(newURL,"",newURL);
   state.products?.length && setError("");
 },[state,page]);
+const items = state?.products?.map((product, index) => {
 
-  const items = state?.products?.map((product, index) => {
-
-    return (
-      <Suspense fallback = {<LoadingSpinner/>} key={index}><Product product = {product} key={index}/></Suspense>
+  return (
+    <Suspense fallback = {<LoadingSpinner/>} key={index}><Product product = {product} key={index}/></Suspense>
     );
   });
   
+
   return (
     <div className="products">
-      <div className="productsHeading">
-        <span ref={inputRef}>All Products</span>
+      <div className="productsHeading" ref={inputRef}>
+        <span >All Products</span>
+      </div>
+      <div className="filtersAndSort">
+        
       </div>
       <div className="items">
-        {loading?<img src={loader} style={{width:"30%"}} alt="three dots loading"/>:items}
+      <div className="filterIcon" onClick={()=>{setIsFilterVisible(prev=>{return !prev})}}>
+        <img src={filterIcon} alt="" style={isFilterVisible?{transform :"rotate(180deg)"}:{}} />
+        </div>
+        {items.length ? <Filter isFilterVisible = {isFilterVisible} />:<></>}
+        {loading?<LoadingSpinner/>:items}
         {error && <p style={{color:'red'}}>{error}</p>}
         </div>
         {state?.products?.length && !loading? <Pagination setPage = {setPage} itemNumber = {state.products.length} isLoading={loading}/>:<></>}

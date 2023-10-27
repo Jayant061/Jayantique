@@ -25,9 +25,12 @@ const LazyImage = ({src, alt,id, handleClick,onLoad}) => {
         onLoad={onLoad && onLoad}/>
         :
         <img
+            src=""
+            alt=""
             id={id}
             ref={ref} 
-            style={{width: "250px",height: "278px",
+            style={{width: "250px",
+            minHeight: "278px",
             borderRadius: "20px",
             // boxShadow: "5px -5px 5px #bbbbbb"
         }}
