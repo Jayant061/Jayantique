@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./filter.css";
+import { URLContext } from '../../../context/URLContext';
 
 function Filter({isFilterVisible}) {
-    const [filters,setFilters] = useState({
-        gender:'',
-        category:'',
-    });
+    const {URLState,URLDispatch} = useContext(URLContext);
+
     function handleClick(e){
-        setFilters(prev=>{
-            return{
-                ...prev,
-                [e?.target?.name]:e?.target?.value
-            };
-        })
+        URLDispatch({
+            type:e.target.name,
+            payload:e.target.value
+        });
     }
     const setFilterStyle = {
         display:"flex",
@@ -23,34 +20,39 @@ function Filter({isFilterVisible}) {
         <div className="genders">
             <span>GENDER</span>
         <div className="gender">
-            <input type="radio" name="gender" id="men" value="men" onClick={handleClick} />
+            <input type="radio" name="gender" id="men" value={"men"} checked = {URLState.gender === "men"} onChange={handleClick} />
             <label htmlFor="men" name="gender">Men</label>
         </div>
         <div className="gender">
-            <input type="radio" name="gender" id="women" value="women" onClick={handleClick} />
+            <input type="radio" name="gender" id="women" value={"women"} checked = {URLState.gender === "women"} onChange={handleClick} />
             <label htmlFor="women">Women</label>
         </div>
         </div>
         <div className="categories">
             <span>CATEGORIES</span>
             <div className="category">
-                <input type="radio" name="category" id="clothing" value="clothing" onClick={handleClick}/>
+                <input type="radio" name="category" id="clothing" value="clothing" checked = {URLState.category === "clothing"}
+                 onChange={handleClick}/>
                 <label htmlFor="clothing">Clothing</label>
             </div>
             <div className="category">
-                <input type="radio" name="category" id="footwear" value="footwear" onClick={handleClick}/>
+                <input type="radio" name="category" id="footwear" value="footwear" checked = {URLState.category === "footwear"}
+                 onChange={handleClick}/>
                 <label htmlFor="footwear">Footwear</label>
             </div>
             <div className="category">
-                <input type="radio" name="category" id="perfume" value="perfume" onClick={handleClick} />
+                <input type="radio" name="category" id="perfume" value="perfume" onChange={handleClick}
+                checked = {URLState.category === "perfume"} />
                 <label htmlFor="perfume">Perfumes</label>
             </div>
             <div className="category">
-                <input type="radio" name="category" id="home-decorations" value="home decorations" onClick={handleClick} />
+                <input type="radio" name="category" id="home-decorations" value="home decorations"
+                checked = {URLState.category === "home decorations"} onChange={handleClick} />
                 <label htmlFor="home-decorations">Home Decor</label>
             </div>
             <div className="category">
-                <input type="radio" name="category" id="bags" value="bags" onClick={handleClick} />
+                <input type="radio" name="category" id="bags" value="bags" onChange={handleClick} 
+                checked = {URLState.category === "bags"}/>
                 <label htmlFor="bags">Bags & BackPacks</label>
             </div>
         </div>

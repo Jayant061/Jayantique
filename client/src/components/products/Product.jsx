@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { addToCart, addCartItemsId } from "../../../credentials.js";
 import { CartContext } from "../../context/CartContext";
 import LazyImage from "../lazyImage/LazyImage.jsx";
+import cartOutline from "../../assets/cartOutline.svg";
+import cartFill from "../../assets/cartFill.svg"
 
 function Product({ product }) {
   // this code is to maintain the minimum height of div to improve lazyImage and load min image in begining
@@ -39,22 +41,27 @@ function Product({ product }) {
         id={product._id}
         src={ product.images[0]}
         alt={product.title}
-        handleClick={handleClick}
         onLoad={setDivHeight}
+        handleClick={handleClick}
       />
-      <div className="itemContent">
+      <div className="itemContent" onClick={handleClick}>
         <h4 className="productName">{product?.title}</h4>
         <p>₹ {product?.price}</p>
-        {!isDivHeight && (isAddedToCart ? (
-          <span className="addToCart"onClick={()=>{navigate("/addToCart")}}>Go to cart</span>
-        ) : (
-          <span className="addToCart" onClick={handleAddToCart}>
-            Add to cart
-          </span>
-        ))}
       </div>
+      {!isDivHeight && (isAddedToCart ?
+        (<img src={cartFill} className="addToCart" onClick={()=>{navigate("/addToCart")}}/> )
+        :(<img src={cartOutline} className="addToCart" onClick={handleAddToCart}/>)
+        )}
     </div>
   );
 }
 
 export default Product;
+
+{/* (
+          <span className="addToCart"onClick={()=>{navigate("/addToCart")}}>Go to cart</span>
+        ) : (
+          <span className="addToCart" onClick={handleAddToCart}>
+            Add to cart
+          </span>
+        ) */}

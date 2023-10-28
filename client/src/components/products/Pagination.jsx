@@ -3,41 +3,33 @@ import leftIcon from "../../assets/left.svg";
 import rightIcon from "../../assets/right.svg";
 import loader from "../../assets/loading.svg";
 import "./pagination.css";
-import { ProductContext } from "../../context/ProductsContext";
-export default function Pagination({ setPage, itemNumber }) {
-  const [number, setNumber] = useState(0);
+import { URLContext } from "../../context/URLContext";
+
+
+export default function Pagination({ itemNumber }) {
+  const { URLState,URLDispatch } = useContext(URLContext);
+  const [number, setNumber] = useState(URLState.page?parseInt(URLState.page):0);
   const [loading, setLoading] = useState(false);
-  const { state } = useContext(ProductContext);
+
   function handleClick() {
-    if (number !== 0 && number) {
-      setPage(number);
-    }
-    else{
-      setPage(1);
-    }
-    if(number !== parseInt(q)){
-      setLoading(true);
-      sessionStorage.setItem("isProductReq","true");
-    }
+    setLoading(true);
+    URLDispatch({
+      type:"page",
+      payload:parseInt(number)
+    });
   }
-  useEffect(() => {
-      const query = new URLSearchParams(window.location.search);
-      const q = query.get('page')
-      setLoading(false);
-      q?setNumber(parseInt(q)):setNumber(1);
-      q?setPage(parseInt(q)):setPage(1)
-  }, [state]);
-  const query = new URLSearchParams(window.location.search);
-    const q = query.get('page')
+  useEffect(()=>{
+    (parseInt(URLState.page) !== number)&& URLDispatch({type:"page",payload:number});
+  },[number])
   return (
     <>
       {!(number === 1 && itemNumber < 20) ? (
         <div className="pagination">
-          {parseInt(q) !== 1?
+          {parseInt(number) !== 1?
             <div
               className="pageButton"
               onClick={() => {
-                setPage((prev) => {
+                setNumber((prev) => {
                   return parseInt(prev) - 1;
                 });
                 setLoading(true);
@@ -68,7 +60,7 @@ export default function Pagination({ setPage, itemNumber }) {
             <div
               className="pageButton"
               onClick={() => {
-                setPage((prev) => {
+                setNumber((prev) => {
                   return parseInt(prev) + 1;
                 });
                 setLoading(true);

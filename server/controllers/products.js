@@ -52,28 +52,43 @@ try {
     }
   }
   else{
-    const arr = req?.query?.query?.split(' ');
+    const arr = req?.query?.query? req.query.query.split(' '):[];
     // const keyword = req.query.query;
-    if(!arr){
-      try {
-        const resPromise = await Product.find({}).skip(skipEl*limitEl).limit(limitEl).exec();
-        const resp = await Promise.all(resPromise);
-        res.status(200).send(resp);
-      } catch (error) {
-        res.status(400).send(error);
+      const gender = req?.query?.gender;
+      const category = req?.query?.category;
+      const sort = req?.query?.sort;
+      const conditions = [];
+
+      if(gender){
+        conditions.push({
+          $or:[
+          {title:{$regex:`^${gender}|\\s${gender}|unisex`,$options:"i"}},
+          {category:{$regex:`^${gender}|\\s${gender}|unisex`,$options:"i"}}
+        ]
+      });
       }
+
+    if(category){
+      conditions.push({category:{$regex:category,$options:"i"}});
     }
-    else{
-    try {
-      const resp = await Product.find({
-        $and: arr?.map(keyword => (
-          {
-        $or: [
-          { title: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
-          { category: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
-        ],
+
+    if(arr.length){
+      const queryConditions = arr.map(keyword=>{
+        return{
+            $or: [
+              { title: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
+              { category: { $regex: `^${keyword}|\\s${keyword}`, $options: 'i' } },
+            ],
+        }
+        
+      });
+      conditions.push(...queryConditions);
+      // if(sort){
       }
-      ))
+
+    try {
+      const resp = await Product.find(!conditions.length?{}:{
+        $and: conditions
       }).skip(skipEl*limitEl).limit(limitEl).exec();
       res.status(200).send(resp); 
     } catch (error) {
@@ -81,6 +96,5 @@ try {
       //do nothing
     }
   }
-}
-  };
+};
   export default getProducts;

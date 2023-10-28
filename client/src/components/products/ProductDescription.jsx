@@ -113,7 +113,8 @@ function handleAddToCart(){
       )
     })
  return (
-   <>
+  <>
+   {item?.title ? <>
    <div className="productDescription" ref={ref}>
     <div className="imgSection" >
   <div className="mainImg">
@@ -170,6 +171,7 @@ function handleAddToCart(){
         {similarProductItems}
       </div>
    </div>
+   </> : <LoadingSpinner/>}
    </>
   )
 }

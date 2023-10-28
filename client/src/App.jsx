@@ -6,6 +6,7 @@ import { getUser } from "../credentials";
 import "./App.css";
 import { UserContext } from "./context/UserContext";
 import LoadingSpinner from "./assets/loadingSpinner/LoadingSpinner";
+import { URLContext } from "./context/URLContext";
 
 // import Home from "./components/home/Home";
 const Home = lazy(()=>import("./components/home/Home"));
@@ -66,6 +67,21 @@ function App() {
       subs = false;
     };
   }, []);
+  const [state,setState] = useState(0);
+  const {URLState} = useContext(URLContext);
+  useEffect(()=>{
+    function changeURL(){
+      let newURL= window.location.origin + window.location.pathname;
+      newURL = newURL + `?${URLState.query?"query="+URLState.query + "&":""}${URLState.gender?"gender="+URLState.gender  + "&":""}${URLState.category?"category="+URLState.category + "&":""}${URLState.sort?"sort="+URLState.sort   + "&":""}${URLState.page?"page="+URLState.page:""}`
+      window.history.pushState(newURL,"",newURL);
+    }
+    if(state === 0){
+      setState(1);
+    }
+    else{
+      changeURL();
+    }
+  },[URLState]);
   return (
     <div className="app">
       <BrowserRouter>

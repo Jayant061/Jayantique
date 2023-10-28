@@ -6,7 +6,7 @@ import moreIcon from "../../assets/more.svg";
 import searchIcon from "../../assets/outline-search.svg";
 import "./navbar.css";
 import { CartContext } from "../../context/CartContext";
-import { ProductContext } from "../../context/ProductsContext";
+import { URLContext } from "../../context/URLContext";
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -14,13 +14,14 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [isSeeMore, setSeeMore] = useState(false);
   const { quantity } = useContext(CartContext);
-  const [SearchBarvisibility, setSearchBarvisibility] = useState(false);
-  const {state,dispatch} = useContext(ProductContext);
-  const [query,setQuery] = useState(state.query);
+  const {URLState, URLDispatch} = useContext(URLContext);
+  // const q =  (new URLSearchParams(window.location.search)).get("query")
+  const [query,setQuery] = useState(URLState.query?URLState?.query:"");
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
   useEffect(() => {
+    sessionStorage.setItem("isProductReq","true");
     document.addEventListener("mousedown", (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setSeeMore(false);
@@ -33,7 +34,7 @@ export default function Navbar() {
         }
       });
     };
-  }, [navRef]);
+  }, []);
   const [scrollingDown, setScrollingDown] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
@@ -58,30 +59,38 @@ export default function Navbar() {
     transition: 'transform 0.3s ease-in-out',
   };
   useEffect(()=>{
-    if(query === state.query){
+    if(query === URLState.query){
       
       sessionStorage.setItem("isProductReq","false");
     }
     else{
       sessionStorage.setItem("isProductReq","true");
     }
-    const timeOut = query && setTimeout(()=>{
-      (query && state.query !== query) && dispatch({
-        type:"Query",
+    const timeOut = setTimeout(()=>{
+      if(URLState.query !== query){
+         URLDispatch({
+        type:"query",
         payload:query
       });
-    if(window.location.pathname !=="/products"){
-      navigate(`/products?query=${query}&page=1`);
-    }
-    else{
+      URLDispatch({
+        type:"gender",
+        payload:""
+      });
+      URLDispatch({
+        type:"category",
+        payload:""
+      })
 
-      let newURL= window.location.origin + window.location.pathname;
-      newURL = newURL + `?query=${query}&page=1`;
-      window.history.pushState(newURL,"",newURL);
+    }
+    if(window.location.pathname !=="/products"){
+      navigate(`/products`);
     }
     },1000);
     return()=>{clearTimeout(timeOut)}
   },[query]);
+  useEffect(()=>{
+    sessionStorage.setItem("isProductReq","true");
+  },[URLState])
   function handleChange(e){
     setQuery(e.target.value);
     setScrollingDown(false);
