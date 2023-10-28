@@ -1,0 +1,30 @@
+.termsConditions{
+    margin: 0;
+    padding:50px;
+    background-color: #13395bd3;
+    color: white;
+}
+.termsConditions .contents{
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.contents .content{
+    padding-bottom: 30px;
+}
+.contents .content p,.sign p{
+    font-size: 1.2em;
+    text-align: justify;
+}
+.termsConditions .contents .content h4{
+    text-align: center;
+    font-size: 1.3em;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
+@media screen and (max-width:600px) {
+    .privacyPolicy{
+        padding: 0 10px;
+    }
+}

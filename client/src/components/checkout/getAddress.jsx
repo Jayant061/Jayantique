@@ -1,4 +1,4 @@
-import DisplayLocation from "../user/DisplayLocation";
+import DisplayLocation from "../user/address/DisplayAddress";
 
 export default function getAddress(arr,setDeliveryAddress,addressType){
     const addresses = arr.map((address,index)=>{
@@ -18,7 +18,7 @@ export default function getAddress(arr,setDeliveryAddress,addressType){
                     required
                   />
                   <label htmlFor={addressType + index}>
-                    <DisplayLocation key={index} data={JSON.parse(address)} />
+                    <DisplayLocation key={index} data={JSON.parse(address)} width = "700px" />
                   </label>
                 </div>
         )

@@ -61,11 +61,11 @@ function CartItem({product,qty}) {
   return (
     <div className="cartItem" style={isItemDeleted ? {display:"none"}:{}}>
             <div className="productInfo">
-            <img src={product?.image} alt="" />
+            <img src={product?.images[0]} alt="" />
             <span>{product?.title.slice(0,50)}{product?.title.length>50?"...":""}</span>
             </div>
             <div className="productPrice">
-                <span>₹ {((parseFloat(product?.price)*80).toFixed(2))}</span>
+                <span>₹ {product?.price}</span>
             </div>
             <div className="productQuantity">
                 <img src={addIcon} alt=""onClick={handleIncrement} />

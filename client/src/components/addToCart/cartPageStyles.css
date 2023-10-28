@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left;
     width: 90%;
     background-color: lightgray;
     padding: 10px 5%;
@@ -20,7 +19,7 @@
     padding: 50px;
     margin: 0 10px;
     background-color: #13395ba1;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     font-weight: 600;
     color: white;
     border-radius: 10px;
@@ -30,13 +29,13 @@
     background-color: #13395ba1;
     padding: 20px 0;
     text-align: center;
-    font-size: calc(7px + 0.9vw);
+    font-size: 16px;
     font-weight: 500;
     color: white;
     border-radius: 10px;
 }
 .cartHeading{
-    font-size: calc(10px + 1vw);
+    font-size: 20px;
     font-weight: 600;
     color: #022747;
     margin-bottom: 10px;
@@ -54,7 +53,7 @@
     display: flex;
     padding: 10px 50px;
     border-bottom: 1px solid gray;
-    font-size: calc(8px + 1vw);
+    font-size: 24px;
     font-weight: 500;
     color: #022747;
 }
@@ -70,7 +69,7 @@ text-align: center;
     display: flex;
     align-items: start;
     padding: 20px 50px;
-    font-size: calc(7px + 0.9vw);
+    font-size: 18px;
     font-weight: 500;
     color: #13395b;
     border-bottom: 1px solid lightgray;
@@ -115,7 +114,7 @@ text-align: center;
     gap: 20px;
 }
 .deliveryHeading{
-    font-size: calc(8px + 1vw);
+    font-size: 20px;
     font-weight: 500;
     color: #13395b;
 }
@@ -145,14 +144,14 @@ text-align: center;
     width: 60%;
     border: none;
     outline: none;
-    font-size: calc(8px + 1vw);
+    font-size: 20px;
     color: #13395b;
 }
 .locationInput button{
     border: none;
     background-color: #fff;
     color: #022747;
-    font-size: calc(8px + 1vw);
+    font-size: 20px;
     font-weight: 500;
     cursor: pointer;
 }
@@ -162,7 +161,7 @@ text-align: center;
     align-items: start;
     /* gap: 20px; */
     justify-content: space-between;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
 }
 .offer{
     display: flex;
@@ -180,7 +179,7 @@ text-align: center;
 }
 .costHeading{
     padding:0 10px 10px 10px;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     font-weight: 600;
     color: #022747;
     padding-bottom: 10px;
@@ -190,7 +189,7 @@ text-align: center;
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
-    font-size: calc(8px + 1vw);
+    font-size: 16px;
     color: #13395b;
 }
 .childCost .cost{
@@ -209,7 +208,7 @@ text-align: center;
 }
 .billing .buttons .continueShopping{
     border:none;
-    font-size: calc(9px + 0.8vw);
+    font-size: 17px;
     background-color: white;
     font-weight: 600;
     color: rgb(5, 21, 51);
@@ -219,7 +218,7 @@ text-align: center;
     border: 2px solid rgb(5, 21, 51);
     padding: 10px;
     border-radius: 10px;
-    font-size: calc(9px + 0.8vw);
+    font-size: 18px;
     color: white;
     font-weight: 600;
     background-color: rgb(5, 21, 51);
@@ -258,7 +257,7 @@ text-align: center;
         max-width: 300px;
     }
     .billing .buttons{
-        font-size: calc(9px + 1vw);
+        font-size: 18px;
         flex-direction: column;
         gap: 20px;
     }
@@ -283,22 +282,23 @@ text-align: center;
 @media screen and (max-width:600px) {
     .cartWrapper{
         padding: 20px 0;
+        border-radius: 0;
     }
     .wrapperHeader{
         display: none;
     }
     .cartItems .cartItem{
-        padding:0 20px;
+        padding:0 5px;
         margin: auto;
         position: relative;
-        font-size: calc(8px + 1vw);
+        font-size: 15px;
         min-height: 140px;
         align-items: center;
     }
     .productInfo{
         flex-direction: row;
         flex-basis: 50%;
-        font-size: calc(7px + 1vw);
+        font-size: 16px;
         align-items: center;
     }
     .productInfo img{
@@ -326,7 +326,6 @@ text-align: center;
     width: 100%;
 }.deliveryAvailabilty{
     width: 90%;
-    max-width: 70vw;
     min-width: 90%;
     padding: 20px 0;
 }
@@ -338,15 +337,21 @@ text-align: center;
     justify-content: space-between;
 } */
 .locationInput button,.locationInput input{
-    font-size: calc(10px + 1vw);
+    font-size: 18px;
 }
 .deliveryHeading{
-    font-size: calc(10px + 1vw);
+    font-size: 20px;
 }
 .offers{
-    font-size: calc(9px + 1vw);
+    font-size: 18px;
 }
 .offer{
     flex-direction: column;
 }
+}
+@media screen and (max-width:480px) {
+    .cart{
+        padding: 0;
+        width: 100%;
+    }
 }

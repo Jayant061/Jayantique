@@ -1,18 +1,28 @@
+.checkoutPage{
+    padding: 20px;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: start;
+}
+.checkoutImg{
+    width: 35%;
+    right: 20px;
+}
 .paymentDetails{
-    padding: 50px;
-    width: calc(100% - 100px);
+    width: 65%;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    overflow: hidden;
 }
 .deliveryAddresses{
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: 30px;
 }
 #deliveryHeading{
-font-size: calc(10px + 1.2vw);
+font-size: 1.5rem;
 text-align: center;
 font-weight: 600;
 color: #13395b;
@@ -20,10 +30,7 @@ color: #13395b;
 .deliveryAddress{
     padding-left: 20px;
     position: relative;
-}
-.deliveryAddress .addressChild{
-    color: #13395b;
-    width: 70%;
+    width: calc(100% - 20px);
 }
 .deliveryAddress input{
     position: absolute;
@@ -32,10 +39,13 @@ color: #13395b;
     transform: translateY(-50%);
 
 }
+.deliveryAddress label{
+    width: calc(100% - 20px);
+}
 
 
 .deliveryAddresses button,.payBtn{
-    font-size:calc(8px + 1vw);
+    font-size:1.25rem;
     padding: 10px;
     color: #13395b;
     border: none;
@@ -43,7 +53,8 @@ color: #13395b;
     transition: 0.5s;
     cursor: pointer;
     transform: translateX(20px);
-    width: 70%;
+    width: calc(100% - 20px);
+    max-width: 740px;
 }
 .deliveryAddresses button:hover,.payBtn:hover{
     background-color: #13395b;
@@ -54,5 +65,18 @@ color: #13395b;
     flex-direction: column;
     gap: 30px;
     color: #13395b;
+    padding-left: 20px;
+    width: calc(100% - 20px);
 }
+
+@media screen and (max-width:800px){
+    .checkoutPage{
+        flex-direction: column-reverse;
+        gap: 50px;
+    }
+    .paymentDetails,.checkoutImg{
+        width: 100%;
+    }
+}
+
 

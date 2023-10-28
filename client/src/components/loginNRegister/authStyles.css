@@ -1,6 +1,7 @@
 .auth{
     width: 100%;
-    height: calc(100vh - 56px);
+    padding: 50px 0;
+    height: 100%;
     background-color: #f1f1f1ec;
     display: flex;
     justify-content: center;
@@ -38,25 +39,26 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.authWrapper form input, .auth form button,.auth form .password{
-    font-size: 17px;
+
+.authWrapper form input, .auth form button,.auth form .passwordInput,.authWrapper form .genderInput{
+    font-size: 1.05em;
     font-weight: 500;
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     color: #13395B;
     outline: none;
     border:none;
     background-color: #f1f1f175;
-    border-radius:10px;
-}
-.authWrapper form .registerInput{
-    width: 100%;
-    font-size: 17px;
-    font-weight: 500;
     border-radius: 10px;
-    padding: 10px;
+    
 }
-.authWrapper form .registerInput, .authWrapper form .registerInput .inputsPartition{
+.authWrapper form .password{
+    width: 100%;
+    padding: 0px;
+    background-color: #f1f1f175;
+    border-radius: 10px;
+}
+.authWrapper form .genderInput, .authWrapper form .genderInput .inputsPartition{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -64,7 +66,7 @@ input::-webkit-inner-spin-button {
     background-color: #f1f1f175;
     color: #13395B;
 }
-.authWrapper form .registerInput .inputsPartition .radioInput{
+.authWrapper form .genderInput .inputsPartition .radioInput{
     display: flex;
     gap: 10px;
 }
@@ -86,12 +88,12 @@ input::-webkit-inner-spin-button {
     align-items: center;
 }
 .authWrapper form .password input{
-    padding: 0;
     background-color: transparent;
 }
 .authWrapper form .password  img{
     height: 20px;
     cursor: pointer;
+    z-index: 10;
 }
 
 

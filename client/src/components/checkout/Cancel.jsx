@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 function Cancel() {
   const navigate = useNavigate();
-  useEffect(() => {
-    const timeout = setTimeout(()=>{
-      navigate("/");
-    },[4000]);
+  // useEffect(() => {
+  //   const timeout = setTimeout(()=>{
+  //     navigate("/");
+  //   },[4000]);
   
-    return () => {
-      clearTimeout(timeout);
-    }
-  }, []);
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   }
+  // }, []);
   const divStyle = {
+    paddingTop:"80px",
+    height:"100vh",
+    overflow:"auto",
     marginTop:"50px",
     display:"flex",
     flexDirection:"Column",

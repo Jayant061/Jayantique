@@ -5,6 +5,8 @@ import jwt_decode from "jwt-decode";
 import { getUser } from "../credentials";
 import "./App.css";
 import { UserContext } from "./context/UserContext";
+import LoadingSpinner from "./assets/loadingSpinner/LoadingSpinner";
+import { URLContext } from "./context/URLContext";
 
 // import Home from "./components/home/Home";
 const Home = lazy(()=>import("./components/home/Home"));
@@ -19,6 +21,10 @@ const PaymentDetails = lazy(()=>import("./components/checkout/PaymentDetails"));
 const Success = lazy(()=>import("./components/checkout/Success"));
 const Cancel = lazy(()=>import("./components/checkout/Cancel")) ;
 const Error = lazy(()=>import("./components/checkout/Error"));
+const Footer = lazy(()=>import("./components/footer/Footer"));
+const AboutUs = lazy(()=>import("./components/usefulPages/aboutUs/AboutUs"));
+const PrivacyPolicy = lazy(()=>import("./components/usefulPages/privacy-policy/PrivacyPolicy"))
+const TermsConditions = lazy(()=>import("./components/usefulPages/termsConditions/TermsConditions"));
 // import Footer from "./components/footer/Footer";
 
 function App() {
@@ -40,6 +46,7 @@ function App() {
   return(<Navigate to={"/login"} state={{from: location}} replace/>)
   }
   useEffect(() => {
+    sessionStorage.setItem("isProductReq","true");
     let subs = true;
     const getData = async () => {
       if(accessToken){
@@ -52,7 +59,6 @@ function App() {
             });
           }  
         } catch (error) {
-          console.log(error);
         }
       }
     };
@@ -61,24 +67,49 @@ function App() {
       subs = false;
     };
   }, []);
+  const [state,setState] = useState(0);
+  const {URLState} = useContext(URLContext);
+  useEffect(()=>{
+    function changeURL(){
+      let newURL= window.location.origin + window.location.pathname;
+      newURL = newURL + `?${URLState.query?"query="+URLState.query + "&":""}${URLState.gender?"gender="+URLState.gender  + "&":""}${URLState.category?"category="+URLState.category + "&":""}${URLState.sort?"sort="+URLState.sort   + "&":""}${URLState.page?"page="+URLState.page:""}`
+      window.history.pushState(newURL,"",newURL);
+    }
+    if(state === 0){
+      setState(1);
+    }
+    else{
+      changeURL();
+    }
+  },[URLState]);
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
-        <Navbar />
+        <div className="head">
+        <Suspense fallback={<LoadingSpinner/>}><Navbar /></Suspense>
+        </div>
+
+        <div className="main">
         <Routes>
-          <Route exact path="/" element={<Suspense fallback = {<div>Loading...</div>}><Home /></Suspense>} />
-          <Route exact path="/products" element={<Suspense fallback = {<div>Loading...</div>}><Products /></Suspense>} />
-          <Route exact path= "/product/:params" element={<Suspense fallback = {<div>Loading...</div>}><ProductDescription /></Suspense>} />
-          <Route exact path="/register" element = {<Suspense fallback = {<div>Loading...</div>}><Register/></Suspense>}/>
-          <Route exact path="/login" element = {<Suspense fallback = {<div>Loading...</div>}><Login/></Suspense>}/>
-          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><User/></Suspense></ProtectedRoute>}/>
-          <Route exact path="/addToCart" element = {<Suspense fallback = {<div>Loading...</div>}><Cart/></Suspense>}/>
-          <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<div>Loading...</div>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
-          <Route exact path="/payment/success" element = {<Suspense fallback = {<div>Loading...</div>}><Success/></Suspense>}/>
-          <Route exact path="/payment/cancel" element = {<Suspense fallback = {<div>Loading...</div>}><Cancel/></Suspense>}/>
-          <Route exact path="/payment/error" element = {<Suspense fallback = {<div>Loading...</div>}><Error/></Suspense>}/>
+          <Route exact path="/" element={<Suspense fallback = {<LoadingSpinner/>}><Home /></Suspense>} />
+          <Route exact path="/products" element={<Suspense fallback = {<LoadingSpinner/>}><Products /></Suspense>} />
+          <Route exact path= "/product/:params" element={<Suspense fallback = {<LoadingSpinner/>}><ProductDescription /></Suspense>} />
+          <Route exact path="/register" element = {<Suspense fallback = {<LoadingSpinner/>}><Register/></Suspense>}/>
+          <Route exact path="/login" element = {<Suspense fallback = {<LoadingSpinner/>}><Login/></Suspense>}/>
+          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><User/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/addToCart" element = {<Suspense fallback = {<LoadingSpinner/>}><Cart/></Suspense>}/>
+          <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
+          <Route exact path="/payment/success" element = {<Suspense fallback = {<LoadingSpinner/>}><Success/></Suspense>}/>
+          <Route exact path="/payment/cancel" element = {<Suspense fallback = {<LoadingSpinner/>}><Cancel/></Suspense>}/>
+          <Route exact path="/payment/error" element = {<Suspense fallback = {<LoadingSpinner/>}><Error/></Suspense>}/>
+          <Route exact path="/about-us" element = {<Suspense fallback = {<LoadingSpinner/>}><AboutUs/></Suspense>}/>
+          <Route exact path="/privacy-policy" element = {<Suspense fallback = {<LoadingSpinner/>}><PrivacyPolicy/></Suspense>}/>
+          <Route exact path="/tnc" element = {<Suspense fallback = {<LoadingSpinner/>}><TermsConditions/></Suspense>}/>
         </Routes>
-        {/* <Footer/> */}
+        </div>
+        <div className="mainFooter">  
+        <Suspense fallback = {<LoadingSpinner/>}><Footer/></Suspense>
+        </div>
       </BrowserRouter>
     </div>
   );

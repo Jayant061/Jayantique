@@ -3,17 +3,30 @@
     padding: 0;
 }
 .navbar{
-    padding: 10px 30px;
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index: 50;
+    padding: 15px 30px;
+    width: calc(100% - 60px);
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    gap: 20px;
+    align-items: center;
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    transition: top 0.5s ease;
+    background-color: #fff;
 }
 .logo{
     font-family: Inter;
-    font-size: 30px;
+    font-size: 2rem;
     letter-spacing: 2px;
     font-weight: 500;
     color: #13395B;
+    flex: 1;
+}
+.logo span{
     cursor: pointer;
 }
 .navItems{
@@ -21,7 +34,7 @@
     justify-content: space-between;
     align-items: center;
     list-style: none;
-    transition: 0.5s;
+    transition: height 0.5s ease-in;
 }
 .navItems img{
     width: 30px;
@@ -40,19 +53,62 @@
     border-radius: 50%;
     position: absolute;
     right: 30px;
+    top: 20px;
     width: 40px;
     visibility: hidden;
 }
-
+.navSearchBar{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    gap: 5px;
+    width: max-content;
+}
+.navSearchBar img{
+    width: 20px;
+}
+.navSearchBar input{
+    font-size: 1.2rem;
+    width: 100%;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    color: #13395B;
+}
+.navSearchBar input::placeholder{
+    color: #13395b93;
+}
+@media screen and (max-width:700px){
+    .navbar{
+        flex-wrap: wrap;
+    }
+.navSearchBar{
+    width:calc(100% - 12px);
+    flex: none;
+}
+.navItems{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+}
 @media screen and (max-width:480px) {
     .navbar{
+        align-items: center;
+        padding: 10px 0;
+        width: 100%;
+    }
+    /* .navbar{
         width: 100%;
         margin: 0;
         padding: 10px 0;
         display: flex;
         justify-content: space-between;
         align-items: start;
-    }
+    }*/
     .moreBtn{
         visibility: visible;
     }
@@ -62,17 +118,29 @@
     top: 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
     background-color: lemonchiffon;
     list-style: none;
     height: 0;
+    width: 100px;
     overflow: hidden;
-    z-index: 2;
+    z-index: 20;
+    box-shadow: 0px 5px  5px lightgray;
+    transition: height 0.8s ease;
+ }
+ @keyframes navAnimate {
+    from{
+        height:0
+    }
+    to{
+        height:max-content;
+    }
  } 
  .navItems li{
     padding: 5px 10px;
  } 
  #firstEl{
-    padding-top: 60px;
- } 
+    padding-top: 20px;
+ }
 }

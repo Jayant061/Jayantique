@@ -1,27 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 import { UserContext } from "../../context/UserContext";
-import { baseURL } from "../../../credentials.js";
-import { Link } from "react-router-dom";
+import { baseURL, refPane } from "../../../credentials.js";
 import "./styles.css";
 import getAddress from "./getAddress";
-import deliveryChargeAndTime from "./DeliveryChargeTime";
+import deliveryChargeAndTime, { deliveryDate } from "./DeliveryChargeTime";
 import loadingIcon from "../../assets/loading-loop.svg"
+import checkoutImg from "../../assets/checkoutImg.png";
 function PaymentDetails() {
   const { price } = useContext(CartContext);
   const { currentUser } = useContext(UserContext);
-  const [deliveryAddress, setDeliveryAddress] = useState({});
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryStat, setDeliveryStat] = useState({});
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { cartItems, itemsQuantity } = useContext(CartContext);
+  const { cartItems, itemsQuantity,cartDispatch } = useContext(CartContext);
   const cartData = cartItems?.map((item) => {
     return {
       itemId: item?._id,
       quantity: itemsQuantity.get(item?._id),
     };
   });
+  useEffect(()=>{
+    document.title = "Jayantique| Checkout";
+  },[]);
   async function handleClick(e) {
     e.preventDefault();
     setLoading(true)
@@ -30,12 +34,16 @@ function PaymentDetails() {
         data: cartData,
         DC: deliveryStat.deliveryID,
         discount: discount,
+        user: currentUser._id,
+        deliveryAddress:JSON.stringify(deliveryAddress),
+        DeliveryDate:deliveryDate(deliveryStat.deliveryTime.min,deliveryStat.deliveryTime.max)
       });
-      // console.log(res.data)
       setLoading(false);
+      localStorage.setItem("sessionId",res.data.id);
       window.location.href = res.data.url;
+      
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
   useEffect(() => {
@@ -44,6 +52,7 @@ function PaymentDetails() {
       setDeliveryStat(deliveryChargeAndTime(deliveryAddress.pincode));
     parseInt(price) > 25 && setDiscount((0.1 * price*80).toFixed(2));
   }, [deliveryAddress]);
+  
   const homeAddresses =
     currentUser.address &&
     getAddress(currentUser.address.home, setDeliveryAddress, "home");
@@ -52,6 +61,9 @@ function PaymentDetails() {
     getAddress(currentUser.address.work, setDeliveryAddress, "work");
 
   return (
+    <div className="checkoutPage">
+
+      <img src={checkoutImg} alt="image" className="checkoutImg" />
     <form className="paymentDetails" onSubmit={(deliveryAddress.pincode && cartItems.length)
     ? handleClick:(e)=>{e.preventDefault()}}>
       <div className="deliveryAddresses">
@@ -60,7 +72,8 @@ function PaymentDetails() {
         </span>
         {currentUser.address && homeAddresses}
         {currentUser.address && workAddresses}
-        <Link to="/auth/user">
+        <Link to="/auth/user" onClick={()=>{sessionStorage.setItem(refPane,"Addresses");
+        sessionStorage.setItem("sourcePath",window.location.pathname);}}>
           <button>Add new Address</button>
         </Link>
       </div>
@@ -81,7 +94,7 @@ function PaymentDetails() {
         {deliveryStat.deliveryTime && (
           <span>
             {deliveryStat.DC
-              ? `Please note that a delivery charge of ${deliveryStat.DC} will apply to your order.`
+              ? `Delivery charge of ${deliveryStat.DC} will apply to your order.`
               : "Free delivery is available to your order"}
           </span>
         )}
@@ -90,6 +103,7 @@ function PaymentDetails() {
         {loading? <img src={loadingIcon}/>:"Pay"}
       </button>}
     </form>
+    </div>
   );
 }
 

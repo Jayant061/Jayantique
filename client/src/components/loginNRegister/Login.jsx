@@ -11,7 +11,7 @@ import loadingLoop from "../../assets/loading-loop.svg";
 
 function Login() {
     const [error,setError] = useState(null);
-    const [loading,setLoaing] = useState(false);
+    const [loading,setLoading] = useState(false);
     const [formData,setFormData] = useState({
         email:"",
         password:""
@@ -19,6 +19,7 @@ function Login() {
     const [showPassword,setShowPassword] =useState(false);
     // const [authStatus,setAuthStatus] = useState(false);
     function handleChange(e){
+        setError(null);
         setFormData(prev=>{return{...prev,[e.target.name]:e.target.value}});
     }
     const navigate = useNavigate();
@@ -28,7 +29,8 @@ function Login() {
 
     async function handleSubmit(e){
         e.preventDefault();
-        setLoaing(true);
+        setLoading(true);
+        setError("");
         try {
           const resp = await axios.post(`${baseURL}/login`,formData);
           localStorage.setItem("accessToken",resp.data);
@@ -37,14 +39,15 @@ function Login() {
             type:getUser,
             payload:data?.resData
           });
-          setLoaing(false);
+          setLoading(false);
           if(location.state?.from){
             navigate(location.state.from);
           }
           else{
               navigate("/");
             }
-        } catch (error) {  
+        } catch (error) {
+          setLoading(false) ; 
           setError(error?.response?.data);
         }
     }
@@ -57,6 +60,7 @@ function Login() {
         <span className='authHeader'>Test</span>
       <form onSubmit={handleSubmit}>
         <input
+          className='input'
           type="email"
           name="email"
           value = {formData.email}
@@ -66,6 +70,7 @@ function Login() {
         />
         <div className='password'>
           <input
+          className='passwordInput'
           type={!showPassword? "password":"text"}
           name="password"
           value={formData.password}

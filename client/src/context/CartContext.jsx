@@ -20,11 +20,11 @@ export const CartContextProvider = ({ children }) => {
   const INITIALSTATE = {
     price: 0,
     quantity: 0,
-    deliveryCharge: null,
+    deliveryCharge: 60,
     pincode:"",
     cartItems: [],
     addedItemsId: new Set([]),
-    itemsQuantity: new Map()
+    itemsQuantity: new Map(),
 
   };
 
@@ -93,7 +93,6 @@ export const CartContextProvider = ({ children }) => {
           ...state,
           pincode:action.payload,
         });
-      
       default:
         return state;
     }

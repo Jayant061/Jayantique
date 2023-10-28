@@ -1,0 +1,50 @@
+.orders{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 50px;
+    padding: 20px 30px;
+    min-height: calc(100vh - 100px);
+    width: calc(100% - 60px);
+}
+.orders .searchinput{
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+}
+.searchinput input,.searchinput button{
+    font-size: 1rem;
+    padding: 5px 10px;
+}
+.searchinput input{
+    width: 50%;
+    outline: none;
+}
+.all-orders,.all-orders .order,.all-orders .order .order-products{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.all-orders .order{
+    border: 2px solid lightgray;
+    align-items: start;
+    background-color: #fff;
+}
+.all-orders .order .order-products{
+    width: 100%;
+}
+.order-products .order-product{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 5%;
+}
+.order-product .product-image,.order-product .prduct-info,.order-product .product-reviews{
+    flex-basis: 30%;
+}
+.order-product .product-image img{
+    width: 100px;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+}
+
