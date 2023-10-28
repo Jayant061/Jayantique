@@ -16,6 +16,7 @@ export default function Navbar() {
   const { quantity } = useContext(CartContext);
   const {URLState, URLDispatch} = useContext(URLContext);
   // const q =  (new URLSearchParams(window.location.search)).get("query")
+  // const [initialState]
   const [query,setQuery] = useState(URLState.query?URLState?.query:"");
   useEffect(() => {
     setSeeMore(false);
@@ -82,14 +83,20 @@ export default function Navbar() {
       })
 
     }
-    if(window.location.pathname !=="/products"){
-      navigate(`/products`);
-    }
     },1000);
     return()=>{clearTimeout(timeOut)}
   },[query]);
+  const [initial,setInitial] = useState(0);
   useEffect(()=>{
     sessionStorage.setItem("isProductReq","true");
+    if(initial === 0){
+      setInitial(1);
+    }
+    else{
+      if(window.location.pathname !=="/products"){
+        navigate(`/products`);
+      }
+    }
   },[URLState])
   function handleChange(e){
     setQuery(e.target.value);

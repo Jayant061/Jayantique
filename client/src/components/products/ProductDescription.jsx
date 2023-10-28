@@ -118,7 +118,7 @@ function handleAddToCart(){
    <div className="productDescription" ref={ref}>
     <div className="imgSection" >
   <div className="mainImg">
-    <img src={currImg} alt="" />
+    <img src={currImg} alt="" onLoad={()=>{ref?.current?.scrollIntoView({behavior:"smooth"})}}/>
   </div>
   <div className="images">
   {imgs}

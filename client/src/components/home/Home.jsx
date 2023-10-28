@@ -19,6 +19,7 @@ function Home() {
     return()=>{setHomePageAnimation(false)}
   }, [state]);
   function setProductReq(){
+    console.log("first")
     URLDispatch({
       type:"query",
       payload:"women perfume"
