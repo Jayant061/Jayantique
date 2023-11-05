@@ -3,8 +3,9 @@
 Welcome to Jayantique, an e-commerce web application built using the MERN stack, with Context API for global state management and Stripe integration for secure payments. 
 
 ## Live
-[View Jayantique Demo](https://jayantique.onrender.com)
-
+[Visit Jayantique](https://jayantique.onrender.com)
+## Developer Section
+Please visit development branch for code review.
 ## Features
 
 Jayantique offers a delightful shopping experience with a strong focus on user satisfaction:
