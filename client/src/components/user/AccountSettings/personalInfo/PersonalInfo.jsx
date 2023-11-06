@@ -1,9 +1,10 @@
-import React, { Suspense, lazy, useContext, useEffect, useState } from "react"
-import { UserContext } from "../../context/UserContext"
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from "react"
+import { UserContext } from "../../../../context/UserContext"
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { baseURL, getUser } from "../../../credentials.js";
-const Location = lazy(()=>import("./Location")) ;
+import { baseURL, getUser } from "../../../../../credentials.js";
+const Address = lazy(()=>import("../../address/Address")) ;
+
 function AccountSettings() {
 
   const {currentUser,userDispatch} = useContext(UserContext);
@@ -35,11 +36,10 @@ function AccountSettings() {
       });
     }  
     } catch (error) {
-      console.log(error)
       setError(error?.redponse?.data);
     }
   }
-
+  const currRef = useRef();
   function handleCancel(){
     setReadOnly(true);
     setFormData(()=>{return({
@@ -49,7 +49,8 @@ function AccountSettings() {
     gender:currentUser?.gender,
     email: currentUser?.email,
     phone : currentUser?.phone,
-    })})
+    })});
+    currRef?.current.scrollIntoView({behavior:"smooth"})
   }
   useEffect(()=>{
     setFormData(()=>{return({
@@ -62,17 +63,17 @@ function AccountSettings() {
     })})
   },[currentUser]);
   return (
-    <div className="accountSettings">
+    <div className="accountSettings" ref={currRef}>
         <h2>Personal Information</h2>
         <div className="personalInfo">
           <div className="username personalInfoChild">
             <span>Name :</span>
           <input type="text" name = "name" value={formData?.name} readOnly = {isReadOnly} 
-          onChange={handleChange} style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}/>
+          onChange={handleChange} style={isReadOnly?{cursor:"no-drop", }:{}}/>
           </div>
           <div className="gender personalInfoChild">
             <span>Gender : </span>
-            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:"no-drop",backgroundColor:"lightyellow"}:{}}>
+            <div id="registrationPartition" className="inputsPartition"style={isReadOnly?{cursor:"no-drop", }:{}}>
               <div className="radioInput">
                 <input type="radio" id="male" name="gender" value="Male"
                  checked={formData.gender === "Male"}
@@ -94,21 +95,21 @@ function AccountSettings() {
           <div className="email personalInfoChild">
           <span>Email :</span>
             <input type="email" name="email" id="" value={formData?.email} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop",  }:{}}/>
           </div>
           <div className="phone personalInfoChild">
           <span>Phone :</span>
             <input type="number" name="phone" value={formData?.phone} readOnly = {isReadOnly}  
-            onChange={handleChange} style={isReadOnly?{cursor:"no-drop", backgroundColor:"lightyellow"}:{}}/>
+            onChange={handleChange} style={isReadOnly?{cursor:"no-drop",  }:{}}/>
           </div>
           <div className="buttons">
+            {!isReadOnly && <button onClick={handleSubmit}>Save Changes</button>}
             {isReadOnly ? <button onClick={()=>{setReadOnly(false)}}>Edit</button>
             :<button onClick={handleCancel} >Cancel</button>}
-            {!isReadOnly && <button onClick={handleSubmit}>Save</button>}
           </div>
           {error && <span style={{color:"red",textAlign:"center"}}>{error}</span>}
         </div>
-        <Suspense fallback={<div>loading...</div>}><Location/></Suspense>
+        
     </div>
   )
 }

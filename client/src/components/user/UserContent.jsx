@@ -1,12 +1,21 @@
 import React, { Suspense, lazy } from "react";
-import "./userStyles.css";
-const AccountSettings = lazy(()=>import("./AccountSettings"));
+const PersonalInfo = lazy(()=>import("./AccountSettings/personalInfo/PersonalInfo"));
+const Address = lazy(()=>import("./address/Address"));
+const Orders = lazy(()=>import("./orders/Orders"));
 
-function UserContent({activePane}) {
+import "./userStyles.css";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
+import { Route, Routes } from "react-router-dom";
+
+function UserContent() {
+
   return (
     <div className="userContent">
-      {activePane === "Account Settings" && <Suspense fallback = {<div>loading...</div>}><AccountSettings/></Suspense>}
-      
+    <Routes>
+    <Route exact path="/PersonalInfo" element = {<Suspense fallback = {<LoadingSpinner/>}><PersonalInfo/></Suspense>}/>
+    <Route exact path = "addresses" element = {<Suspense fallback = {<LoadingSpinner/>}><Address/></Suspense>}/>
+    <Route exact path="/orders" element = {<Suspense fallback = {<LoadingSpinner/>}><Orders/></Suspense>}></Route>
+    </Routes>
     </div>
   )
 }

@@ -13,7 +13,6 @@ const postLogin = async (req, res) => {
               if(result){
                 try {
                     const resData = await User.findOne({ email: email }).select("-password");
-                    // console.log(resData)
                     const accessToken = jwt.sign({resData},process.env.SECRETKEY);
                       res.status(200).json(accessToken);
                     

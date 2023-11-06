@@ -1,8 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../../../credentials';
+import axios from 'axios';
 
 function Success() {
   const navigate = useNavigate();
+  useEffect(()=>{
+    const sessionId = localStorage.getItem("sessionId");
+    const updateOrderStatus = async()=>{
+      const res = await axios.post(`${baseURL}/auth/orders`,{sessionId});
+      console.log(res.data);
+    }
+    updateOrderStatus();
+  },[])
   useEffect(() => {
     const timeout = setTimeout(()=>{
       navigate("/");
@@ -13,6 +23,9 @@ function Success() {
     }
   }, []);
   const divStyle = {
+    paddingTop:"80px",
+    height:"100vh",
+    overflow:"auto",
     marginTop:"50px",
     display:"flex",
     flexDirection:"Column",

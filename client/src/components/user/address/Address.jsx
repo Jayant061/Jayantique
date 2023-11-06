@@ -1,14 +1,19 @@
-import React, { Suspense, lazy, useContext, useState } from "react";
-import { UserContext } from "../../context/UserContext";
-import addIcon from "../../assets/add.svg";
+import React, { Suspense, lazy, useContext, useRef, useState, useEffect } from "react";
+import { UserContext } from "../../../context/UserContext";
+import addIcon from "../../../assets/add.svg";
 import {v4 as uuid} from "uuid";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
-import { baseURL, getUser } from "../../../credentials.js";
-const DisplayLocation = lazy(()=>import("./DisplayLocation"));
+import { baseURL, getUser, refPane } from "../../../../credentials.js";
+import { Navigate, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../assets/loadingSpinner/LoadingSpinner";
+const DisplayLocation = lazy(()=>import("./DisplayAddress"));
 const AddressForm = lazy(()=>import("./AddressForm"));
 
-function Location() {
+function Address() {
+  const currRef = useRef(null);
+  const formRef = useRef(null);
+  const srcPath = sessionStorage.getItem("sourcePath");
   const { currentUser,userDispatch } = useContext(UserContext);
   const [newAddress, setNewAddress] = useState({
     id: uuid(),
@@ -24,8 +29,26 @@ function Location() {
     addressType: "",
   });
   const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
+  const [isNavigate,setisNavigate] = useState(false);
   const [error, setError] = useState("");
+  
+  useEffect(()=>{
+    document.title = "My Addresses";
+    sessionStorage.getItem(refPane) === "Addresses" && setIsAddingNewAddress(true);
+    srcPath && setisNavigate(true);
+    sessionStorage.removeItem(refPane);
+  },[]);
+  
+  const navigate = useNavigate();
+  useEffect(()=>{
+    !isAddingNewAddress ? currRef?.current.scrollIntoView({behavior:"smooth"}) :
+    formRef?.current.scrollIntoView();
 
+    if(!isAddingNewAddress && isNavigate && srcPath){
+      navigate(srcPath);
+      sessionStorage.removeItem("sourcePath")
+    };
+  },[isAddingNewAddress]);
   function handleChange(e) {
     setNewAddress((prev) => {
       return {
@@ -67,6 +90,10 @@ function Location() {
      } catch (error) {
        setError(error?.response?.data);
      }
+     if(srcPath){
+      srcPath && navigate(srcPath);
+      sessionStorage.removeItem("sourcePath")
+     }
   
   }
 
@@ -84,9 +111,14 @@ function Location() {
       data = {{id,addressType,name,phone,address,locality,town,state,pincode}}
     /></Suspense>)
   })
+
   return (
-    <div className="location">
+    <div className="address" ref={currRef}>
       <h2>Manage Addresses</h2>
+
+    <div className="addresses">
+      <div className="homeAdresses">{homeAdress}</div>
+      <div className="workAddresses">{workAdress}</div>
       {!isAddingNewAddress ? (
         <div
           className="addNewAddress"
@@ -98,16 +130,14 @@ function Location() {
           <span>Add a new address</span>
         </div>
       ) : (
-        <Suspense fallback = {<div>loading...</div>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
-        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress}/></Suspense>
+        <div className="newAddressForm" ref={formRef}>
+          <Suspense fallback = {<LoadingSpinner/>}><AddressForm newAddress={newAddress} handleChange={handleChange} handleSubmit={handleSubmit}
+        error = {error} setIsAddingNewAddress = {setIsAddingNewAddress} srcPath = {srcPath}/></Suspense>
+        </div>
       )}
-
-    <div className="addresses">
-      <div className="homeAdresses">{homeAdress}</div>
-      <div className="workAddresses">{workAdress}</div>
     </div>
     </div>
   );
 }
 
-export default Location;
+export default Address;

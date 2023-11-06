@@ -1,4 +1,7 @@
 /client/node_modules
 /client/credentials.js
+/client/dist
+/client/rawProductsData
 /server/node_modules
 /server/.env
+/server/controllers/InsertAndDeleteIttems.js

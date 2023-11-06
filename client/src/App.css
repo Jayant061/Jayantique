@@ -3,3 +3,76 @@
 /* #13395B */
 /* hover color #A1B0BD */
 /* other bg #EFEFEF */
+/* homepage bg clr #BA8863  #E6CFCD  #ECC292*/
+*{
+    margin: 0;
+    padding: 0;
+}
+.app{
+    position: relative;
+    /* background-color: #e3e3e3d8; */
+}
+.app .head{
+    position: relative;
+}
+.app .main{
+    width: 100%;
+    overflow: hidden;
+}
+
+.trendingPage .trendingHeading span,.similarProductsheading span,
+.testimonial .testimonialhead .testimonialHeading,.productsHeading span {
+  font-size: 3rem;
+  padding: 0 5px;
+  font-family: "inter";
+  font-weight: 400;
+  color: #13395b;
+  /* margin-bottom: 20px; */
+  position: relative;
+  width: fit-content;
+  text-align: center;
+  display: inline-block;
+}
+
+.trendingPage .trendingHeading span::after,.similarProductsheading span::after,
+.testimonial .testimonialhead .testimonialHeading::after,.productsHeading span::after {
+  display: block;
+  position: absolute;
+  content: " ";
+  background: #13395b;
+  top: 50%;
+  transform: translateY(50%);
+  right: -100%;
+  width: 100%;
+  content: " ";
+  height: 2px;
+}
+.trendingPage .trendingHeading span::before,.similarProductsheading span::before,
+.testimonial .testimonialhead .testimonialHeading::before,.productsHeading span::before {
+  display: block;
+  position: absolute;
+  content: " ";
+  background: #13395b;
+  top: 50%;
+  transform: translateY(50%);
+  right: 100%;
+  width: 100%;
+  content: " ";
+  height: 2px;
+}
+@media screen and (min-width:701px){
+    .app .head{
+        padding-bottom: 69px;
+    }
+}
+@media screen and (max-width:700px){
+    .app .head{
+        padding-bottom: 113px;
+    }
+}
+@media screen and (max-width:480px){
+    .trendingPage .trendingHeading span,.similarProductsheading span,
+.testimonial .testimonialhead .testimonialHeading,.productsHeading span {
+    font-size: 2rem;
+}
+}

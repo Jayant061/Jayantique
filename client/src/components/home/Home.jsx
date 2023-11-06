@@ -1,43 +1,72 @@
-import React, { Suspense, lazy, useContext, useEffect} from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { Suspense, lazy, useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
-import bgimage from "../../assets/image1.png";
+import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 import { ProductContext } from "../../context/ProductsContext";
-const Trending = lazy(()=>import("./Trending.jsx")) ;
-const Testimonial = lazy(()=>import("./Testimonial")) ;
+import { URLContext } from "../../context/URLContext";
+const Trending = lazy(() => import("./Trending.jsx"));
+const Testimonial = lazy(() => import("./Testimonial"));
 
 function Home() {
-  const {state} = useContext(ProductContext);
+  const [homePageAnimation,setHomePageAnimation] = useState(false);
+  const { state } = useContext(ProductContext);
+  const {URLDispatch} = useContext(URLContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const paymentSuccess = queryParams.get("paymentSuccess");
-  const paymentCancel = queryParams.get("paymentCancel");
-  const transactionError = queryParams.get("transactionError");
-  useEffect(()=>{
+  useEffect(() => {
     document.title = "Jayantique | Home";
-    paymentSuccess && navigate("/payment/success");
-    paymentCancel && navigate("/payment/cancel");
-    transactionError&& navigate("/payment/error")
-},[])
+    return()=>{setHomePageAnimation(false)}
+  }, [state]);
+  function setProductReq(){
+    URLDispatch({
+      type:"query",
+      payload:"women perfume"
+    })
+    if(state?.products?.length !==0){
+      if(state.products[0].category.includes("women perfume")){
+        sessionStorage.setItem("isProductReq","false");
+      }else{
+        sessionStorage.setItem("isProductReq","true");
+      }
+    }else{
+      sessionStorage.setItem("isProductReq","true");
+    }
+  }
+  function onLoad(){
+    setHomePageAnimation(true);
+  }
   return (
     <div className="home">
       <div className="homeHeader">
         <div className="text">
-          <h4>Up to 25% off on your first order.</h4>
-          <div className="para">
-          <p>Discount is automatically applied.</p>
-          <p>No code required.</p>
-            <p>Cannot be combined with other offers.</p>
-          </div>
-          <button onClick={()=>{navigate("/products")}}>Shop Now &#x2192;</button>
+          <h1 style={homePageAnimation?{animation:"slideIn 1s ease 0.1s forwards"}:{}}>
+            {/* Your Perfect Home Starts Here */}
+            Design Your Signature Space
+          </h1>
+          <p style={homePageAnimation?{animation:"slideIn 1s ease 0.2s forwards"}:{}}>
+            Explore Exquisite Fashion and Home Decor Choices to Redefine Your Space with Elegance.
+          </p>
+          <button
+          style={homePageAnimation?{animation:"slideIn 1s ease 0.35s forwards"}:{}}
+          onClick={()=>{
+            setProductReq();
+            navigate("/products")}}>
+            Shop Now &#10132;
+          </button>
         </div>
-        <div className="bgimage">
-          <img src={bgimage} alt="" />
+        <div className="homeImg">
+          {/*left right #D9DFDB,#E9EFED */}
+        <img src = {
+          `https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/JayantiqueHomepage.png?alt=media&token=ba006548-b59b-4d1b-985a-8d84da113844&_gl=1*1r4cqd0*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY5ODE1NzU3Mi4zLjEuMTY5ODE1NzY4NC4xMS4wLjA.`
+        // "homepage.png"
+        } alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
         </div>
       </div>
-      {state.products && <Suspense fallback = {<div>loading...</div>}><Trending/></Suspense>}
-      <Suspense fallback = {<div>loading...</div>}><Testimonial/></Suspense>
+          <Suspense fallback={<LoadingSpinner/>}>
+          <Trending />
+        </Suspense>
+      <Suspense fallback={<LoadingSpinner/>}>
+        <Testimonial />
+      </Suspense>
     </div>
   );
 }

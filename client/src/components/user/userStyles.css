@@ -1,13 +1,11 @@
 .user{
     display: flex;
     justify-content: center;
-    align-items: start;
     gap: 20px;
     padding: 20px;
     flex-wrap: wrap;
-    min-height: calc(100vh - 56px);
-    height: 100%;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+    background:radial-gradient(#ffffd6 0%, lightgray 100%);
     color: #13395B;
 }
 .userSidebar{
@@ -16,7 +14,9 @@
     min-width: 201px;
     display: flex;
     flex-direction: column;
-}
+    z-index: 2;
+    background-color: #fff;
+} 
 .userSidebar .userHeading{
     position: relative;
     display: flex;
@@ -46,10 +46,10 @@
     justify-content: center;
 }
 .userSidebar .userHeading .usertext p{
-    font-size: calc(8px + 0.7vw);
+    font-size: 16px;
 }
 .userSidebar .userHeading .usertext h2{
-    font-size: calc(10px + 1vw);
+    font-size: 20px;
 }
 
 .userSidebar .mainMenu{
@@ -58,11 +58,11 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     padding: 20px 0;
     transition: 0.5s;
 }
-.order, .accSetting, .payment, .logout{
+.order, .accSetting, .payment, .logout, .addresses-el{
     flex-basis: 100%;
     display: flex;
     align-items: center;
@@ -82,32 +82,30 @@
 }
 .userContent{
     width: calc(70% - 20px);
-    min-width: 449px;
+    /* min-width: 449px; */
     background-color: #fff;
     box-shadow: -5px 2px 5px  lightgray;
-    padding: 20px 0;
+    opacity: 85%;
 }
-.accountSettings, .personalInfo, .location{
+.accountSettings, .personalInfo,.address{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     padding: 20px 30px;
 }
-.location{
-    padding: 20px 0;
-}
-.accountSettings h2{
-    font-size: calc(10px + 1vw);
+.accountSettings h2,.address h2{
+    font-size: 20px;
     font-weight: 600;
     text-align: center;
 }
 .personalInfo .personalInfoChild{
-    width: 330px;
+    /* width: 330px; */
     display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding: 15px 0;
+    flex-direction: column;
+    gap: 10px;
+    /* justify-content:space-between; */
+    /* align-items: center; */
 }
 .personalInfo .personalInfoChild .inputsPartition{
     display: flex;
@@ -115,7 +113,7 @@
     align-items: center;
     gap: 40px;
     padding: 10px;
-    background-color: rgba(211, 211, 211,0.4);
+    /* background-color: rgba(211, 211, 211,0.4); */
 }
 .personalInfo .personalInfoChild .inputsPartition .radioInput{
     display: flex;
@@ -124,32 +122,32 @@
     gap: 10px;
 }
 .personalInfo .personalInfoChild span{
-    font-size: calc(8px + 1vw);
+    font-size: 18px;
     font-weight: 500;
 }
-.personalInfo .personalInfoChild input{
-font-size: calc(8px + 0.8vw);
+.personalInfo .personalInfoChild input,.personalInfo .personalInfoChild .inputsPartition{
+font-size: 16px;
 padding: 10px;
-background-color: rgba(211, 211, 211,0.4);
-border: none;
+/* background-color: rgba(211, 211, 211,0.4); */
+border: 1px solid #13395B;
 outline: none;
 color: #13395B;
 }
 .personalInfo .buttons{
-    width: 330px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    flex-direction: column;
+    gap: 30px;
 }
 .personalInfo .buttons button, .addressFormInputs button{
     padding: 5px 15px;
-    font-size: calc(8px + 1vw);
+    width: calc(100% - 32px);
+    font-size: 1.25rem;
     cursor: pointer;
-    border: 2px solid #13395B;
+    border: 1px solid #13395B;
     color: white;
     background-color: #13395B;
-    border-radius: 10px;
     transition: 0.3s;
 }
 .personalInfo .buttons button:hover, .addressFormInputs button:hover{
@@ -157,22 +155,21 @@ color: #13395B;
     color: #13395B;
 }
 
-.location .addNewAddress{
-    padding: 15px 20px;
+.addNewAddress{
+    padding: 10px 20px;
     display: flex;
-    justify-content: start;
     align-items: center;
-    gap: 20px;
-    font-size: calc(8px + 1vw);
-    font-weight: 500;
-    cursor: pointer;
-    border: 2px solid #13395b6e;
+    justify-content: center;
+    gap: 5px;
+    width: calc(95% - 40px);
+    border: 2px solid #13395b81;
     border-radius: 10px;
 }
-.location .addNewAddress img{
+.address .addNewAddress img{
     height: 24px;
 }
-.location .addressForm{
+.address .addressForm{
+    width: calc(100% - 40px);
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -181,12 +178,13 @@ color: #13395B;
     padding: 20px;
     background-color: rgb(250, 250, 250);
 }
-.addressForm .addressFormInputs{
-    flex-basis: calc(100% - 40px);
+.addressForm .addressFormInputs, .addressForm #addressSub{
+    /* flex-basis: calc(100% - 40px); */
+    width: 100%;
     display: flex;
     justify-content: start;
-    gap: 20px;
-    align-items: center;
+    gap: 10px;
+    align-items: start;
 }
 .addressFormInput{
     flex-basis: calc(50% - 10px);
@@ -208,31 +206,31 @@ color: #13395B;
 }
 
 .addressFormInput label{
-    font-size: calc(8px + 1vw);
+    font-size: 16px;
     font-weight: 500;
+    padding: 10px;
 }
 .addressFormInput input, .addressFormInput textarea, .addressFormInput select{
-    width: calc(100% - 10px);
-    font-size: calc(8px + 1vw);
+    width: calc(100% - 22px);
+    font-size: 16px;
     padding: 10px;
-    border: none;
+    border: 1px solid #13395B;
     outline: none;
     resize: none;
     color: #13395B;
-    max-width: 100%;
 } 
 .addresses{
-    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: start;
     gap: 30px;
 }
-.homeAdresses,.workAddresses{
-    flex-basis: 100%;
+.homeAdresses,.workAddresses,.newAddressForm{
+    flex-basis: 95%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 .addressChild{
@@ -240,17 +238,19 @@ color: #13395B;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: calc(100% - 40px);
     border: 2px solid #13395b81;
+    width: calc(100% - 44px);
+    border-radius: 10px;
 }
 .addressChild .addressType{
     display: inline-block;
     width: fit-content;
     font-weight: 600;
-    font-size: calc(8px + 0.9vw);
+    font-size: 16px;
     padding: 10px 20px;
     background-color: rgba(211, 211, 211, 0.418);
     border-radius: 10px;
+    color: #13395B;
 }
 .addressChild .mainInfo{
     padding: 10px 0;
@@ -264,20 +264,24 @@ color: #13395B;
 .addressChild .addressDesc, .addressChild .pincode{
     color: #000a31;
     font-weight: 400;
-    font-size: calc(7px + 0.8vw);
+    font-size: 18px;
 }
 
 
 
-@media screen and (max-width:709px) {
+@media screen and (max-width:730px) {
+    .user{
+        padding: 10px;
+    }
     .userSidebar{
-        width:calc(70% - 20px);
+        width:100%;
         min-width: 90vw;
         position: relative;
         box-shadow: none;
     }
     .userSidebar .userHeading .moreIcon{
         visibility: visible;
+        cursor: pointer;
     }
     .userSidebar .mainMenu{
         position: absolute;
@@ -287,33 +291,51 @@ color: #13395B;
         display: none;
     }
     .userContent{
-        min-width: 90vw;
+        width: 100%;
+    }.personalInfo{
+        padding: 20px 0;
     }
-    .location .addressForm{
+     .personalInfo .personalInfoChild{
+        width: 100%;
+    } 
+    /* .personalInfoChild input{
+        flex-basis: 70%;
+    }  */
+    .address{
+        padding: 20px 0;
+
+    }
+    .address .addressForm{
         width: calc(100% - 40px);
     }
 }
 
 
-@media screen and (max-width:550px) {
+@media screen and (max-width:600px) {
+    .user{
+        padding: 10px;
+    }
+    .userSidebar,.userContent{
+        width: 100%;
+    }
     .accountSettings{
         padding: 20px 10px;
     }
     .personalInfo{
         padding: 20px;
     }
-    .personalInfo .personalInfoChild,.personalInfo .buttons {
+    /* .personalInfo .personalInfoChild,.personalInfo .buttons {
         width: 90%;
         display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: start;
         padding: 15px 0;
-    }
-    .location{
+    } */
+    .address{
         padding: 20px 0;
     }
-    .location .addressForm{
+    .address .addressForm{
         width: calc(100% - 40px);
     }
     .addressForm .addressFormInputs{
@@ -330,11 +352,11 @@ color: #13395B;
     .addressFormInput label,.addressFormInput input,
     .personalInfo .personalInfoChild input,.personalInfo .personalInfoChild span,
     .addressChild .mainInfo,.addressChild .addressType{
-        font-size: calc(10px + 1vw);
+        font-size: 16px;
     }
     .addressChild .addressDesc, .addressChild .pincode {
         color: #000a31;
         font-weight: 400;
-        font-size: calc(9px + 1vw);
+        font-size: 16px;
     }
 }

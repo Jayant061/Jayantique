@@ -6,7 +6,6 @@ const verifyToken = (req,res)=>{
     const data = req.body;
     jwt.verify(data.token,process.env.SECRETKEY,async (err,user)=>{
         if(err){
-            console.log(err)
             res.status(401).json("invalidToken");
         }
         if(user){

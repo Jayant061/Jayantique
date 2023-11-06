@@ -20,11 +20,11 @@ export const CartContextProvider = ({ children }) => {
   const INITIALSTATE = {
     price: 0,
     quantity: 0,
-    deliveryCharge: null,
+    deliveryCharge: 60,
     pincode:"",
     cartItems: [],
     addedItemsId: new Set([]),
-    itemsQuantity: new Map()
+    itemsQuantity: new Map(),
 
   };
 
@@ -62,13 +62,17 @@ export const CartContextProvider = ({ children }) => {
           deliveryCharge: action.payload,
         };
         case addToCart:
-        state.cartItems.push(action.payload);
-        state.itemsQuantity.set(action.payload?._id, 1);
-        return({
+        const updatedCartItems = [...state.cartItems, action.payload];
+        const updatedItemsQuantity = new Map(state.itemsQuantity);
+        updatedItemsQuantity.set(action.payload?._id, 1);
+
+        return {
           ...state,
-          price:state.price += action.payload?.price,
-          quantity:state.quantity += 1
-        });
+          cartItems: updatedCartItems,
+          itemsQuantity: updatedItemsQuantity,
+          price: state.price + action.payload?.price,
+          quantity: state.quantity + 1,
+        };
 
       case addCartItemsId:
         state.addedItemsId.add(action.payload);
@@ -93,7 +97,6 @@ export const CartContextProvider = ({ children }) => {
           ...state,
           pincode:action.payload,
         });
-      
       default:
         return state;
     }
