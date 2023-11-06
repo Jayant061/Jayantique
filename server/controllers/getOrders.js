@@ -13,7 +13,7 @@ const getOrders = (req, res) => {
       const orderPromises = allOrders.map(async (order) => {
         const allProductPromise = order.orderItems.map(async (item) => {
           const product = await Product.findOne({ _id: item.product }).select(
-            "_id title price image category"
+            "_id title price images category"
           );
           return {
             product,

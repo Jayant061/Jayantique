@@ -5,16 +5,15 @@ import "./userStyles.css";
 import LoadingSpinner from '../../assets/loadingSpinner/LoadingSpinner';
 
 function User() {
-  const[activePane,setActivePane] = useState("");
-
+  
   useEffect(()=>{
     document.title = "My Account";
   },[]);
   return (
     <>
       <div className='user'>
-        <Suspense fallback = {<LoadingSpinner/>}><UserSidebar setPane = {setActivePane} /></Suspense>
-        <Suspense fallback = {<LoadingSpinner/>}><UserContent activePane = {activePane}/></Suspense>
+        <Suspense fallback = {<LoadingSpinner/>}><UserSidebar /></Suspense>
+        <Suspense fallback = {<LoadingSpinner/>}><UserContent /></Suspense>
     </div>
     </>
   )

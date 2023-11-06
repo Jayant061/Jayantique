@@ -8,18 +8,15 @@ const Trending = lazy(() => import("./Trending.jsx"));
 const Testimonial = lazy(() => import("./Testimonial"));
 
 function Home() {
-  const homeRef = useRef();
   const [homePageAnimation,setHomePageAnimation] = useState(false);
   const { state } = useContext(ProductContext);
   const {URLDispatch} = useContext(URLContext);
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "Jayantique | Home";
-    homeRef?.current && homeRef.current.scrollIntoView({behavior:"smooth"})
     return()=>{setHomePageAnimation(false)}
   }, [state]);
   function setProductReq(){
-    console.log("first")
     URLDispatch({
       type:"query",
       payload:"women perfume"
@@ -38,7 +35,7 @@ function Home() {
     setHomePageAnimation(true);
   }
   return (
-    <div className="home" ref={homeRef}>
+    <div className="home">
       <div className="homeHeader">
         <div className="text">
           <h1 style={homePageAnimation?{animation:"slideIn 1s ease 0.1s forwards"}:{}}>
@@ -57,9 +54,10 @@ function Home() {
           </button>
         </div>
         <div className="homeImg">
+          {/*left right #D9DFDB,#E9EFED */}
         <img src = {
           `https://firebasestorage.googleapis.com/v0/b/ecommerce-app-7604d.appspot.com/o/JayantiqueHomepage.png?alt=media&token=ba006548-b59b-4d1b-985a-8d84da113844&_gl=1*1r4cqd0*_ga*NTYzODcyMjgwLjE2ODU1OTE4MzA.*_ga_CW55HF8NVT*MTY5ODE1NzU3Mi4zLjEuMTY5ODE1NzY4NC4xMS4wLjA.`
-        // "shopping.png"
+        // "homepage.png"
         } alt={`background image`} id={`bgimg`} onLoad={onLoad}/>
         </div>
       </div>

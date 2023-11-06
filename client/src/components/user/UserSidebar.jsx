@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import "./userStyles.css";
 import userIcon from "../../assets/user.svg"
@@ -12,18 +12,12 @@ import addressBook from "../../assets/notebook.svg";
 import { logOut, refPane } from '../../../credentials.js';
 
 
-function UserSidebar({setPane}) {
+function UserSidebar() {
     const {currentUser,userDispatch} = useContext(UserContext);
     const [seeMore,setSeeMore] = useState(false);
     const sidebarRef = useRef();
-    const refPaneVal = sessionStorage.getItem(refPane);
-    const [activePane,setActivePane] = useState("Account Settings");
-    useEffect(()=>{
-      refPaneVal ? setActivePane("Addresses") : setActivePane(activePane);
-    })
-    useEffect(()=>{
-      setPane(activePane);
-    },[activePane]);
+    const pane = sessionStorage.getItem("userPane");
+    const [activePane,setActivePane] = useState(pane?pane:"personalInfo");
 
     function handleLogOut () {
     localStorage.clear();
@@ -33,8 +27,12 @@ function UserSidebar({setPane}) {
     })
     return(<Navigate to='/auth/user'/>);
   }
+  const navigate = useNavigate();
+
   useEffect(()=>{
-    setSeeMore(false)
+    setSeeMore(false);
+    sessionStorage.setItem("userPane",activePane);
+    navigate("/auth/user/" + activePane);
   },[activePane]);
 
   useEffect(()=>{
@@ -69,29 +67,29 @@ function UserSidebar({setPane}) {
         <div className="mainMenu" style={seeMore?{display:"flex"}:{}} ref={sidebarRef}>
 
             <div className="accSetting" 
-            style={activePane === "Account Settings"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("Account Settings")}}>
+            style={activePane === "personalInfo"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("personalInfo")}}>
             <img src={userIcon} alt="" />
             <h4>Account</h4>
             </div>
 
             <div className="addresses-el" 
-            style={activePane === "Addresses"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("Addresses")}}>
+            style={activePane === "addresses"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("addresses")}}>
             <img src={addressBook} alt="" />
             <h4>Adresses</h4>
             </div>
 
             <div className="order"
-            style={activePane === "Orders"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("Orders")}}>
+            style={activePane === "orders"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("orders")}}>
                 <img src={orderIcon} alt="" />
             <h4>Orders</h4>
             </div>
 
             <div className='payment'
-            style={activePane === "Payments"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
-            onClick={()=>{setActivePane("Payments")}}>
+            style={activePane === "payments"?{backgroundColor:"#13395b0c",cursor:"default"}:{}}
+            onClick={()=>{setActivePane("payments")}}>
             <img src={walletIcon} alt="" />
             <h4>Payments</h4>
             </div>

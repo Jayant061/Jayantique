@@ -96,7 +96,7 @@ function App() {
           <Route exact path= "/product/:params" element={<Suspense fallback = {<LoadingSpinner/>}><ProductDescription /></Suspense>} />
           <Route exact path="/register" element = {<Suspense fallback = {<LoadingSpinner/>}><Register/></Suspense>}/>
           <Route exact path="/login" element = {<Suspense fallback = {<LoadingSpinner/>}><Login/></Suspense>}/>
-          <Route exact path="/auth/user" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><User/></Suspense></ProtectedRoute>}/>
+          <Route path="/auth/user/*" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><User/></Suspense></ProtectedRoute>}></Route>
           <Route exact path="/addToCart" element = {<Suspense fallback = {<LoadingSpinner/>}><Cart/></Suspense>}/>
           <Route exact path="/checkout" element = {<ProtectedRoute><Suspense fallback = {<LoadingSpinner/>}><PaymentDetails/></Suspense></ProtectedRoute>}/>
           <Route exact path="/payment/success" element = {<Suspense fallback = {<LoadingSpinner/>}><Success/></Suspense>}/>

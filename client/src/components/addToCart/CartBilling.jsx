@@ -6,11 +6,11 @@ function CartBilling() {
     const {price,quantity,deliveryCharge} = useContext(CartContext);
     const totalProductCost = parseFloat(price).toFixed(2);
     const [discount,setDiscount] = useState(0);
-    const totalCost = parseFloat(totalProductCost)*80 + deliveryCharge - discount;
+    const totalCost = parseFloat(totalProductCost)  + deliveryCharge - discount;
     useEffect(()=>{
         if(totalProductCost){
             if(parseFloat(totalProductCost) >25){
-                setDiscount(parseFloat(totalProductCost)*0.1*80);
+                setDiscount(parseFloat(totalProductCost*0.1));
             }
             else{
                 setDiscount(0);
@@ -22,7 +22,7 @@ function CartBilling() {
         <span className='costHeading'>Order Summary ( {quantity} {quantity === 1 ? "item":"items"})</span>
         <div className="totalCost childCost">
             <span>Subtotal</span>
-            <span className='cost'>{totalProductCost>0? (parseFloat(totalProductCost)*80).toFixed(2):parseFloat(0).toFixed(2)} ₹</span>
+            <span className='cost'>{totalProductCost>0? (parseFloat(totalProductCost) ).toFixed(2):parseFloat(0).toFixed(2)} ₹</span>
         </div>
         <div className="discount childCost">
             <span>Total Discount</span>

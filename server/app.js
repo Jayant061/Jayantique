@@ -14,7 +14,13 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
-mongoose.connect(process.env.MONGOURL);
+
+  try {
+    await mongoose.connect(process.env.MONGOURL);
+    
+  } catch (error) {
+    console.log(error);
+  }
 
 export const secretkey = process.env.SECRETKEY;
 

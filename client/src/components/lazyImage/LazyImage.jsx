@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 const LazyImage = ({src, alt,id, handleClick,onLoad}) => {
     const ref = useRef()
     const [inview,setInview] = useState(false);
-    let callback = (entries,observer)=>{
+    let callback = (entries)=>{
         entries.forEach(element => {
             if(element.isIntersecting){
                 setInview(true)
@@ -21,7 +21,7 @@ const LazyImage = ({src, alt,id, handleClick,onLoad}) => {
     }, []);
 
     return (
-        inview? <img id={id} src = {src} alt={alt} onClick={handleClick&& handleClick}
+        inview? <img id={id} src = {src} alt={alt} onClick={handleClick && handleClick}
         onLoad={onLoad && onLoad}/>
         :
         <img

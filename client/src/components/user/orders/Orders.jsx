@@ -10,32 +10,37 @@ function Orders() {
   useEffect(() => {
     setLoading(true);
     const getOrders = async () => {
-      const orderItems = await axios.get(
-        `${baseURL}/auth/orders/getOrders?token=${token}`
-      );
-      orderItems?.data[0].product && setOrders(orderItems?.data);
-      setLoading(false);
+      try {
+        const orderItems = await axios.get(
+          `${baseURL}/auth/orders/getOrders?token=${token}`
+        );
+        orderItems?.data[0]?.orderItems && setOrders(orderItems?.data);
+        setLoading(false);
+        
+      } catch (error) {
+        setLoading(false);
+
+      }
     };
     getOrders();
   }, []);
-  useEffect(() => {
-    console.log(orders);
-  }, [orders]);
+  // useEffect(() => {
+  // }, [orders]);
 
   const handleInputSubmit = (e)=>{
     e.preventDefault();
   }
 
   const allOrders = orders?.map((order,index)=>{
-    const products = order?.orderItems.map((product,index)=>{
-    return(
+    const products = order?.orderItems?.map((product,index)=>{
+     return product && (
       <div className="order-product" key={index}>
         <div className="product-image">
-          <img src={product?.product?.images} alt="" />
+          <img src={product?.product?.images[0]} alt="" />
         </div>
         <div className="product-info">
-          <h4>{product?.product.title}</h4>
-          <p>category:{product?.product.category}</p>
+          <h4>{product?.product?.title}</h4>
+          <p>category:{product?.product?.category}</p>
           <p>quantity:{product?.quantity}</p>
         </div>
         <div className="product-reviews">
@@ -63,7 +68,7 @@ function Orders() {
       <button>Search</button>
     </form>
     <div className="all-orders">
-    {/* {allOrders} */}
+    {allOrders}
     </div>
   </div>;
 }

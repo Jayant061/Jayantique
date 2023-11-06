@@ -82,6 +82,7 @@ function Login() {
           onClick={()=>{setShowPassword(prev=>{return !prev})}}/>
         </div>
         <button>{!loading?"Sign in":<img src={loadingLoop} alt='loading loop'/>}</button>
+        <span>Forgot Password?</span>
       </form>
       {error && <span style={{color:"red"}}>{error}</span>}
       <span>Don't have an Account? <Link to = "/register">Register</Link></span>

@@ -1,5 +1,4 @@
 const getDeliveryDate = (date)=>{
-    console.log(date)
     const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep",
                     "Oct","Nov","Dec"];
     const day = new Date(date).getDate();

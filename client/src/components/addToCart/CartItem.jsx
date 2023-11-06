@@ -78,7 +78,7 @@ function CartItem({product,qty}) {
             }
             </div>
             <div className="subtotal">
-                <span>{parseFloat(price*itemquantity*80).toFixed(2)}</span>
+                <span>{parseFloat(price*itemquantity).toFixed(2)}</span>
                 <img src={deleteIcon} alt=""  onClick={handleDelete}/>
             </div>
 

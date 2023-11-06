@@ -14,24 +14,31 @@ function Trending() {
   const [error,setError] = useState("");
   const {state,dispatch} = useContext(ProductContext);
   const navigate = useNavigate();
+  //Recursive call to get trending products
   useEffect(()=>{
     const getTrendingProducts = async()=>{
+      // setLoading(true);
+
+      // base case
+
       try {  
         const res = await axios.get(`${baseURL}/products?trendingProduct=true`);
         // res.status===200 && setTrendingProduct(res.data);
         res.status===200 && dispatch({type:"trendingProducts",payload:res.data});
         setLoading(false);
       } catch (error) {
+        console.log(error)
         setError(error.message);
         const makeReq = setTimeout(()=>{
           getTrendingProducts();
           clearTimeout(makeReq);
         },2000);
-        setLoading(false);
+        state.trendingProduct?.length && setLoading(false);
       }
     }
-    const timeOut = setTimeout(()=>{
-      !state.trendingProduct?.length && getTrendingProducts();
+    const timeOut =!state.trendingProduct?.length &&  setTimeout(()=>{
+      
+      getTrendingProducts();
       
     },1000);
     return()=>{
@@ -58,6 +65,11 @@ function Trending() {
     });
     return (
       <div className="trending" key={index}>
+        <div className="trendingItemImg" style={{width:"100%",display:"flex",justifyContent:"center"}}>
+        {index === 0 && <img src = "men.jpg" alt = "portrait-handsome-fashion-stylish-hipster-businessman-model-dressed-elegant-brown-suit-sitting-near-dark" style={{width:"100%"}} />}
+        {index === 1 && <img src = "women.jpg" alt = "fashionable-young-model-sitting-on-ground"/>}
+        {index=== 2 && <img src = "homeDecoration.jpg" alt = "armchair-green-living-room-with-copy-space"/>}
+        </div>
       <div className='trendigSubHeading'>
       {index ===0 && <h3>Men</h3>}
       {index ===1 && <h3>Women</h3>}
@@ -75,8 +87,7 @@ function Trending() {
       <div className="trendingHeading">
       <span>TRENDING</span>
       </div>
-      {loading?<LoadingSpinner/>:<></>}
-      {error? <span style={{textAlign:"center",color:"red"}}>{error}</span>:<></>}
+      {loading?<LoadingSpinner error = {error} />:<></>}
       {trendingItems.length?trendingItems:<></>}
     </div>
   )
