@@ -9,7 +9,7 @@ const getOrders = (req, res) => {
       res.status(401).json("invalidToken");
     } else if (user) {
 
-      const allOrders = await Order.find({ user: user.resData._id });
+      const allOrders = await Order.find({ user: user.resData._id }).sort({orderDate:-1,orderStaus:-1});
       const orderPromises = allOrders.map(async (order) => {
         const allProductPromise = order.orderItems.map(async (item) => {
           const product = await Product.findOne({ _id: item.product }).select(

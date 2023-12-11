@@ -100,7 +100,7 @@ function PaymentDetails() {
         )}
       </div>
       {<button className="payBtn">
-        {loading? <img src={loadingIcon}/>:"Pay"}
+        {loading? <span>Pay <img src={loadingIcon}/></span>:"Pay"}
       </button>}
     </form>
     </div>

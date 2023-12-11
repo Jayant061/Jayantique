@@ -3,6 +3,7 @@ import axios from "axios";
 import "./orders.css";
 import { accessToken, baseURL } from "../../../../credentials";
 import getDeliveryDate from "./getDate";
+import Order from "./Order";
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,34 +33,9 @@ function Orders() {
   }
 
   const allOrders = orders?.map((order,index)=>{
-    const products = order?.orderItems?.map((product,index)=>{
-     return product && (
-      <div className="order-product" key={index}>
-        <div className="product-image">
-          <img src={product?.product?.images[0]} alt="" />
-        </div>
-        <div className="product-info">
-          <h4>{product?.product?.title}</h4>
-          <p>category:{product?.product?.category}</p>
-          <p>quantity:{product?.quantity}</p>
-        </div>
-        <div className="product-reviews">
-          <span>Rate & Review this Product</span>
-        </div>
-      </div>
-    )
-    })
-    const currTime = new Date().toISOString();
+    // deliveryStatement
     return(
-      <div className="order" key={index}>
-        <div className="order-delivery-status">
-          <h4>{currTime>order.deliveyDate?`Order was delivered on `:
-          `Order will be delivered by `}{getDeliveryDate(order.deliveryDate)}</h4>
-        </div>
-        <div className="order-products">
-          {products}
-        </div>
-      </div>
+      <Order order = {order} index={index} key={index}/>
     )
   })
   return <div className="orders">
