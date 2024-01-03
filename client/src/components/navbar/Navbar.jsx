@@ -7,6 +7,7 @@ import searchIcon from "../../assets/outline-search.svg";
 import "./navbar.css";
 import { CartContext } from "../../context/CartContext";
 import { URLContext } from "../../context/URLContext";
+import { ProductContext } from "../../context/ProductsContext";
 
 export default function Navbar() {
   const navRef = useRef(null);
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [isSeeMore, setSeeMore] = useState(false);
   const { quantity } = useContext(CartContext);
   const {URLState, URLDispatch} = useContext(URLContext);
+  const {state} = useContext(ProductContext);
   // const q =  (new URLSearchParams(window.location.search)).get("query")
   // const [initialState]
   const [query,setQuery] = useState(URLState.query?URLState?.query:"");
@@ -60,7 +62,7 @@ export default function Navbar() {
     transition: 'transform 0.3s ease-in-out',
   };
   useEffect(()=>{
-    if(query === URLState.query && window.location.pathname =="/products"){
+    if(query === URLState.query){
       
       sessionStorage.setItem("isProductReq","false");
     }
@@ -119,7 +121,7 @@ export default function Navbar() {
             }}
           />
         )}
-          <div className="navSearchBar">
+          <div className="navSearchBar" onClick={()=>{query?.length && navigate("/products")}}>
           <img src={searchIcon} alt="search Icon"/>
           <input type="text" placeholder="Search product by name, category etc." value={query}
           onChange={handleChange} />
