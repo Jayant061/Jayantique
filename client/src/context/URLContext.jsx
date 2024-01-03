@@ -9,6 +9,8 @@ const searchParams = new URLSearchParams(window.location.search);
     const s = searchParams.get("sort")
     
 export const URLContextProvider = ({children})=>{
+
+    // global State 
     const queries = {
         query:q?q:"",
         page:p?p:1,

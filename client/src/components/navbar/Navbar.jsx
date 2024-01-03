@@ -60,30 +60,19 @@ export default function Navbar() {
     transition: 'transform 0.3s ease-in-out',
   };
   useEffect(()=>{
-    if(query === URLState.query){
+    if(query === URLState.query && window.location.pathname =="/products"){
       
       sessionStorage.setItem("isProductReq","false");
     }
     else{
       sessionStorage.setItem("isProductReq","true");
+      var timeOut = setTimeout(()=>{
+        URLDispatch({
+       type:"query",
+       payload:query
+     });
+   },1000);
     }
-    const timeOut = setTimeout(()=>{
-      if(URLState.query !== query){
-         URLDispatch({
-        type:"query",
-        payload:query
-      });
-      URLDispatch({
-        type:"gender",
-        payload:""
-      });
-      URLDispatch({
-        type:"category",
-        payload:""
-      })
-
-    }
-    },1000);
     return()=>{clearTimeout(timeOut)}
   },[query]);
   const [initial,setInitial] = useState(0);

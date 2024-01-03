@@ -12,6 +12,7 @@ function Trending() {
   // const [trendingProduct,setTrendingProduct] = useState([]);
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
+  const [errorCount,setErrorCount] = useState(0);
   const {state,dispatch} = useContext(ProductContext);
   const navigate = useNavigate();
   //Recursive call to get trending products
@@ -27,11 +28,12 @@ function Trending() {
         res.status===200 && dispatch({type:"trendingProducts",payload:res.data});
         setLoading(false);
       } catch (error) {
-        console.log(error)
-        setError(error.message);
-        const makeReq = setTimeout(()=>{
+        error.code === "ERR_NETWORK"? setError(error.message + "\n Trying to reconnecting the server...")
+        :setError(error.message);
+        const makeReq = error.code === "ERR_NETWORK" && setTimeout(()=>{
+          // console.log(makeReq);
+          state.trendingProduct?.length &&  clearTimeout(makeReq); 
           getTrendingProducts();
-          clearTimeout(makeReq);
         },2000);
         state.trendingProduct?.length && setLoading(false);
       }
@@ -40,7 +42,7 @@ function Trending() {
       
       getTrendingProducts();
       
-    },1000);
+    },10);
     return()=>{
       clearTimeout(timeOut);
     }

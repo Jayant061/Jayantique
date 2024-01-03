@@ -11,16 +11,21 @@ export default function Pagination({ itemNumber }) {
   const [number, setNumber] = useState(URLState.page?parseInt(URLState.page):0);
   const [loading, setLoading] = useState(false);
 
-  function handleClick() {
-    setLoading(true);
-    URLDispatch({
-      type:"page",
-      payload:parseInt(number)
-    });
-  }
   useEffect(()=>{
-    (parseInt(URLState.page) !== number)&& URLDispatch({type:"page",payload:number});
-  },[number])
+      window.scrollTo({top: 0});
+      const timeOut = setTimeout(()=>{
+      sessionStorage.setItem("isProductReq","true");
+      parseInt(URLState.page) !== number && URLDispatch({
+        type:"page",
+        payload:parseInt(number)
+      });
+    },1000)
+    return()=>{
+      // setLoading(false);
+      clearTimeout(timeOut)
+    }
+  },[loading]);
+
   return (
     <>
       {!(number === 1 && itemNumber < 20) ? (
@@ -30,10 +35,9 @@ export default function Pagination({ itemNumber }) {
               className="pageButton"
               onClick={() => {
                 setNumber((prev) => {
-                  return parseInt(prev) - 1;
+                  return prev - 1;
                 });
-                setLoading(true);
-                sessionStorage.setItem("isProductReq","true");
+                setLoading(true); 
               }}
             >
               <img src={leftIcon} alt="" />
@@ -51,7 +55,7 @@ export default function Pagination({ itemNumber }) {
                   setNumber(e.target.value);
                 }}
               />
-              <button onClick={handleClick}>Go To Page</button>
+              <button onClick={()=>{setLoading(true);}}>Go To Page</button>
             </div>
           ) : (
             <img src={loader} alt="loading..." style={{ height: "100%" }} />
@@ -61,10 +65,9 @@ export default function Pagination({ itemNumber }) {
               className="pageButton"
               onClick={() => {
                 setNumber((prev) => {
-                  return parseInt(prev) + 1;
+                  return prev + 1;
                 });
                 setLoading(true);
-                sessionStorage.setItem("isProductReq","true");
               }}
             >
               <img src={rightIcon} alt="" />

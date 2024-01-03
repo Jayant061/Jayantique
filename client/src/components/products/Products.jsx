@@ -25,10 +25,11 @@ function Products() {
 useEffect(()=>{
   setError("");
 },[state]);
+
 useEffect(()=>{
   const productsRequest = async()=>{
     try {
-      const result = await axios.get(`${baseURL}/products${window.location.search}`);
+      const result = await axios.get(`${baseURL}/products${`?query=${URLState.query}&page=${URLState.page}`}`);
       setLoading(false);
       dispatch({
         type: getProducts,
@@ -36,9 +37,9 @@ useEffect(()=>{
       });
       sessionStorage.setItem("isProductReq","false");
     } catch (error) {
-      !state.products?.length && setError(error.message);
-      setLoading(false);
-      const makereq = setTimeout(()=>{
+      error.code === "ERR_NETWORK"? setError(error.message + "\n Trying to reconnecting the server...")
+        :setError(error.message);
+      const makereq = error.code === "ERR_NETWORK" && setTimeout(()=>{
         productsRequest();
         if(state.product?.length){
           clearTimeout(makereq);
@@ -50,12 +51,12 @@ useEffect(()=>{
     const timeOut = sessionStorage.getItem("isProductReq") === "true" && setTimeout(()=>{
       setLoading(true);
       productsRequest();
-    },1000);
+    },10);
   return()=>{
     clearTimeout(timeOut);
     setLoading(false);
   }
-},[URLState,URLState]);
+},[URLState]);
 
 const items = state?.products?.map((product, index) => {
 
@@ -78,8 +79,8 @@ const items = state?.products?.map((product, index) => {
         <img src={filterIcon} alt="" style={isFilterVisible?{transform :"rotate(180deg)"}:{}} />
         </div>
         {((!state?.products?.length &&(URLState.gender || URLState.category)) || state?.products?.length) ? <Filter isFilterVisible = {isFilterVisible} />:<></>}
-        {loading?<LoadingSpinner/>:items}
-        {error && <p style={{color:'red'}}>{error}</p>}
+        {loading?<LoadingSpinner error = {error}/>:items}
+        {/* {error && <p style={{color:'red'}}>{error}</p>} */}
         </div>
         {!loading? <Pagination itemNumber = {state.products.length} isLoading={loading}/>:<></>}
     </div>
