@@ -3,24 +3,18 @@ import { useNavigate } from "react-router-dom";
 import "./home.css";
 import LoadingSpinner from "../../assets/loadingSpinner/LoadingSpinner";
 import { ProductContext } from "../../context/ProductsContext";
-import { URLContext } from "../../context/URLContext";
 const Trending = lazy(() => import("./Trending.jsx"));
 const Testimonial = lazy(() => import("./Testimonial"));
 
 function Home() {
   const [homePageAnimation,setHomePageAnimation] = useState(false);
   const { state } = useContext(ProductContext);
-  const {URLDispatch} = useContext(URLContext);
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "Jayantique | Home";
     return()=>{setHomePageAnimation(false)}
   }, [state]);
   function setProductReq(){
-    URLDispatch({
-      type:"query",
-      payload:"women perfume"
-    })
     if(state?.products?.length !==0){
       if(state.products[0].category.includes("women perfume")){
         sessionStorage.setItem("isProductReq","false");
