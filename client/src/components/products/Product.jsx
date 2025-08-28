@@ -16,7 +16,6 @@ function Product({ product }) {
     navigate("/product/" + product._id);
   }
   function handleAddToCart() {
-    console.log("first")
     cartDispatch({
       type: addToCart,
       payload: product,

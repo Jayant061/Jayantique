@@ -19,7 +19,7 @@ export default function Navbar() {
   const {state} = useContext(ProductContext);
   // const q =  (new URLSearchParams(window.location.search)).get("query")
   // const [initialState]
-  const [query,setQuery] = useState(URLState.query?URLState?.query:"");
+  const [query,setQuery] = useState("");
   useEffect(() => {
     setSeeMore(false);
   }, [location.pathname]);
@@ -88,6 +88,8 @@ export default function Navbar() {
         navigate(`/products`);
       }
     }
+    setQuery(URLState?.query??'')
+    
   },[URLState])
   function handleChange(e){
     setQuery(e.target.value);

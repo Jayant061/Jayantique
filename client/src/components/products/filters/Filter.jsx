@@ -10,6 +10,7 @@ function Filter({isFilterVisible}) {
             type:e.target.name,
             payload:e.target.value
         });
+        
     }
     const setFilterStyle = {
         display:"flex",
